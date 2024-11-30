@@ -5,11 +5,11 @@
 # Site
 title: yingzheng
 subtitle: ''
-description: ''
+description: 'Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.'
 keywords:
 author: YingZheng
 language: en
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -32,7 +32,7 @@ skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts
-default_layout: post
+default_layout: category
 titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
