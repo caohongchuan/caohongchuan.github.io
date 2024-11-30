@@ -3,6 +3,8 @@ title: Hello World
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
+<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/jiajing.png" style="zoom:50%;" />
+
 ## Quick Start
 
 ### Create a new post
