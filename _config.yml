@@ -103,7 +103,7 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:caohongchuan/caohongchuan.github.io.git
-  branch: main
+  branch: dp-pages
 
 # Latex support
 mathjax:
