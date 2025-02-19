@@ -1,11 +1,9 @@
 ---
-title: 
-category: 
+title: Https
+category: springboot
 ---
 
-# HTTPs
-
-HTTPs分为两个阶段：握手阶段，传输阶段。
+HTTPS分为两个阶段：握手阶段，传输阶段。
 
 # 握手阶段
 

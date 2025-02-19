@@ -103,15 +103,14 @@ npm install electron-is-dev get-port-please
 
 `main/main.js`
 
-主要功能实现（前两个功能在后续Nextjs中会用到，目前没用）：
+主要功能实现（第一个功能在后续Nextjs中会用到，目前没用）：
 
 * 关闭系统自带状态栏，启用自定义按钮。（需要在前端css设置 `app-region: drag`，提供可拖拽区域）。
-* 在Electron主进程中监听系统theme并发送给渲染进程。
 * loadURL前进行轮训，直至nextjs服务启动，保证Electron加载URL时，Nextjs已经启动。
 
 ```JS
 // main/main.js
-import {app, BrowserWindow, ipcMain, nativeTheme} from "electron";
+import {app, BrowserWindow} from "electron";
 
 import isDev from "electron-is-dev";
 import http from "http";
@@ -125,7 +124,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 let win = null;
-let systemTheme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
 
 // 判断Nextjs是否启动成功，每一秒检查一次
 const waitForNextJs = (bg_url) => {
@@ -216,10 +214,6 @@ const createWindow = () => {
     };
     loadURL();
 
-    // Electron启动后主动发送系统主题到渲染进程
-    win.webContents.on('did-finish-load', () => {
-        win.webContents.send('system-theme-changed', systemTheme)
-    })
     // win.webContents.openDevTools();
     // win.webContents.on("did-fail-load", (e, code, desc) => {
     //     win.webContents.reloadIgnoringCache();
@@ -233,35 +227,14 @@ app.on("window-all-closed", () => {
         app.quit();
     }
 });
-
-// 当系统主题发生变化时，Electron主进程发送系统主题到渲染进程
-nativeTheme.on('updated', () => {
-    systemTheme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
-    BrowserWindow.getAllWindows().forEach(win => {
-        win.webContents.send('system-theme-changed', systemTheme)
-    })
-})
-// 主进程接口 用于渲染进程获取
-ipcMain.handle('get-system-theme', () => systemTheme)
 ```
 
 `main/preload.js`
 
-主要功能（渲染进程的接口，供Nextjs使用，目前没用）：
-
-* 提供获取系统主题的接口
-* 监听系统主题切换
+目前没有使用
 
 ```js
 // main/preload.js
-const {contextBridge, ipcRenderer} = require('electron')
-
-contextBridge.exposeInMainWorld('electronAPI', {
-    onSystemThemeChanged: (callback) => {
-        ipcRenderer.on('system-theme-changed', (_, theme) => callback(theme))
-    },
-    getSystemTheme: () => ipcRenderer.invoke('get-system-theme')
-})
 
 ```
 
@@ -318,6 +291,8 @@ npm exec --package=@electron-forge/cli -c "electron-forge import"
 
 `package.json`
 
+*其中Scripts中`"dev:nextweb": "NEXT_PUBLIC_WEB=true next dev"`是为了能让Nextjs能够以WEB的形式启动而不依赖于Electron。因为Nextjs某些特性只能在Electron中才能启动，使用该变量将这些特性只有在启用Electron才加载。*
+
 ```json
 {
   "name": "nextjs_electron",
@@ -327,6 +302,7 @@ npm exec --package=@electron-forge/cli -c "electron-forge import"
   "type": "module",
   "scripts": {
     "dev:next": "next dev",
+    "dev:nextweb": "NEXT_PUBLIC_WEB=true next dev",
     "dev:electron": "electron ./main/main.js",
     "dev": "concurrently --kill-others  \"npm run dev:next\" \"npm run dev:electron\"",
     "build:next": "next build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
@@ -379,21 +355,16 @@ import "./globals.css";
 import {Providers} from "./providers";
 import CustomBar from "@/app/component/bar/CustomBar";
 
-
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" suppressHydrationWarning>
         <body>
         <Providers>
             <div className="h-screen w-screen flex flex-col">
-                <div className="h-[40px] w-full bg-[#E4E4E7] dark:bg-[#27272A]" style={{"app-region": 'drag'}}>
+                <div className="bar_height w-full bg-bar_bg">
                     <CustomBar/>
                 </div>
-                <div className="flex-1 bg-[var(--background)]">
+                <div className="flex-1">
                     {children}
                 </div>
             </div>
@@ -402,10 +373,11 @@ export default function RootLayout({
         </html>
     );
 }
-
 ```
 
 `src/app/globals.css`
+
+其中定义一些TailwindCSS自定义的字段，可以在TailwindCSS中直接使用。
 
 ```ts
 @tailwind base;
@@ -413,9 +385,59 @@ export default function RootLayout({
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
+
+@layer components {
+    --header-height: 40px;
+
+    .bar_height {
+        height: var(--header-height);
+    }
+
+    .bar_icon {
+        height: var(--header-height);
+        width: 40px;
+    }
+}
+```
+
+`tailwind.config.ts`
+
+设置不同主题下的颜色，并设置自定义的颜色变量。
+
+```ts
+import type {Config} from "tailwindcss";
+import {heroui} from "@heroui/react";
+
+export default {
+    content: [
+        "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
+    ],
+    darkMode: "class",
+    plugins: [heroui({
+        themes: {
+            light: {
+                colors: {
+                    background: "#FFFFFF",
+                    foreground: "#11181C",
+                    bar_bg: "#d4d4d8"
+                }
+            },
+            dark: {
+                colors: {
+                    background: "#000000",
+                    foreground: "#ECEDEE",
+                    bar_bg: "#3f3f46"
+                }
+            },
+        }
+    })],
+} satisfies Config;
 ```
 
 `src/app/provider.tsx`
@@ -429,7 +451,7 @@ import {ThemeProvider as NextThemesProvider} from "next-themes";
 export function Providers({children}: { children: React.ReactNode }) {
     return (
         <HeroUIProvider>
-            <NextThemesProvider attribute="class" defaultTheme="dark">
+            <NextThemesProvider attribute="class" defaultTheme="system" enableSystem={true} themes={["dark", "light"]}>
                 {children}
             </NextThemesProvider>
         </HeroUIProvider>
@@ -439,25 +461,35 @@ export function Providers({children}: { children: React.ReactNode }) {
 
 `src/app/component/bar/CustomBar.tsx`
 
+Nextjs自定状态栏，为了满足能够同时支持WEB和ELECTRON两种启动方式，定义`NEXT_PUBLIC_WEB`全局变量，用来动态设置是否支持某些ELECTRON特性。后面会在`next.config.ts`中设置该变量。
+
 ```ts
 "use client"
 
-import {ThemeSwitcher} from "@/app/component/bar/ThemeSwitcher";
-// import Settings from "@/app/component/bar/Settings";
-// import UserInfo from "@/app/component/bar/UserInfo";
+import ThemeSwitcher from "@/app/component/bar/ThemeSwitcher";
+import Settings from "@/app/component/bar/Settings";
+import UserInfo from "@/app/component/bar/UserInfo";
+import {useEffect, useState} from "react";
 
 export default function CustomBar() {
+    const [web, setWeb] = useState(false);
+    useEffect(() => {
+        if (process.env.NEXT_PUBLIC_WEB === 'true') {
+            setWeb(true);
+        }
+    }, [])
 
     return (
-        <div className="h-full w-full flex flex-end pr-[100px] gap-2">
+        <div className="h-full w-full flex flex-end gap-2 electron_pr"
+             style={web ? {"padding-right": "0px"} : {"app-region": 'drag'}}>
             <div className="mr-auto">bar</div>
-            <div style={{"app-region": 'no-drag'}}>
+            <div className="bar_icon" style={web ? {} : {"app-region": 'no-drag'}}>
                 <ThemeSwitcher/>
             </div>
-            {/*<div style={{"app-region": 'no-drag'}}>*/}
+            {/*<div className="bar_icon" style={web ? {} : {"app-region": 'no-drag'}}>*/}
             {/*    <Settings/>*/}
             {/*</div>*/}
-            {/*<div className="flex items-center" style={{"app-region": 'no-drag'}}>*/}
+            {/*<div className="bar_icon flex items-center justify-center" style={web ? {} : {"app-region": 'no-drag'}}>*/}
             {/*    <UserInfo/>*/}
             {/*</div>*/}
         </div>
@@ -504,18 +536,13 @@ const SystemIcon = () => {
     )
 }
 
-export function ThemeSwitcher() {
+export default function ThemeSwitcher() {
     const [mounted, setMounted] = useState(false)
     const {theme, setTheme} = useTheme()
     useEffect(() => {
         setMounted(true)
-        window.electronAPI.getSystemTheme().then(initialTheme => {
-            setTheme(initialTheme)
-        })
-        window.electronAPI.onSystemThemeChanged(setTheme)
     }, [])
     if (!mounted) return null
-
 
     const toggleTheme = (key: React.Key) => {
         if (key === "system") {
@@ -571,36 +598,18 @@ import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
     output: 'standalone',
-
     eslint: {
         ignoreDuringBuilds: true, // 忽略 eslint 检查
     },
     typescript: {
         ignoreBuildErrors: true, // 忽略 TypeScript 检查
+    },
+
+    env: {
+      NEXT_PUBLIC_WEB: process.env.NEXT_PUBLIC_WEB || 'false',
     }
 };
 
 export default nextConfig;
-
 ```
-
-## 错误
-
-1. 如果在使用Typescript时出现Nextjs报错无法使用`main/preloading.js`内的方法时，可能是因为Typescript的类型审查不过关，需要告诉Nextjs在使用`window.electronAPI.method()`时该方法的类型。
-
-   在根目录下创建`electron-env.d.ts`（因为使用Typescript，需要定义函数类型）：
-
-   ```ts
-   // electron-env.d.ts
-   export interface IElectronAPI {
-       getSystemTheme: () => Promise<string>,
-       onSystemThemeChanged: (fn: any) => void,
-   }
-   
-   declare global {
-       interface Window {
-           electronAPI: IElectronAPI
-       }
-   }
-   ```
 

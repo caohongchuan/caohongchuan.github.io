@@ -1,10 +1,8 @@
 ---
-title: OAuth2
-category: OAuth2
+title: Spring Security流程分析
+category: springboot
 ---
-# Spring OAuth Login
-
-## Java Servlet
+# Java Servlet
 
 Spring接受请求使用的是Java Servlet的过滤器（Filter）。
 
@@ -44,7 +42,7 @@ public class MyFilter  implements Filter {
 }
 ```
 
-## Spring Security
+# Spring Security
 
 <img src="https://docs.spring.io/spring-security/reference/_images/servlet/architecture/multi-securityfilterchain.png" alt="spring security" style="zoom: 67%;" />
 
@@ -80,4 +78,3 @@ const login = () => {
 }
 ```
 
-## Spring Security OAuth2 Client
