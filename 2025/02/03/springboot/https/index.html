@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="HTTPsHTTPs分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa">
+    <meta name="description" content="HTTPS分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa -des3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yingzheng">
+<meta property="og:title" content="Https">
 <meta property="og:url" content="http://caohongchuan.github.io/2025/02/03/springboot/https/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="HTTPsHTTPs分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa">
+<meta property="og:description" content="HTTPS分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa -des3">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png">
 <meta property="article:published_time" content="2025-02-03T08:54:27.024Z">
-<meta property="article:modified_time" content="2025-02-10T06:35:13.037Z">
+<meta property="article:modified_time" content="2025-02-19T05:20:51.980Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png">
@@ -38,10 +38,10 @@
 <link rel="canonical" href="http://caohongchuan.github.io/2025/02/03/springboot/https/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/02/03/springboot/https/","path":"2025/02/03/springboot/https/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/02/03/springboot/https/","path":"2025/02/03/springboot/https/","title":"Https"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | yingzheng</title>
+<title>Https | yingzheng</title>
   
 
 
@@ -113,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPs"><span class="nav-number">1.</span> <span class="nav-text">HTTPs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%E9%98%B6%E6%AE%B5"><span class="nav-number">2.</span> <span class="nav-text">握手阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90"><span class="nav-number">2.1.</span> <span class="nav-text">1.证书生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E7%A7%81%E9%92%A5%E4%B8%AD%E5%AF%BC%E5%87%BA%E5%85%AC%E9%92%A5"><span class="nav-number">2.1.2.</span> <span class="nav-text">从私钥中导出公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%90%8D%E8%AF%B7%E6%B1%82%EF%BC%88CSR%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">创建证书签名请求（CSR）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="nav-number">2.1.4.</span> <span class="nav-text">自签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E7%AD%BE%E7%BD%B2%E8%AF%81%E4%B9%A6"><span class="nav-number">2.1.5.</span> <span class="nav-text">CA签署证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.1.6.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SpringBoot%E5%90%AF%E7%94%A8SSL"><span class="nav-number">2.2.</span> <span class="nav-text">2.SpringBoot启用SSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-%E6%B7%BB%E5%8A%A0%E4%BF%A1%E4%BB%BB%E8%AF%81%E4%B9%A6"><span class="nav-number">2.3.</span> <span class="nav-text">Springboot 添加信任证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%951-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Java%E4%BF%A1%E4%BB%BB%E5%BA%93"><span class="nav-number">2.3.1.</span> <span class="nav-text">方法1. 将证书添加到Java信任库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Springboot%E4%B8%AD"><span class="nav-number">2.3.2.</span> <span class="nav-text">方法2. 将证书添加到Springboot中</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%E9%98%B6%E6%AE%B5"><span class="nav-number">1.</span> <span class="nav-text">握手阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90"><span class="nav-number">1.1.</span> <span class="nav-text">1.证书生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E7%A7%81%E9%92%A5%E4%B8%AD%E5%AF%BC%E5%87%BA%E5%85%AC%E9%92%A5"><span class="nav-number">1.1.2.</span> <span class="nav-text">从私钥中导出公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%90%8D%E8%AF%B7%E6%B1%82%EF%BC%88CSR%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">创建证书签名请求（CSR）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.4.</span> <span class="nav-text">自签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E7%AD%BE%E7%BD%B2%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.5.</span> <span class="nav-text">CA签署证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.1.6.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SpringBoot%E5%90%AF%E7%94%A8SSL"><span class="nav-number">1.2.</span> <span class="nav-text">2.SpringBoot启用SSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-%E6%B7%BB%E5%8A%A0%E4%BF%A1%E4%BB%BB%E8%AF%81%E4%B9%A6"><span class="nav-number">1.3.</span> <span class="nav-text">Springboot 添加信任证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%951-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Java%E4%BF%A1%E4%BB%BB%E5%BA%93"><span class="nav-number">1.3.1.</span> <span class="nav-text">方法1. 将证书添加到Java信任库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Springboot%E4%B8%AD"><span class="nav-number">1.3.2.</span> <span class="nav-text">方法2. 将证书添加到Springboot中</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -128,7 +128,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -182,12 +182,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | yingzheng">
+      <meta itemprop="name" content="Https | yingzheng">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          Https
         </h1>
 
         <div class="post-meta-container">
@@ -205,7 +205,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-10 14:35:13" itemprop="dateModified" datetime="2025-02-10T14:35:13+08:00">2025-02-10</time>
+      <time title="Modified: 2025-02-19 13:20:51" itemprop="dateModified" datetime="2025-02-19T13:20:51+08:00">2025-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+        </span>
     </span>
 
   
@@ -224,7 +233,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="HTTPs"><a href="#HTTPs" class="headerlink" title="HTTPs"></a>HTTPs</h1><p>HTTPs分为两个阶段：握手阶段，传输阶段。</p>
+    <div class="post-body" itemprop="articleBody"><p>HTTPS分为两个阶段：握手阶段，传输阶段。</p>
 <h1 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h1><blockquote>
 <p>TCP握手 + TLS\SSL握手</p>
 </blockquote>

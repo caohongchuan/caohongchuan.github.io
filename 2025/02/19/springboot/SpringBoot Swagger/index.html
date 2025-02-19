@@ -20,26 +20,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Spring 持久化框架Spring提供了JDBC（Java Database Connectivity），JPA (Java Persistence API)，MyBatis。   JDBC（Java Database Connectivity） 是Java的标准数据库访问技术。它直接与数据库交互，允许Java应用程序执行SQL语句并与数据库进行通信。 12345&lt;dependency&amp;g">
+    <meta name="description" content="依赖SpringBoot依赖springdoc-openapi对接口API进行注解 12345&lt;dependency&gt;  &lt;groupId&gt;org.springdoc&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;&#x2F;artifactId&gt;  &lt;version&amp;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring面试合集">
-<meta property="og:url" content="http://caohongchuan.github.io/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/index.html">
+<meta property="og:title" content="SpringBoot Swagger">
+<meta property="og:url" content="http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="Spring 持久化框架Spring提供了JDBC（Java Database Connectivity），JPA (Java Persistence API)，MyBatis。   JDBC（Java Database Connectivity） 是Java的标准数据库访问技术。它直接与数据库交互，允许Java应用程序执行SQL语句并与数据库进行通信。 12345&lt;dependency&amp;g">
+<meta property="og:description" content="依赖SpringBoot依赖springdoc-openapi对接口API进行注解 12345&lt;dependency&gt;  &lt;groupId&gt;org.springdoc&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;&#x2F;artifactId&gt;  &lt;version&amp;g">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-01-25T12:43:15.453Z">
-<meta property="article:modified_time" content="2025-02-16T09:46:15.488Z">
+<meta property="article:published_time" content="2025-02-19T02:48:34.894Z">
+<meta property="article:modified_time" content="2025-02-19T04:34:58.872Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://caohongchuan.github.io/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+<link rel="canonical" href="http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/","path":"2025/01/25/interview/Spring面试合集/","title":"Spring面试合集"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/","path":"2025/02/19/springboot/SpringBoot Swagger/","title":"SpringBoot Swagger"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Spring面试合集 | yingzheng</title>
+<title>SpringBoot Swagger | yingzheng</title>
   
 
 
@@ -111,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-%E6%8C%81%E4%B9%85%E5%8C%96%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Spring 持久化框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="nav-number">2.</span> <span class="nav-text">SpringBoot 数据库连接池</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">1.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swagger-%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">Swagger 注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tag"><span class="nav-number">2.1.</span> <span class="nav-text">@Tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Operation"><span class="nav-number">2.2.</span> <span class="nav-text">@Operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameter"><span class="nav-number">2.3.</span> <span class="nav-text">@Parameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ApiResponse"><span class="nav-number">2.4.</span> <span class="nav-text">@ApiResponse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenAPIDefinition"><span class="nav-number">2.5.</span> <span class="nav-text">@OpenAPIDefinition</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +167,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/photo.png">
@@ -180,12 +180,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Spring面试合集 | yingzheng">
+      <meta itemprop="name" content="SpringBoot Swagger | yingzheng">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring面试合集
+          SpringBoot Swagger
         </h1>
 
         <div class="post-meta-container">
@@ -195,15 +195,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-16 17:46:15" itemprop="dateModified" datetime="2025-02-16T17:46:15+08:00">2025-02-16</time>
+      <time title="Created: 2025-02-19 10:48:34 / Modified: 12:34:58" itemprop="dateCreated datePublished" datetime="2025-02-19T10:48:34+08:00">2025-02-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -211,7 +205,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
         </span>
     </span>
 
@@ -231,20 +225,35 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="Spring-持久化框架"><a href="#Spring-持久化框架" class="headerlink" title="Spring 持久化框架"></a>Spring 持久化框架</h2><p>Spring提供了<strong>JDBC（Java Database Connectivity）</strong>，<strong>JPA (Java Persistence API)<strong>，</strong>MyBatis</strong>。  </p>
-<p><strong>JDBC（Java Database Connectivity）</strong> 是Java的标准数据库访问技术。它直接与数据库交互，允许Java应用程序执行SQL语句并与数据库进行通信。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><p>SpringBoot依赖<a target="_blank" rel="noopener" href="https://springdoc.org/">springdoc-openapi</a>对接口API进行注解</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>JPA</strong> 是一个Java的持久化API，用于管理Java对象与数据库之间的映射。它提供了对象关系映射（ORM）的功能，允许开发者以面向对象的方式处理数据。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置信息<code>application.yml</code>中添加swagger-ui</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">springdoc:</span></span><br><span class="line">    <span class="attr">swagger-ui:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">swagger-ui.html</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>MyBatis</strong> 是一个支持普通SQL查询、存储过程和高级映射的持久层框架。它避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatus是<strong>半自动ORM</strong>：MyBatis不像JPA那样完全抽象掉SQL，它允许开发者写SQL语句，同时提供了映射文件来定义SQL语句与Java对象的映射关系。</p>
-<p>就目前版本的mybatis中包含了<code>spring-boot-starter-jdbc</code>，直接使用JDBC的Datasource和数据库连接池。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>启动项目后就可以通过 <code>https://localhost:8443/swagger-ui.html</code> 或者<code>https://localhost:8443/swagger-ui/index.html#/</code>访问后端接口信息。</p>
+<h1 id="Swagger-注解"><a href="#Swagger-注解" class="headerlink" title="Swagger 注解"></a>Swagger 注解</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52774158/article/details/131081371">Swagger Annotation Tutorial</a></p>
+<h2 id="Tag"><a href="#Tag" class="headerlink" title="@Tag"></a>@Tag</h2><p>API分组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Tag(name = &quot;OAuth2 Authorization&quot;, description = &quot;OAuth2 登陆接口&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Operation"><a href="#Operation" class="headerlink" title="@Operation"></a>@Operation</h2><p>用于描述API操作</p>
+<ul>
+<li>summary：操作的摘要信息。</li>
+<li>description：操作的详细描述。</li>
+<li>tags：指定 @Tag 注解的对象数组，用于将操作归类到特定的分组。</li>
+<li>parameters：指定 @Parameter 注解的对象数组，用于描述操作的输入参数</li>
+<li>responses：指定 @ApiResponse 注解的对象数组，用于描述操作的响应结果。</li>
+<li>requestBody：指定 @RequestBody 注解的对象，用于描述操作的请求体。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;跳转到 OAuth2 授权页面&quot;, description = &quot;两次重定向，跳转到Github登陆页面，登陆后与后端交换Token，最后跳转到origin_url&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Parameter"><a href="#Parameter" class="headerlink" title="@Parameter"></a>@Parameter</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Parameter(name = &quot;origin_url&quot;, required = true, description = &quot;OAuth2流程结束后会跳转到该URL&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiResponse(responseCode = &quot;301&quot;, description = &quot;两次跳转到Github登陆窗口&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenAPIDefinition"><a href="#OpenAPIDefinition" class="headerlink" title="@OpenAPIDefinition"></a>@OpenAPIDefinition</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">        info = @Info(</span></span><br><span class="line"><span class="meta">                title = &quot;User Manager API&quot;,</span></span><br><span class="line"><span class="meta">                version = &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="meta">                description = &quot;用户信息管理API&quot;,</span></span><br><span class="line"><span class="meta">                contact = @Contact(</span></span><br><span class="line"><span class="meta">                        name = &quot;yingzheng&quot;,</span></span><br><span class="line"><span class="meta">                        email = &quot;yingzhengttt@gmail.com&quot;</span></span><br><span class="line"><span class="meta">                )</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">)</span></span><br></pre></td></tr></table></figure>
 
 
-
-<h2 id="SpringBoot-数据库连接池"><a href="#SpringBoot-数据库连接池" class="headerlink" title="SpringBoot 数据库连接池"></a>SpringBoot 数据库连接池</h2>
     </div>
 
     
@@ -257,14 +266,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/01/25/springboot/Spring-Session/" rel="prev" title="Spring Session">
-                  <i class="fa fa-angle-left"></i> Spring Session
+                <a href="/2025/02/17/react/electron_nextjs/" rel="prev" title="NextJs集成Electron">
+                  <i class="fa fa-angle-left"></i> NextJs集成Electron
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/01/25/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="git常用命令">
-                  git常用命令 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -353,7 +359,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"353218c4fff3745c47fa624a401adede"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"6e377cb1018cd232c4a0edd4e261ff6f"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
