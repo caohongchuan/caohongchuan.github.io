@@ -1,6 +1,6 @@
 ---
 title: Spring Session
-category: Spring
+category: springboot
 ---
 
 # Spring Session

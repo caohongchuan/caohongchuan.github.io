@@ -1,6 +1,6 @@
 ---
 title: Spring OAuth2 Client流程分析
-category: SpringBoot
+category: springboot
 ---
 
 > 目标是实现前后端分离（BFF）的OAuth2登陆流程。需要详细分析Spring OAuth2 Client认证流程，才能对后端的认证进行修改满足前后端分离的要求。
@@ -185,7 +185,7 @@ public final class HttpSessionOAuth2AuthorizationRequestRepository
 		implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {}
 ```
 
-所以，可以自定义该类来解析Request请求中的参数`origin_url`。查看[Spring Security OAuth2 Client文档](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#oauth2-client-authorization-code-authorization-request-repository) 可以配置自定义的`AuthorizationRequestRepository`。
+所以，可以自定义该类来解析Request请求中的参数`origin_url`。查看[Spring Security OAuth2 Client文档](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#oauth2-client-authorization-code-authorization-request-repository)可以配置自定义的`AuthorizationRequestRepository`。
 
 ```java
 @Configuration
@@ -197,7 +197,7 @@ public class OAuth2ClientSecurityConfig {
 		http
             .oauth2Login(oauth2 -> oauth2
                 .authorizationEndpoint(endpoint -> endpoint
-                    .authorizationRequestRepository(new MyAuthorizationRequestRepository())
+                    .authorizationRequestRepository(new ParseUrlHttpSessionOAuth2AuthorizationRequestRepository())
                     // ...
                 )
             );
@@ -271,9 +271,21 @@ public class ParseUrlHttpSessionOAuth2AuthorizationRequestRepository implements 
 
 ## 设置登陆成功后跳转回制定URL(`origin_url`)
 
+当OAuth2处理成功后，需要从Session中拿出`origin_url`并重定向。
 
+[Spring Security OAuth2文档](https://docs.spring.io/spring-security/reference/reactive/oauth2/login/advanced.html)显示可以自定义`authenticationSuccessHandler`，即`http.oauth2Login.successHandler()`来设置自定义成功后处理逻辑。
 
+```java
+http.oauth2Login(oauth2 -> oauth2
+    .successHandler(
+            (request, response, authentication) -> {
+                String originUrl = (String)request.getSession().getAttribute("origin_url");
+                response.sendRedirect(originUrl);
+            })
+        )
+```
 
+最终OAuth2的配置如下：
 
 ```java
 @Configuration
@@ -299,6 +311,147 @@ public class SecurityConfig {
 ```
 
 
+
+## 全流程日志打印
+
+```
+2025-02-21T23:45:30.306+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OAuth2LoginAuthenticationProvider (1/3)
+2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OidcAuthorizationCodeAuthenticationProvider (2/3)
+2025-02-21T23:46:00.313+08:00 DEBUG 156775 --- [nio-8443-exec-2] .s.a.DefaultAuthenticationEventPublisher : No event was found for the exception org.springframework.security.oauth2.core.OAuth2AuthenticationException
+2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Failed to process authentication request
+
+org.springframework.security.oauth2.core.OAuth2AuthenticationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for "https://github.com/login/oauth/access_token": Unexpected end of file from server
+	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:115) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) ~[spring-security-core-6.4.2.jar:6.4.2]
+	at org.springframework.security.authentication.ObservationAuthenticationManager.lambda$authenticate$1(ObservationAuthenticationManager.java:54) ~[spring-security-core-6.4.2.jar:6.4.2]
+	at io.micrometer.observation.Observation.observe(Observation.java:564) ~[micrometer-observation-1.14.2.jar:1.14.2]
+	at org.springframework.security.authentication.ObservationAuthenticationManager.authenticate(ObservationAuthenticationManager.java:53) ~[spring-security-core-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:196) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:231) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.access.channel.ChannelProcessingFilter.doFilter(ChannelProcessingFilter.java:133) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.2.jar:6.4.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142) ~[spring-session-core-3.4.1.jar:3.4.1]
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82) ~[spring-session-core-3.4.1.jar:3.4.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:114) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:598) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: org.springframework.security.oauth2.core.OAuth2AuthorizationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for "https://github.com/login/oauth/access_token": Unexpected end of file from server
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:101) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:80) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:57) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationProvider.authenticate(OAuth2AuthorizationCodeAuthenticationProvider.java:85) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:109) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	... 100 common frames omitted
+Caused by: org.springframework.web.client.ResourceAccessException: I/O error on POST request for "https://github.com/login/oauth/access_token": Unexpected end of file from server
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:926) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:906) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:741) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:94) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	... 104 common frames omitted
+Caused by: java.net.SocketException: Unexpected end of file from server
+	at java.base/sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:955) ~[na:na]
+	at java.base/sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:759) ~[na:na]
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1690) ~[na:na]
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1599) ~[na:na]
+	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531) ~[na:na]
+	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:307) ~[na:na]
+	at org.springframework.http.client.SimpleClientHttpResponse.getStatusCode(SimpleClientHttpResponse.java:55) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.client.DefaultResponseErrorHandler.hasError(DefaultResponseErrorHandler.java:85) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler.hasError(OAuth2ErrorResponseErrorHandler.java:52) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:942) ~[spring-web-6.2.1.jar:6.2.1]
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:902) ~[spring-web-6.2.1.jar:6.2.1]
+	... 106 common frames omitted
+
+2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Cleared SecurityContextHolder
+2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Handling authentication failure
+```
 
 
 
