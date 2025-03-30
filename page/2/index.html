@@ -123,13 +123,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -154,6 +154,854 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/11/cf/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/11/cf/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">贪心算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-11 18:00:25" itemprop="dateCreated datePublished" datetime="2025-02-11T18:00:25+08:00">2025-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-03 19:50:39" itemprop="dateModified" datetime="2025-03-03T19:50:39+08:00">2025-03-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><blockquote>
+<p>贪心算法或贪心思想采用贪心的策略，保证<strong>每次操作都是局部最优</strong>的，从而使最后得到的<strong>结果是全局最优</strong>的。</p>
+</blockquote>
+<h2 id="分配问题"><a href="#分配问题" class="headerlink" title="分配问题"></a>分配问题</h2><h3 id="455-分发饼干"><a href="#455-分发饼干" class="headerlink" title="455. 分发饼干"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/assign-cookies/">455. 分发饼干</a></h3><blockquote>
+<p>贪心+双指针+排序</p>
+</blockquote>
+<p>为了让尽可能多的孩子得到满足，所以让能满足的孩子所给的饼干尺寸与胃口值尽可能的接近，防止浪费。即把大于等于这个孩子饥饿度的、且大小最小的饼干给这个孩子。</p>
+<p><strong>先用小的饼干满足了胃口最小的孩子，然后逐渐满足胃口大的孩子。</strong></p>
+<p><strong>算法思想：</strong></p>
+<ul>
+<li>对胃口值和饼干尺寸升序排序</li>
+<li>从小到大逐个对胃口值进行满足，从小到大寻找第一个满足的饼干尺寸</li>
+<li>等<strong>遍历到完最后一个饼干或者满足所有的胃口值</strong>结束</li>
+</ul>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li>排序使用Java的<code>Arrays.sort()</code> 算法复杂度 $O(nlog(n))$</li>
+<li>对两个数组进行联动遍历，可使用双指针分别指向胃口值数组和饼干尺寸数组</li>
+<li>使用while循环遍历</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findContentChildren</span><span class="params">(<span class="type">int</span>[] g, <span class="type">int</span>[] s)</span> &#123;</span><br><span class="line">    Arrays.sort(g);</span><br><span class="line">    Arrays.sort(s);</span><br><span class="line">    <span class="type">int</span> <span class="variable">gindex</span> <span class="operator">=</span> <span class="number">0</span>, sindex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (sindex &lt; s.length &amp;&amp; gindex &lt; g.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[gindex] &lt;= s[sindex]) &#123;</span><br><span class="line">            gindex++;</span><br><span class="line">        &#125;</span><br><span class="line">        sindex++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> gindex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="135-分发糖果"><a href="#135-分发糖果" class="headerlink" title="135. 分发糖果"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/candy/">135. 分发糖果</a></h3><blockquote>
+<p>贪心</p>
+</blockquote>
+<p>所有的孩子站成一排，满足相邻两个孩子评分更高的孩子获得更多的糖果，即第$i$个孩子需要与相邻的两个孩子（即第$i-1$,和第$i+1$ 个孩子）进行比较。</p>
+<p>贪心算法时将一个复杂的问题分解为多个局部问题，实现局部最优解，最后实现全局最优。</p>
+<p>将与左右孩子的比较划分为<strong>向右遍历</strong>和<strong>向左遍历</strong>。</p>
+<p><strong>算法思想：</strong></p>
+<p>向右遍历：从左向右，保证右侧评分大于左侧评分的孩子获得的糖果多，即当$ratings[i+1]&gt;ratings[i]$则$candys[i+1]&gt;candys[i]$</p>
+<p>向左遍历：从右向左，保证左侧评分大于右侧评分的孩子获得的糖果多，即当$ratings[i]&gt;ratings[i+1]$则$candys[i]&gt;candys[i+1]$</p>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li><p>将<code>candys[]</code>数组全部赋值为1，因为每个孩子至少获取一个糖果</p>
+</li>
+<li><p>向右遍历：</p>
+</li>
+</ul>
+<p>$$<br>candys[i+1] &#x3D; candys[i] + 1 \quad if ratings[i+1] &gt; ratings[i]<br>$$</p>
+<ul>
+<li>向左遍历：<br>$$<br>candys[i] &#x3D; max(candy[i], candy[i+1]+1) \quad if \quad ratings[i]&gt; ratings[i+1]<br>$$</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">candy</span><span class="params">(<span class="type">int</span>[] ratings)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] candy = <span class="keyword">new</span> <span class="title class_">int</span>[ratings.length];</span><br><span class="line">    Arrays.fill(candy, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ratings.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ratings[i] &lt; ratings[i + <span class="number">1</span>]) &#123;</span><br><span class="line">            candy[i + <span class="number">1</span>] = candy[i] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ratings.length - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ratings[i] &gt; ratings[i + <span class="number">1</span>]) &#123;</span><br><span class="line">            candy[i] = Math.max(candy[i], candy[i + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(candy).sum();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h2><h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435. 无重叠区间"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/non-overlapping-intervals/">435. 无重叠区间</a></h3><blockquote>
+<p>贪心</p>
+</blockquote>
+<p>要保证移除的区间数量最少，就相当于留下的区间尽可能的多。贪心思路是<strong>选择区间的结尾越小，剩余留给其他区间的空间就越大</strong>。</p>
+<p><strong>算法思想：</strong></p>
+<p>从结尾最小的区间开始遍历，去掉与其交叉的所有区间，再选择剩余中结尾最小的区间，重复操作。</p>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li>将<code>intervals</code>根据先结尾后开头的排序规则对其进行升序排序</li>
+<li>选取第一个区间，遍历找出一个区间开头大于等于第一个区间结尾的区间</li>
+<li>选取该区间，再去寻找下一个一个区间开头大于等于该区间结尾的区间</li>
+<li>依次循环</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    Arrays.sort(intervals, (a, b) -&gt; a[<span class="number">1</span>] == b[<span class="number">1</span>] ? a[<span class="number">0</span>] - b[<span class="number">0</span>] : a[<span class="number">1</span>] - b[<span class="number">1</span>]);</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">curEnd</span> <span class="operator">=</span> intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; intervals.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals[i][<span class="number">0</span>] &lt; curEnd) &#123;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            curEnd = intervals[i][<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/description/">452 用最少数量的箭引爆气球</a></p>
+<p>因为要扎爆所有的气球，所以每一箭需要射中尽可能多的气球。当箭射在气球的右边缘时，既能射爆该气球，又能尽可能的覆盖它后面的气球，所以每个气球的右端点很重要。</p>
+<p>算法实现：</p>
+<ol>
+<li><p>将所有的气球升序排序（先排右端点，若右端点相同，再根据左端点）</p>
+</li>
+<li><p>选择第一个气球，以其右端点为界，依次向后寻找左端点小于该边界的气球，直至找到左端点大于该边界的气球</p>
+</li>
+<li><p>对该气球重复第二步操作，直至扫完所有气球</p>
+</li>
+</ol>
+<p>如下图所示，第一个蓝色边界是第一个气球的右端点，会将第一个球和上面的大球射爆。（但在顺序扫描中，第二个小气球会先出现，因为是根据右端点排序，此时第一个边界没有碰到第二个小气球，所以边界更新为第二条蓝色边界，这时下一个气球就是上面的大球，发现大球的左端点是小于目前的第二条蓝色边界的，所以继续向后搜索，相当于此时才将大气球扎爆。虽然看着有些问题，但并不影响根本）</p>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250303192530005.png" alt="image-20250303192530005"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">    Arrays.sort(points, (o1, o2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (o1[<span class="number">1</span>] != o2[<span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">1</span>], o2[<span class="number">1</span>]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">0</span>], o2[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>, curPoint = points[<span class="number">0</span>][<span class="number">1</span>]; i &lt; points.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (points[i][<span class="number">0</span>] &gt; curPoint) &#123;</span><br><span class="line">            curPoint = points[i][<span class="number">1</span>];</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/can-place-flowers/description/">种花问题</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canPlaceFlowers</span><span class="params">(<span class="type">int</span>[] flowerbed, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; flowerbed.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (flowerbed[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; flowerbed[i - <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span> &lt; flowerbed.length &amp;&amp; flowerbed[i + <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        flowerbed[i] = <span class="number">1</span>;</span><br><span class="line">        ans++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans &gt;= n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-labels/description/">划分字母区间</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">partitionLabels</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length();) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startPoint</span> <span class="operator">=</span> i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">curPoint</span> <span class="operator">=</span> i; i &lt;= curPoint; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> s.length() - <span class="number">1</span>; j &gt; curPoint; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s.charAt(j) == s.charAt(i)) &#123;</span><br><span class="line">                    curPoint = j;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(i - startPoint);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1223">P1223 排队接水</a></p>
+<blockquote>
+<p>贪心 + 排序</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> luogu;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">p1223</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Time</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Time&gt; &#123;</span><br><span class="line">        <span class="type">int</span> index;</span><br><span class="line">        <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Time</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.index = index;</span><br><span class="line">            <span class="built_in">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Time time)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.value - time.value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">        Time[] times = <span class="keyword">new</span> <span class="title class_">Time</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            times[i] = <span class="keyword">new</span> <span class="title class_">Time</span>(i, in.nextInt());</span><br><span class="line">        &#125;</span><br><span class="line">        in.close();</span><br><span class="line"></span><br><span class="line">        Arrays.sort(times);</span><br><span class="line">        <span class="type">long</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            System.out.print(Integer.toString(times[i].index + <span class="number">1</span>) + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            ans += times[i].value * (n - i - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.printf(<span class="string">&quot;%.2f\n&quot;</span>, (<span class="type">double</span>) ans / n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>[P1090 [NOIP 2004 提高组] 合并果子](P1090 [NOIP 2004 提高组] 合并果子)</p>
+<blockquote>
+<p>贪心 + 堆 + 优先队列</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/06/springboot/%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/06/springboot/%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">账号密码登陆</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-06 18:08:40" itemprop="dateCreated datePublished" datetime="2025-02-06T18:08:40+08:00">2025-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-07 23:47:39" itemprop="dateModified" datetime="2025-02-07T23:47:39+08:00">2025-02-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="账号登陆"><a href="#账号登陆" class="headerlink" title="账号登陆"></a>账号登陆</h1><blockquote>
+<p>因数据库极易遭受网络攻击，所以不能在数据库中直接存储明文存储。</p>
+</blockquote>
+<p>哈希（Hashing)：哈希是单向的，即不可能解密Hash值来获取原始值。</p>
+<p>加密（Encryption）：加密是双向的，即通过密文解密后可以获取原始值。</p>
+<p>为了防止使用密码表或词典进行暴力破解，需要在哈希之前添加盐（Salting）或胡椒（Peppering）再进行哈希。<br>$$<br>result &#x3D; hash(pepper + password + salt)<br>$$<br>加盐和胡椒的区别：</p>
+<ul>
+<li>所有密码共享<code>pepper</code>，不像盐一样对每个密码都是唯一的。这使得<code>pepper</code>可预测，并可尝试破解密码。<code>pepper</code>的静态特性也“减弱了”哈希抗冲突的能力，而<code>salt</code>则使用独一无二的字符串来扩展长度，提高了哈希抗冲突能力，增加了对哈希函数的输入熵。</li>
+<li><code>pepper</code>不存储在数据库中，不像<code>salt</code>一样（但<code>salt</code>也并非总是如此）。</li>
+<li><code>pepper</code>并不是使密码破解变得过于困难使攻击变得不可行，这是其它许多密码存储保护措施（如<code>salt</code>）的目标。</li>
+<li><code>salt</code>可防止攻击者制作已知密码的彩虹表，但是<code>pepper</code>没有这样的作用。</li>
+</ul>
+<h2 id="Bcrypt加密"><a href="#Bcrypt加密" class="headerlink" title="Bcrypt加密"></a>Bcrypt加密</h2><p>Bcrypt 是一种基于 Blowfish 密码学算法的密码散列函数。</p>
+<ul>
+<li><strong>盐（Salt）</strong>: bcrypt 在散列过程中使用盐来确保即使相同的密码也会产生不同的散列值，这增加了密码存储的安全性。</li>
+<li><strong>工作因子（Work Factor）</strong>: bcrypt 允许设置一个工作因子，这个因子决定了散列计算的难度。随着计算能力的提升，可以增加工作因子来保持密码散列的安全性。</li>
+<li><strong>适应性</strong>: bcrypt 可以适应硬件性能的提升，通过增加工作因子来延长散列时间，从而抵抗暴力攻击。</li>
+</ul>
+<p>JavaScript</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install bcrypt</span><br></pre></td></tr></table></figure>
+
+<p>Java</p>
+<p>Spring Security中包含了<code>BcryptPasswordEncoder</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> PasswordEncoder <span class="title function_">passwordEncoder</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/03/springboot/https/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/03/springboot/https/" class="post-title-link" itemprop="url">Https</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-03 16:54:27" itemprop="dateCreated datePublished" datetime="2025-02-03T16:54:27+08:00">2025-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-19 13:20:51" itemprop="dateModified" datetime="2025-02-19T13:20:51+08:00">2025-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>HTTPS分为两个阶段：握手阶段，传输阶段。</p>
+<h1 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h1><blockquote>
+<p>TCP握手 + TLS\SSL握手</p>
+</blockquote>
+<p>网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS</p>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png" alt="network structure"></p>
+<h2 id="1-证书生成"><a href="#1-证书生成" class="headerlink" title="1.证书生成"></a>1.证书生成</h2><h3 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h3><p><code>openssl</code>生成RSA密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out prkey.key 2048</span><br></pre></td></tr></table></figure>
+
+<p>生成RSA加密密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -des3 -out prkey.key 2048</span><br></pre></td></tr></table></figure>
+
+<h3 id="从私钥中导出公钥"><a href="#从私钥中导出公钥" class="headerlink" title="从私钥中导出公钥"></a>从私钥中导出公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubout -<span class="keyword">in</span> prkey.key -out pukey.pem</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建证书签名请求（CSR）"><a href="#创建证书签名请求（CSR）" class="headerlink" title="创建证书签名请求（CSR）"></a>创建证书签名请求（CSR）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key prkey.key -out cer_request.csr</span><br></pre></td></tr></table></figure>
+
+<h3 id="自签名证书"><a href="#自签名证书" class="headerlink" title="自签名证书"></a>自签名证书</h3><p><code>.crt</code>可以换成<code>.pem</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> cer_request.csr -signkey prkey.key -out certificate.crt</span><br></pre></td></tr></table></figure>
+
+<h3 id="CA签署证书"><a href="#CA签署证书" class="headerlink" title="CA签署证书"></a>CA签署证书</h3><p><code>.crt</code>可以换成<code>.pem</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> cer_request.csr -CA ca_cert.crt -CAkey ca_key.key -CAcreateserial -out certificate.crt </span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -<span class="keyword">in</span> certificate.crt -noout -text</span><br><span class="line">openssl req -<span class="keyword">in</span> cer_request.csr -noout -text</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>自签名证书有两种类型：</p>
+<ul>
+<li><p>自签名证书：自签名证书的<code>Issuer</code>和<code>Subject</code>是相同的。</p>
+</li>
+<li><p>私有 CA 签名证书：其中CA的证书是自签名证书，server证书是由CA签发的。</p>
+</li>
+</ul>
+<ol>
+<li><p>生成服务器端私钥（server.key)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上就是一个模板配置， 哪些是必要配置，哪些是根据自己实际需求，看一眼就知道了。看一个真实的UserDao-Mapper.xml配openssl genrsa -out server.key 2048</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成服务端签名证书请求（server.csr)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -config serverssl.cnf -key server.key -out server.csr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># serverssl.cnf</span></span><br><span class="line">[req]</span><br><span class="line">default_bits = <span class="number">2048</span></span><br><span class="line">prompt = no</span><br><span class="line">default_md = sha256</span><br><span class="line">x509_extensions = v3_req</span><br><span class="line">distinguished_name = dn</span><br><span class="line"> </span><br><span class="line">[dn]</span><br><span class="line">C = CN</span><br><span class="line">ST = SD</span><br><span class="line">L = JINAN</span><br><span class="line">O = yingzheng</span><br><span class="line">OU = yingzhengunit</span><br><span class="line">emailAddress = yingzhengttt@gmail.com</span><br><span class="line">CN = yingzhengttt.com</span><br><span class="line"> </span><br><span class="line">[v3_req]</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line"> </span><br><span class="line">[alt_names]</span><br><span class="line">DNS<span class="number">.1</span> = yingzhengttt.com</span><br><span class="line">DNS<span class="number">.2</span> = www.yingzhengttt.com</span><br></pre></td></tr></table></figure>
+
+<p>其中CN必须与服务器的域名一致。否则浏览器会警告不安全。</p>
+</li>
+<li><p>生成CA私钥（ca.key)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out ca.key 2048</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成CA自签名证书（ca.crt）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -days 365 -key ca.key -out ca.crt -subj <span class="string">&quot;/C=CN/ST=SD/L=JINAN/O=yingzheng/OU=yingzhengunit/CN=ROOTcert/emailAddress=yingzhengttt@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用CA证书(ca.crt)对服务端证书请求(server.csr)签名，获取服务端签名（server.crt）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt </span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>注：本测试在Ubuntu24上的Chrome中，只要是未被公共信任的证书，即使已经加入到系统的信任链中，浏览器也会提示安全风险。但是在Postman中能够正常工作。所以应该是浏览器的安全设置问题。</p>
+<p>为了取消报错并在本地使用自签名证书，关闭Chrome的签名认证，在Chrome启动时加入参数 <code>--ignore-certificate-errors</code>。 比如在Ubuntu中，更改<code>/usr/share/applications/google-chrome.desktop</code>，在这里我使用的是canary所以更改<code>/usr/share/applications/google-chrome-canary.desktop</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exec=/usr/bin/google-chrome-canary --ignore-certificate-errors %U</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-SpringBoot启用SSL"><a href="#2-SpringBoot启用SSL" class="headerlink" title="2.SpringBoot启用SSL"></a>2.SpringBoot启用SSL</h2><p>将<code>server.crt</code>，<code>server.key</code>拷贝到resource目录下。</p>
+<p>pom.xml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8433</span></span><br><span class="line">    <span class="attr">ssl:</span></span><br><span class="line">        <span class="attr">certificate:</span> <span class="string">&quot;classpath:server.crt&quot;</span></span><br><span class="line">        <span class="attr">certificate-private-key:</span> <span class="string">&quot;classpath:server.key&quot;</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<p>创建<code>TomcatConfg.java</code>来创建一个新的Tomcat来接受http请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TomcatConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.http.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> httpPort;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> httpsPort;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    TomcatServletWebServerFactory <span class="title function_">tomcatServletWebServerFactory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">TomcatServletWebServerFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TomcatServletWebServerFactory</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">postProcessContext</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">                <span class="type">SecurityConstraint</span> <span class="variable">constraint</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityConstraint</span>();</span><br><span class="line">                constraint.setUserConstraint(<span class="string">&quot;CONFIDENTIAL&quot;</span>);</span><br><span class="line">                <span class="type">SecurityCollection</span> <span class="variable">collection</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityCollection</span>();</span><br><span class="line">                collection.addPattern(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">                constraint.addCollection(collection);</span><br><span class="line">                context.addConstraint(constraint);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        factory.addAdditionalTomcatConnectors(createTomcatConnector());</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">protected</span> Connector <span class="title function_">createTomcatConnector</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Connector</span> <span class="variable">connector</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Connector</span>(<span class="string">&quot;org.apache.coyote.http11.Http11NioProtocol&quot;</span>);</span><br><span class="line">        connector.setScheme(<span class="string">&quot;http&quot;</span>);</span><br><span class="line">        connector.setPort(httpPort);</span><br><span class="line">        connector.setSecure(<span class="literal">false</span>);</span><br><span class="line">        connector.setRedirectPort(httpsPort);</span><br><span class="line">        <span class="keyword">return</span> connector;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并在spring security中配置之允许使用https协议，并将http协议跳转到https协议端口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                .portMapper(portMapper -&gt; portMapper.http(<span class="number">8080</span>).mapsTo(<span class="number">8443</span>))</span><br><span class="line">                .requiresChannel(channel -&gt; channel.anyRequest().requiresSecure())</span><br><span class="line">				...;</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Springboot-添加信任证书"><a href="#Springboot-添加信任证书" class="headerlink" title="Springboot 添加信任证书"></a>Springboot 添加信任证书</h2><blockquote>
+<p>如果只想添加信任证书能够访问其他https服务，而不是自身启动https，可以只添加证书到信任链中。</p>
+</blockquote>
+<h3 id="方法1-将证书添加到Java信任库"><a href="#方法1-将证书添加到Java信任库" class="headerlink" title="方法1. 将证书添加到Java信任库"></a>方法1. 将证书添加到Java信任库</h3><p>首先获取需要信任的证书<code>ca.crt</code></p>
+<p>将<code>ca.crt</code>导入到Java信任库中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -trustcacerts -keystore <span class="variable">$JAVA_HOME</span>/lib/security/cacerts -noprompt -<span class="built_in">alias</span> my-cert -file ca.crt</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法2-将证书添加到Springboot中"><a href="#方法2-将证书添加到Springboot中" class="headerlink" title="方法2. 将证书添加到Springboot中"></a>方法2. 将证书添加到Springboot中</h3><p><em>该方法并没有成功</em></p>
+<p>创建JKS信任库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -trustcacerts -keystore server.jks -storepass 1234 -<span class="built_in">alias</span> my-cert -file ca.crt</span><br></pre></td></tr></table></figure>
+
+<p>将<code>server.jks</code> 添加到resource目录下</p>
+<p>在<code>application.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ssl:</span></span><br><span class="line">    <span class="attr">key-store:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">key-store-password:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">key-store-type:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">trust-store:</span> <span class="string">classpath:server.jks</span></span><br><span class="line">    <span class="attr">trust-store-password:</span> <span class="number">1234</span></span><br><span class="line">    <span class="attr">trust-store-type:</span> <span class="string">JKS</span></span><br></pre></td></tr></table></figure>
+
+<p><em>问题：即使将key-store设置为空，但启动的时候springboot仍然去&#x2F;home&#x2F;amber&#x2F;.keystore (No such file or directory)去拿key-store。一直解决不了。如果设置trust-store，springboot就默认启动ssl也会去找key-store，即使设置为空也还是去找。</em></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/02/react/nextjs_fetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/02/react/nextjs_fetch/" class="post-title-link" itemprop="url">Nextjs前后端交互</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-02 12:18:37" itemprop="dateCreated datePublished" datetime="2025-02-02T12:18:37+08:00">2025-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-17 22:51:54" itemprop="dateModified" datetime="2025-02-17T22:51:54+08:00">2025-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/frontend/" itemprop="url" rel="index"><span itemprop="name">frontend</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>前后端交互使用Javascript。目前底层原生工具有<code>fetch</code>和<code>XMLHttpRequest</code>。开发常用的<code>axios</code>是对<code>fetch</code>的封装。这两种通信方式都是HTTP&#x2F;HTTPS协议，即无状态协议。</p>
+</blockquote>
+<p>跨域问题：</p>
+<p><code>Fetch</code> 如果后端不支持CORS，前端是无法实现跨域访问的。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> headers = <span class="keyword">new</span> <span class="title class_">Headers</span>();</span><br><span class="line">headers.<span class="title function_">set</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">Request</span>(process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_LOGIN_API</span>!, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">    <span class="attr">mode</span>: <span class="string">&quot;cors&quot;</span>,</span><br><span class="line">    <span class="attr">headers</span>: headers,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(request);</span><br><span class="line"><span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`Response status <span class="subst">$&#123;response.status&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> json = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/25/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">git常用命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-01-31 10:30:14" itemprop="dateModified" datetime="2025-01-31T10:30:14+08:00">2025-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Git-命令"><a href="#Git-命令" class="headerlink" title="Git 命令"></a>Git 命令</h1><blockquote>
+<p>Git分为工作区，版本库（暂存区和提交历史）</p>
+<p>工作区即项目目录，版本库为其中的<code>.git</code>隐藏文件夹，其中index即为暂存区。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">git commit -m <span class="string">&quot;message&quot;</span></span><br><span class="line">git commit -a -m <span class="string">&quot;message&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git switch &lt;branchname&gt;</span><br><span class="line">git swtich -c &lt;branchname&gt;</span><br><span class="line">git checkout &lt;branchname&gt;</span><br><span class="line">git checkout -b &lt;branchname&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line">git branch -d &lt;branchname&gt;</span><br><span class="line">git branch -D &lt;branchname&gt; <span class="comment">#force delete</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">git stash pop</span><br><span class="line">git stash supply &lt;stashid&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commithash&gt;</span><br><span class="line">git cherry-pick &lt;startcomit&gt; &lt;endcommit&gt;  <span class="comment">#(startcommit, endcommit]</span></span><br><span class="line">git cherry-pick --<span class="built_in">continue</span>                <span class="comment">#deal with conflict</span></span><br><span class="line">git cherry-pick --abort                   <span class="comment">#abort cherry pick</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph --pretty=oneline --abbrev-commit</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Git在切换分支时，如果工作区或暂存区存在数据并没有提交，Git会尝试将这些数据（未追踪的数据，修改但没加入暂存区的数据，加入暂存区的数据）转移到新分支的工作区和暂存区，如果合并过程中出现冲突，那么Git会阻止分支切换。</p>
+<p>解决冲突的方案：</p>
+<ul>
+<li>在切换分支之前进行Commit操作，将所有工作区，暂存区的数据都提交，放入到版本库中</li>
+<li>在切换分支之前使用Stash将工作区，暂存区的数据都保留镜像，等到切换回该分支后再执行pop将工作区，暂存区恢复。</li>
+<li>直接放弃在工作区，暂存区的修改。</li>
+</ul>
+<p>注意：一般来说，在切换分支前需要将工作区、暂存区清空，防止将一些不必要的修改带入到其他分支。</p>
+<p>工作区中包含了<strong>未被追踪的数据</strong>和<strong>加入暂存区后又被修改的数据</strong></p>
+<p>暂存区中包含了<strong>上一次add时数据的状态</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">Spring面试合集</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-16 17:46:15" itemprop="dateModified" datetime="2025-02-16T17:46:15+08:00">2025-02-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Spring-持久化框架"><a href="#Spring-持久化框架" class="headerlink" title="Spring 持久化框架"></a>Spring 持久化框架</h2><p>Spring提供了<strong>JDBC（Java Database Connectivity）</strong>，<strong>JPA (Java Persistence API)<strong>，</strong>MyBatis</strong>。  </p>
+<p><strong>JDBC（Java Database Connectivity）</strong> 是Java的标准数据库访问技术。它直接与数据库交互，允许Java应用程序执行SQL语句并与数据库进行通信。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>JPA</strong> 是一个Java的持久化API，用于管理Java对象与数据库之间的映射。它提供了对象关系映射（ORM）的功能，允许开发者以面向对象的方式处理数据。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>MyBatis</strong> 是一个支持普通SQL查询、存储过程和高级映射的持久层框架。它避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatus是<strong>半自动ORM</strong>：MyBatis不像JPA那样完全抽象掉SQL，它允许开发者写SQL语句，同时提供了映射文件来定义SQL语句与Java对象的映射关系。</p>
+<p>就目前版本的mybatis中包含了<code>spring-boot-starter-jdbc</code>，直接使用JDBC的Datasource和数据库连接池。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="SpringBoot-数据库连接池"><a href="#SpringBoot-数据库连接池" class="headerlink" title="SpringBoot 数据库连接池"></a>SpringBoot 数据库连接池</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/springboot/Spring-Session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/25/springboot/Spring-Session/" class="post-title-link" itemprop="url">Spring Session</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-17 20:07:15" itemprop="dateModified" datetime="2025-03-17T20:07:15+08:00">2025-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Spring-Session"><a href="#Spring-Session" class="headerlink" title="Spring Session"></a>Spring Session</h1><blockquote>
+<p>Spring Session 是 Spring 框架的一个项目，旨在提供会话管理的解决方案。它可以与各种后端存储（如内存、数据库、Redis 等）集成。</p>
+</blockquote>
+<ul>
+<li>SecurityContextHolderFilter中的SecurityContextRepository，存储用户信息上下文，其中一种实现方式就是HttpSessionSecurityContextRepository，而且该方式是默认的实现方式。</li>
+<li>AbstractAuthenticationProcessingFilter中，当用户登录成功，也是会调用this.securityContextRepository.saveContext(context, request, response);存储上下文到session中。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -199,7 +1047,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-20 00:18:41" itemprop="dateModified" datetime="2025-02-20T00:18:41+08:00">2025-02-20</time>
+      <time title="Modified: 2025-03-17 20:07:09" itemprop="dateModified" datetime="2025-03-17T20:07:09+08:00">2025-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -207,7 +1055,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
         </span>
     </span>
 
@@ -283,8 +1131,8 @@
 <p>其中的<code>this.authorizationRequestRepository</code>默认是<code>HttpSessionOAuth2AuthorizationRequestRepository</code>。它的源码显示其专门在Session中存储请求信息：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HttpSessionOAuth2AuthorizationRequestRepository.java</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An implementation of an &#123;<span class="doctag">@link</span> AuthorizationRequestRepository&#125; that stores</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> OAuth2AuthorizationRequest&#125; in the &#123;<span class="doctag">@code</span> HttpSession&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">HttpSessionOAuth2AuthorizationRequestRepository</span></span><br><span class="line">		<span class="keyword">implements</span> <span class="title class_">AuthorizationRequestRepository</span>&lt;OAuth2AuthorizationRequest&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>所以，可以自定义该类来解析Request请求中的参数<code>origin_url</code>。查看<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#oauth2-client-authorization-code-authorization-request-repository">Spring Security OAuth2 Client文档</a> 可以配置自定义的<code>AuthorizationRequestRepository</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OAuth2ClientSecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="keyword">public</span> SecurityFilterChain <span class="title function_">filterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		http</span><br><span class="line">            .oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                .authorizationEndpoint(endpoint -&gt; endpoint</span><br><span class="line">                    .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">MyAuthorizationRequestRepository</span>())</span><br><span class="line">                    <span class="comment">// ...</span></span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">			<span class="keyword">return</span> http.build();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，可以自定义该类来解析Request请求中的参数<code>origin_url</code>。查看<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#oauth2-client-authorization-code-authorization-request-repository">Spring Security OAuth2 Client文档</a>可以配置自定义的<code>AuthorizationRequestRepository</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OAuth2ClientSecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="keyword">public</span> SecurityFilterChain <span class="title function_">filterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		http</span><br><span class="line">            .oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                .authorizationEndpoint(endpoint -&gt; endpoint</span><br><span class="line">                    .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span>())</span><br><span class="line">                    <span class="comment">// ...</span></span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">			<span class="keyword">return</span> http.build();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>目的只是为了增加一个解析URL参数，所以核心代码仍然使用它默认的<code>HttpSessionOAuth2AuthorizationRequestRepository</code>，只在<code>saveAuthorizationRequest()</code>方法中加入对<code>origin_url</code>的解析。</p>
 <p>定义类<code>ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</code>，将<code>HttpSessionOAuth2AuthorizationRequestRepository</code>的内容完全复制过来，将Class名字更改，并在<code>saveAuthorizationRequest()</code>中加入三行代码：</p>
@@ -293,9 +1141,16 @@
 <p>解析URL获取<code>origin_url</code>，并将URL存入到Session中。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ParseUrlHttpSessionOAuth2AuthorizationRequestRepository.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span> <span class="keyword">implements</span> <span class="title class_">AuthorizationRequestRepository</span>&lt;OAuth2AuthorizationRequest&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME</span> <span class="operator">=</span> HttpSessionOAuth2AuthorizationRequestRepository.class</span><br><span class="line">            .getName() + <span class="string">&quot;.AUTHORIZATION_REQUEST&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sessionAttributeName</span> <span class="operator">=</span> DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> OAuth2AuthorizationRequest <span class="title function_">loadAuthorizationRequest</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveAuthorizationRequest</span><span class="params">(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,</span></span><br><span class="line"><span class="params">                                         HttpServletResponse response)</span> &#123;</span><br><span class="line">        Assert.notNull(request, <span class="string">&quot;request cannot be null&quot;</span>);</span><br><span class="line">        Assert.notNull(response, <span class="string">&quot;response cannot be null&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (authorizationRequest == <span class="literal">null</span>) &#123;</span><br><span class="line">            removeAuthorizationRequest(request, response);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> authorizationRequest.getState();</span><br><span class="line">        Assert.hasText(state, <span class="string">&quot;authorizationRequest.state cannot be empty&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// set url params to session</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">        Assert.hasText(originUrl, <span class="string">&quot;authorizationRequest.origin_url cannot be empty&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;origin_url&quot;</span>, originUrl);</span><br><span class="line"></span><br><span class="line">        request.getSession().setAttribute(<span class="built_in">this</span>.sessionAttributeName, authorizationRequest);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> OAuth2AuthorizationRequest <span class="title function_">removeAuthorizationRequest</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">                                                                 HttpServletResponse response)</span> &#123;</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">getStateParameter</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> request.getParameter(OAuth2ParameterNames.STATE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OAuth2AuthorizationRequest <span class="title function_">getAuthorizationRequest</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line"> 	...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="设置登陆成功后跳转回制定URL-origin-url"><a href="#设置登陆成功后跳转回制定URL-origin-url" class="headerlink" title="设置登陆成功后跳转回制定URL(origin_url)"></a>设置登陆成功后跳转回制定URL(<code>origin_url</code>)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http.oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                        .authorizationEndpoint(authorization -&gt; authorization</span><br><span class="line">                                .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span>()))</span><br><span class="line">                        .successHandler(</span><br><span class="line">                                (request, response, authentication) -&gt; &#123;</span><br><span class="line">                                    <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> (String) request.getSession().getAttribute(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">                                    response.sendRedirect(originUrl);</span><br><span class="line">                                &#125;)</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置登陆成功后跳转回制定URL-origin-url"><a href="#设置登陆成功后跳转回制定URL-origin-url" class="headerlink" title="设置登陆成功后跳转回制定URL(origin_url)"></a>设置登陆成功后跳转回制定URL(<code>origin_url</code>)</h2><p>当OAuth2处理成功后，需要从Session中拿出<code>origin_url</code>并重定向。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/reactive/oauth2/login/advanced.html">Spring Security OAuth2文档</a>显示可以自定义<code>authenticationSuccessHandler</code>，即<code>http.oauth2Login.successHandler()</code>来设置自定义成功后处理逻辑。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http.oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">    .successHandler(</span><br><span class="line">            (request, response, authentication) -&gt; &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> (String)request.getSession().getAttribute(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">                response.sendRedirect(originUrl);</span><br><span class="line">            &#125;)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<p>最终OAuth2的配置如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http.oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                        .authorizationEndpoint(authorization -&gt; authorization</span><br><span class="line">                                .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span>()))</span><br><span class="line">                        .successHandler(</span><br><span class="line">                                (request, response, authentication) -&gt; &#123;</span><br><span class="line">                                    <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> (String) request.getSession().getAttribute(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">                                    response.sendRedirect(originUrl);</span><br><span class="line">                                &#125;)</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<h2 id="全流程日志打印"><a href="#全流程日志打印" class="headerlink" title="全流程日志打印"></a>全流程日志打印</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">2025-02-21T23:45:30.306+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OAuth2LoginAuthenticationProvider (1/3)</span><br><span class="line">2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OidcAuthorizationCodeAuthenticationProvider (2/3)</span><br><span class="line">2025-02-21T23:46:00.313+08:00 DEBUG 156775 --- [nio-8443-exec-2] .s.a.DefaultAuthenticationEventPublisher : No event was found for the exception org.springframework.security.oauth2.core.OAuth2AuthenticationException</span><br><span class="line">2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Failed to process authentication request</span><br><span class="line"></span><br><span class="line">org.springframework.security.oauth2.core.OAuth2AuthenticationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:115) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.authentication.ObservationAuthenticationManager.lambda$authenticate$1(ObservationAuthenticationManager.java:54) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at io.micrometer.observation.Observation.observe(Observation.java:564) ~[micrometer-observation-1.14.2.jar:1.14.2]</span><br><span class="line">	at org.springframework.security.authentication.ObservationAuthenticationManager.authenticate(ObservationAuthenticationManager.java:53) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:196) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:231) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.access.channel.ChannelProcessingFilter.doFilter(ChannelProcessingFilter.java:133) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142) ~[spring-session-core-3.4.1.jar:3.4.1]</span><br><span class="line">	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82) ~[spring-session-core-3.4.1.jar:3.4.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:114) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:598) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]</span><br><span class="line">Caused by: org.springframework.security.oauth2.core.OAuth2AuthorizationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:101) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:80) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:57) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationProvider.authenticate(OAuth2AuthorizationCodeAuthenticationProvider.java:85) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:109) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	... 100 common frames omitted</span><br><span class="line">Caused by: org.springframework.web.client.ResourceAccessException: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:926) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:906) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:741) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:94) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	... 104 common frames omitted</span><br><span class="line">Caused by: java.net.SocketException: Unexpected end of file from server</span><br><span class="line">	at java.base/sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:955) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:759) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1690) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1599) ~[na:na]</span><br><span class="line">	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:307) ~[na:na]</span><br><span class="line">	at org.springframework.http.client.SimpleClientHttpResponse.getStatusCode(SimpleClientHttpResponse.java:55) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.DefaultResponseErrorHandler.hasError(DefaultResponseErrorHandler.java:85) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler.hasError(OAuth2ErrorResponseErrorHandler.java:52) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:942) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:902) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	... 106 common frames omitted</span><br><span class="line"></span><br><span class="line">2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Cleared SecurityContextHolder</span><br><span class="line">2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Handling authentication failure</span><br></pre></td></tr></table></figure>
 
 
 
@@ -510,83 +1365,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/25/template/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-17 21:12:44" itemprop="dateModified" datetime="2025-02-17T21:12:44+08:00">2025-02-17</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
