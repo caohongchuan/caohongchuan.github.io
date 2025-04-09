@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="面向切面编程(AOP) VS 面向对象编程（OOP） OOP面向对象编程，针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程的某个步骤或阶段，以获得逻辑过程的中各部分之间低耦合的隔离效果。  OOP：从纵向解决代码重复问题 AOP：从横向解决代码重复问题，取代了传统从纵向继承体系重复代码（性能监控、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring面向切面编程(AOP)">
+<meta property="og:url" content="http://caohongchuan.github.io/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/index.html">
+<meta property="og:site_name" content="yingzheng">
+<meta property="og:description" content="面向切面编程(AOP) VS 面向对象编程（OOP） OOP面向对象编程，针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程的某个步骤或阶段，以获得逻辑过程的中各部分之间低耦合的隔离效果。  OOP：从纵向解决代码重复问题 AOP：从横向解决代码重复问题，取代了传统从纵向继承体系重复代码（性能监控、">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250404085620522.png">
+<meta property="article:published_time" content="2025-04-04T00:20:21.028Z">
+<meta property="article:modified_time" content="2025-04-05T05:44:28.740Z">
+<meta property="article:author" content="YingZheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250404085620522.png">
+
+
+<link rel="canonical" href="http://caohongchuan.github.io/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/","path":"2025/04/04/interview/Spring面向切面编程AOP/","title":"Spring面向切面编程(AOP)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring面向切面编程(AOP) | yingzheng</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">yingzheng</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B-AOP-VS-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88OOP%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">面向切面编程(AOP) VS 面向对象编程（OOP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-AOP%E5%92%8CAspectJ"><span class="nav-number">2.</span> <span class="nav-text">Spring AOP和AspectJ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-AOP"><span class="nav-number">3.</span> <span class="nav-text">Spring AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">XML模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-AOP%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.2.</span> <span class="nav-text">Spring AOP注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%97%A5%E5%BF%97%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.3.</span> <span class="nav-text">定义日志注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%88%87%E9%9D%A2"><span class="nav-number">3.4.</span> <span class="nav-text">定义切面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BE%E7%BD%AE%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.5.</span> <span class="nav-text">放置注解</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YingZheng"
+      src="/images/photo.png">
+  <p class="site-author-name" itemprop="name">YingZheng</p>
+  <div class="site-description" itemprop="description">Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caohongchuan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caohongchuan" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yingzhengttt@gmail.com" title="E-Mail → mailto:yingzhengttt@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring面向切面编程(AOP) | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring面向切面编程(AOP)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-04 08:20:21" itemprop="dateCreated datePublished" datetime="2025-04-04T08:20:21+08:00">2025-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-05 13:44:28" itemprop="dateModified" datetime="2025-04-05T13:44:28+08:00">2025-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="面向切面编程-AOP-VS-面向对象编程（OOP）"><a href="#面向切面编程-AOP-VS-面向对象编程（OOP）" class="headerlink" title="面向切面编程(AOP) VS 面向对象编程（OOP）"></a>面向切面编程(AOP) VS 面向对象编程（OOP）</h1><blockquote>
+<p>OOP面向对象编程，针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程的某个步骤或阶段，以获得逻辑过程的中各部分之间低耦合的隔离效果。</p>
+<ul>
+<li>OOP：从纵向解决代码重复问题</li>
+<li>AOP：从横向解决代码重复问题，取代了传统从纵向继承体系重复代码（性能监控、事务管理、缓存，日志等）将业务逻辑与系统处理代码进行解耦。</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250404085620522.png" alt="image-20250404085620522"></p>
+<p>图左结构为正常AOP架构，日志处理会被加入到每一个方法中。图右结构为AOP架构，日志处理会被抽离出来，方法中不需要处理日志，会被AOP以切面的形式添加到每个方法开始之前。</p>
+<ul>
+<li><p><strong>连接点（Jointpoint）</strong>：表示需要在程序中插入横切关注点的扩展点，<strong>连接点可能是类初始化、方法执行、方法调用、字段调用或处理异常等等</strong>，<em>Spring只支持方法执行连接点</em>，在AOP中表示为<strong>在哪里干</strong>；</p>
+</li>
+<li><p><strong>切入点（Pointcut）</strong>： 选择一组相关连接点的模式，即可以认为连接点的集合，Spring支持perl5正则表达式和AspectJ切入点模式，Spring默认使用AspectJ语法，在AOP中表示为<strong>在哪里干的集合</strong>；</p>
+</li>
+<li><p><strong>通知（Advice）</strong>：在连接点上执行的行为，通知提供了在AOP中需要在切入点所选择的连接点处进行扩展现有行为的手段；包括前置通知（before advice）、后置通知(after advice)、环绕通知（around advice），在Spring中通过代理模式实现AOP，并通过拦截器模式以环绕连接点的拦截器链织入通知；在AOP中表示为<strong>干什么</strong>。</p>
+</li>
+<li><p><strong>切面（Aspect）</strong>：横切关注点的模块化，比如上边提到的日志组件。可以认为是通知和切入点的组合；在Spring中可以使用Schema和@AspectJ方式进行组织实现；在AOP中表示为<strong>在哪干和干什么集合</strong>。</p>
+</li>
+</ul>
+<h1 id="Spring-AOP和AspectJ"><a href="#Spring-AOP和AspectJ" class="headerlink" title="Spring AOP和AspectJ"></a>Spring AOP和AspectJ</h1><blockquote>
+<p>AspectJ是一个Java实现的AOP框架，它能够对Java代码进行AOP编译（一般在编译期进行），让Java代码具有AspectJ的AOP功能（需要特殊的编译器）</p>
+</blockquote>
+<blockquote>
+<p>Spring 框架通过定义切面, 通过拦截切点实现了不同业务模块的解耦，这个就叫**面向切面编程 - Aspect Oriented Programming (AOP)**。</p>
+<p>AOP的本质也是为了解耦，通过<strong>预编译方式</strong>和<strong>运行期间动态代理</strong>实现程序的统一维护的一种技术。</p>
+</blockquote>
+<p>区别：</p>
+<ul>
+<li><p>AspectJ是更强的AOP框架，是实际意义的<strong>AOP标准</strong>；</p>
+</li>
+<li><p>Spring AOP使用纯Java实现, 它不需要专门的编译过程, 它一个<strong>重要的原则就是无侵入性（non-invasiveness）</strong>。</p>
+</li>
+<li><p>Spring小组喜欢@AspectJ注解风格更胜于Spring XML配置，在Spring 2.0使用了和AspectJ 5一样的注解，并使用AspectJ来做切入点解析和匹配。<strong>但是，AOP在运行时仍旧是纯的Spring AOP，并不依赖于AspectJ的编译器或者织入器（weaver）</strong>。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Spring AOP</th>
+<th>AspectJ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在纯 Java 中实现</td>
+<td>使用 Java 编程语言的扩展实现</td>
+</tr>
+<tr>
+<td>不需要单独的编译过程</td>
+<td>除非设置 LTW，否则需要 AspectJ 编译器 (ajc)</td>
+</tr>
+<tr>
+<td>只能使用运行时织入</td>
+<td>运行时织入不可用。支持编译时、编译后和加载时织入</td>
+</tr>
+<tr>
+<td>功能不强-仅支持方法级编织</td>
+<td>更强大 - 可以编织字段、方法、构造函数、静态初始值设定项、最终类&#x2F;方法等</td>
+</tr>
+<tr>
+<td>只能在由 Spring 容器管理的 bean 上实现</td>
+<td>可以在所有域对象上实现</td>
+</tr>
+<tr>
+<td>仅支持方法执行切入点</td>
+<td>支持所有切入点</td>
+</tr>
+<tr>
+<td>代理是由目标对象创建的, 并且切面应用在这些代理上</td>
+<td>在执行应用程序之前 (在运行时) 前, 各方面直接在代码中进行织入</td>
+</tr>
+<tr>
+<td>比 AspectJ 慢多了</td>
+<td>更好的性能</td>
+</tr>
+<tr>
+<td>易于学习和应用</td>
+<td>相对于 Spring AOP 来说更复杂</td>
+</tr>
+</tbody></table>
+<p>织入器（weaver）：织入分为动态织入和静态织入，织入可以理解为将切面应用到目标函数中，即定义切面后，需要将切面织入到目标代码内。</p>
+<ul>
+<li><p><strong>动态织入</strong>的方式是在运行时动态将要增强的代码织入到目标类中，这样往往是通过动态代理技术完成的，如Java JDK的动态代理(Proxy，底层通过反射实现)或者CGLIB的动态代理(底层通过继承实现)，Spring AOP采用的就是基于运行时增强的代理技术</p>
+</li>
+<li><p>ApectJ采用的就是<strong>静态织入</strong>的方式。ApectJ主要采用的是编译期织入，在这个期间使用AspectJ的acj编译器(类似javac)把aspect类编译成class字节码后，在java目标类编译时织入，即先编译aspect类再编译目标类。</p>
+</li>
+</ul>
+<h1 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h1><blockquote>
+<p>Spring AOP 支持对XML模式和基于@AspectJ注解的两种配置方式。</p>
+</blockquote>
+<h2 id="XML模式"><a href="#XML模式" class="headerlink" title="XML模式"></a>XML模式</h2><p>定义业务实现类<code>xxxServiceImpl.java</code>，定义切面类<code>xxxAspect.java</code>，编写XML配置文件<code>xxx.xml</code>。将业务实现类和切面类注册为bean，然后配置切面（切面中包含切入点和通知类型）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;tech.pdai.springframework&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 目标类 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- configure properties of bean here as normal --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 切面 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- configure properties of aspect here as normal --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置切面 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 配置切入点 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;execution(* xxx.service.*.*(..))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 环绕通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;doAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 前置通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;doBefore&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 后置通知；returning属性：用于设置后置通知的第二个参数的名称，类型是Object --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;doAfterReturning&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 异常通知：如果没有异常，将不会执行增强；throwing属性：用于设置通知第二个参数的的名称、类型--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;doAfterThrowing&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;e&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 最终通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;doAfter&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-AOP注解"><a href="#Spring-AOP注解" class="headerlink" title="Spring AOP注解"></a>Spring AOP注解</h2><table>
+<thead>
+<tr>
+<th>注解名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Aspect</td>
+<td>用来定义一个切面。</td>
+</tr>
+<tr>
+<td>@pointcut</td>
+<td>用于定义切入点表达式。在使用时还需要定义一个包含名字和任意参数的方法签名来表示切入点名称，这个方法签名就是一个返回值为void，且方法体为空的普通方法。</td>
+</tr>
+<tr>
+<td>@Before</td>
+<td>用于定义前置通知，相当于BeforeAdvice。在使用时，通常需要指定一个value属性值，该属性值用于指定一个切入点表达式(可以是已有的切入点，也可以直接定义切入点表达式)。</td>
+</tr>
+<tr>
+<td>@AfterReturning</td>
+<td>用于定义后置通知，相当于AfterReturningAdvice。在使用时可以指定pointcut &#x2F; value和returning属性，其中pointcut &#x2F; value这两个属性的作用一样，都用于指定切入点表达式。</td>
+</tr>
+<tr>
+<td>@Around</td>
+<td>用于定义环绕通知，相当于MethodInterceptor。在使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td>@After-Throwing</td>
+<td>用于定义异常通知来处理程序中未处理的异常，相当于ThrowAdvice。在使用时可指定pointcut &#x2F; value和throwing属性。其中pointcut&#x2F;value用于指定切入点表达式，而throwing属性值用于指定-一个形参名来表示Advice方法中可定义与此同名的形参，该形参可用于访问目标方法抛出的异常。</td>
+</tr>
+<tr>
+<td>@After</td>
+<td>用于定义最终final 通知，不管是否异常，该通知都会执行。使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td>@DeclareParents</td>
+<td>用于定义引介通知，相当于IntroductionInterceptor。</td>
+</tr>
+</tbody></table>
+<h2 id="定义日志注解"><a href="#定义日志注解" class="headerlink" title="定义日志注解"></a>定义日志注解</h2><p>首先定义一个日志注解，该注解用来标记需要被切面处理的方法上。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Loggable &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义切面"><a href="#定义切面" class="headerlink" title="定义切面"></a>定义切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoggingAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Pointcut(&quot;@annotation(top.chc.aspectdemo.aspect.Loggable)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">loggable</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;loggable()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">beforeAdvice</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Before the method is called&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<strong>切入点</strong>是注解<code>Loggable</code>，然后通过<code>@Before @After</code>等注解定义<strong>通知</strong>。</p>
+<h2 id="放置注解"><a href="#放置注解" class="headerlink" title="放置注解"></a>放置注解</h2><p>将注解放置到业务代码中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserServiceImpl</span> &#123;</span><br><span class="line">    <span class="meta">@Loggable</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getUser</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;User name: %s\n&quot;</span>, name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式是侵入式的，会在业务代码中添加了<code>@Loggable</code>注解。</p>
+<p>可以在定义切面的时候，直接将切入点定义到具体的业务类方法上，而不是注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogAspect</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(LogAspect.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义切点（这里以controller包下的所有方法为例）</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.controller..*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logPointcut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 前置通知：在方法执行前记录日志</span></span><br><span class="line">    <span class="meta">@Before(&quot;logPointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logBefore</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法开始执行: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.info(<span class="string">&quot;入参: &#123;&#125;&quot;</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 后置通知：在方法执行后记录日志</span></span><br><span class="line">    <span class="meta">@AfterReturning(pointcut = &quot;logPointcut()&quot;, returning = &quot;result&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logAfterReturning</span><span class="params">(JoinPoint joinPoint, Object result)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法执行结束: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.info(<span class="string">&quot;返回结果: &#123;&#125;&quot;</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异常通知：在方法抛出异常时记录日志</span></span><br><span class="line">    <span class="meta">@AfterThrowing(pointcut = &quot;logPointcut()&quot;, throwing = &quot;exception&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logAfterThrowing</span><span class="params">(JoinPoint joinPoint, Throwable exception)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.error(<span class="string">&quot;方法执行异常: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.error(<span class="string">&quot;异常信息: &quot;</span>, exception);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 环绕通知：可以控制方法执行的整个过程</span></span><br><span class="line">    <span class="meta">@Around(&quot;logPointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">logAround</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 执行目标方法</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> joinPoint.proceed();</span><br><span class="line">        </span><br><span class="line">        <span class="type">long</span> <span class="variable">timeCost</span> <span class="operator">=</span> System.currentTimeMillis() - startTime;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法: &#123;&#125;.&#123;&#125; 执行耗时: &#123;&#125;ms&quot;</span>, className, methodName, timeCost);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Pointcut</code>：定义切入点，可以使用不同的表达式</p>
+<ul>
+<li><code>execution(* com.example..*.*(..))</code>：匹配指定包下的所有方法</li>
+<li><code>within(com.example.controller.*)</code>：匹配指定包下的所有类</li>
+<li><code>@annotation(com.example.annotation.Log)</code>：匹配带有特定注解的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 任意公共方法的执行：</span></span><br><span class="line">execution（<span class="keyword">public</span> * *（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个名字以“set”开始的方法的执行：</span></span><br><span class="line">execution（* set*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// AccountService接口定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service.AccountService.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包中定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service.*.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包或其子包中定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service..*.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包中的任意连接点（在Spring AOP中只是方法执行）：</span></span><br><span class="line">within（com.xyz.service.*）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包或其子包中的任意连接点（在Spring AOP中只是方法执行）：</span></span><br><span class="line">within（com.xyz.service..*）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现了AccountService接口的代理对象的任意连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line"><span class="built_in">this</span>（com.xyz.service.AccountService）<span class="comment">// &#x27;this&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现AccountService接口的目标对象的任意连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line">target（com.xyz.service.AccountService） <span class="comment">// &#x27;target&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个只接受一个参数，并且运行时所传入的参数是Serializable 接口的连接点（在Spring AOP中只是方法执行）</span></span><br><span class="line">args（java.io.Serializable） <span class="comment">// &#x27;args&#x27;在绑定表单中更加常用; 请注意在例子中给出的切入点不同于 execution(* *(java.io.Serializable))： args版本只有在动态运行时候传入参数是Serializable时才匹配，而execution版本在方法签名中声明只有一个 Serializable类型的参数时候匹配。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标对象中有一个 @Transactional 注解的任意连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@target</span>（org.springframework.transaction.annotation.Transactional）<span class="comment">// &#x27;@target&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个目标对象声明的类型有一个 @Transactional 注解的连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line"><span class="meta">@within</span>（org.springframework.transaction.annotation.Transactional） <span class="comment">// &#x27;@within&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个执行的方法有一个 @Transactional 注解的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@annotation</span>（org.springframework.transaction.annotation.Transactional） <span class="comment">// &#x27;@annotation&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个只接受一个参数，并且运行时所传入的参数类型具有@Classified 注解的连接点（在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@args</span>（com.xyz.security.Classified） <span class="comment">// &#x27;@args&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个在名为&#x27;tradeService&#x27;的Spring bean之上的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line">bean（tradeService）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个在名字匹配通配符表达式&#x27;*Service&#x27;的Spring bean之上的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line">bean（*Service）</span><br><span class="line">    </span><br><span class="line"><span class="comment">// &amp;&amp;：要求连接点同时匹配两个切入点表达式</span></span><br><span class="line"><span class="comment">// ||：要求连接点匹配任意个切入点表达式</span></span><br><span class="line"><span class="comment">// !:：要求连接点不匹配指定的切入点表达式</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>Spring AOP比完全使用AspectJ更加简单， 因为它不需要引入AspectJ的编译器&#x2F;织入器到你开发和构建过程中。 如果你<strong>仅仅需要在Spring bean上通知执行操作，那么Spring AOP是合适的选择</strong>。</li>
+<li>如果你需要通知domain对象或其它没有在Spring容器中管理的任意对象，那么你需要使用AspectJ。</li>
+<li>如果你想通知除了简单的方法执行之外的连接点（调用连接点、字段get或set的连接点等等）， 也需要使用AspectJ。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/02/cf/%E6%A0%91%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="prev" title="二叉搜索树">
+                  <i class="fa fa-angle-left"></i> 二叉搜索树
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" rel="next" title="Java IO面试合集">
+                  Java IO面试合集 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">YingZheng</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/caohongchuan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"b4a2633779602d9abc54ab34adf18cc5"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

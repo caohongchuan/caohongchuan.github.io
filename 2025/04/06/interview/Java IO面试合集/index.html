@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IO流（BIO）根据数据传输方式，可以将 IO 类分为:  字节流：字节流读取单个字节，字节流用来处理二进制文件(图片、MP3、视频文件)。   字符流：字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。   根据数据操作对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO面试合集">
+<meta property="og:url" content="http://caohongchuan.github.io/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/index.html">
+<meta property="og:site_name" content="yingzheng">
+<meta property="og:description" content="IO流（BIO）根据数据传输方式，可以将 IO 类分为:  字节流：字节流读取单个字节，字节流用来处理二进制文件(图片、MP3、视频文件)。   字符流：字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。   根据数据操作对">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pdai.tech/images/io/java-io-category-1.png">
+<meta property="og:image" content="https://pdai.tech/images/io/java-io-category-2.png">
+<meta property="og:image" content="https://pdai.tech/images/io/java-io-category-3.png">
+<meta property="og:image" content="https://pdai.tech/images/pics/DP-Decorator-java.io.png">
+<meta property="article:published_time" content="2025-04-06T02:30:58.171Z">
+<meta property="article:modified_time" content="2025-04-07T07:08:04.041Z">
+<meta property="article:author" content="YingZheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pdai.tech/images/io/java-io-category-1.png">
+
+
+<link rel="canonical" href="http://caohongchuan.github.io/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/","path":"2025/04/06/interview/Java IO面试合集/","title":"Java IO面试合集"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java IO面试合集 | yingzheng</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">yingzheng</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO%E6%B5%81%EF%BC%88BIO%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">IO流（BIO）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">操作系统IO模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-IO%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">Java IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO-Blocking-I-O"><span class="nav-number">4.1.</span> <span class="nav-text">BIO (Blocking I&#x2F;O)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO-Non-blocking-New-I-O"><span class="nav-number">4.2.</span> <span class="nav-text">NIO (Non-blocking&#x2F;New I&#x2F;O)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIO-Asynchronous-I-O"><span class="nav-number">4.3.</span> <span class="nav-text">AIO (Asynchronous I&#x2F;O)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YingZheng"
+      src="/images/photo.png">
+  <p class="site-author-name" itemprop="name">YingZheng</p>
+  <div class="site-description" itemprop="description">Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caohongchuan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caohongchuan" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yingzhengttt@gmail.com" title="E-Mail → mailto:yingzhengttt@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java IO面试合集 | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java IO面试合集
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-06 10:30:58" itemprop="dateCreated datePublished" datetime="2025-04-06T10:30:58+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-07 15:08:04" itemprop="dateModified" datetime="2025-04-07T15:08:04+08:00">2025-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="IO流（BIO）"><a href="#IO流（BIO）" class="headerlink" title="IO流（BIO）"></a>IO流（BIO）</h1><p>根据数据传输方式，可以将 IO 类分为:</p>
+<ul>
+<li><p><strong>字节流</strong>：字节流读取单个字节，字节流用来处理二进制文件(图片、MP3、视频文件)。</p>
+<img src="https://pdai.tech/images/io/java-io-category-1.png" style="zoom: 80%;" />
+</li>
+<li><p><strong>字符流</strong>：字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。</p>
+<img src="https://pdai.tech/images/io/java-io-category-2.png" style="zoom: 80%;" /></li>
+</ul>
+<p>根据数据操作对象，可以将 IO 类分为:</p>
+<img src="https://pdai.tech/images/io/java-io-category-3.png" style="zoom:80%;" />
+
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><blockquote>
+<p><strong>装饰者模式（Decorator）</strong>：把装饰者套在被装饰者之上，从而动态扩展被装饰者的功能，装饰器模式通过<strong>组合</strong>替代继承来扩展原始类的功能。即可以在不改变原有对象的情况下拓展其功能。</p>
+</blockquote>
+<img src="https://pdai.tech/images/pics/DP-Decorator-java.io.png" style="zoom:80%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(fileName));</span><br><span class="line"><span class="type">ZipInputStream</span> <span class="variable">zis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipInputStream</span>(bis);</span><br><span class="line"></span><br><span class="line"><span class="type">BufferedOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(fileName));</span><br><span class="line"><span class="type">ZipOutputStream</span> <span class="variable">zipOut</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(bos);</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作系统IO模型"><a href="#操作系统IO模型" class="headerlink" title="操作系统IO模型"></a>操作系统IO模型</h1><p>异步IO</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linux</th>
+<th>MacOS</th>
+<th>Window</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>事件驱动IO</td>
+<td><code>select</code> <code>poll</code> <code>epoll</code></td>
+<td><code>kqueue</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>异步IO</td>
+<td><code>POSIX</code><br /><code>io_uring</code> (kernel5.1+)</td>
+<td>无</td>
+<td><code>IOCP</code></td>
+</tr>
+</tbody></table>
+<p>事件驱动IO &#x2F; IO多路复用</p>
+<table>
+<thead>
+<tr>
+<th>IO模型</th>
+<th>相对性能</th>
+<th>关键思路</th>
+<th>操作系统</th>
+<th>JAVA支持情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>select</code></td>
+<td>较高</td>
+<td>Reactor</td>
+<td>windows&#x2F;Linux</td>
+<td>支持,Reactor模式(反应器设计模式)。Linux操作系统的 kernels 2.4内核版本之前，默认使用select；而目前windows下对同步IO的支持，都是select模型</td>
+</tr>
+<tr>
+<td><code>poll</code></td>
+<td>较高</td>
+<td>Reactor</td>
+<td>Linux</td>
+<td>Linux下的JAVA NIO框架，Linux kernels 2.6内核版本之前使用poll进行支持。也是使用的Reactor模式</td>
+</tr>
+<tr>
+<td><code>epoll</code></td>
+<td>高</td>
+<td>Reactor&#x2F;Proactor</td>
+<td>Linux</td>
+<td>Linux kernels 2.6内核版本及以后使用epoll进行支持；Linux kernels 2.6内核版本之前使用poll进行支持；另外一定注意，由于Linux下没有Windows下的IOCP技术提供真正的 异步IO 支持，所以Linux下使用epoll模拟异步IO</td>
+</tr>
+<tr>
+<td><code>kqueue</code></td>
+<td>高</td>
+<td>Proactor</td>
+<td>FreeBSD&#x2F;MacOS</td>
+<td>目前JAVA的版本不支持</td>
+</tr>
+</tbody></table>
+<h1 id="Java-IO模型"><a href="#Java-IO模型" class="headerlink" title="Java IO模型"></a>Java IO模型</h1><h2 id="BIO-Blocking-I-O"><a href="#BIO-Blocking-I-O" class="headerlink" title="BIO (Blocking I&#x2F;O)"></a>BIO (Blocking I&#x2F;O)</h2><p>BIO 属于同步阻塞 IO 模型，同步阻塞 IO 模型中，应用程序发起 read 调用后，会一直阻塞，直到内核把数据拷贝到用户空间。在客户端连接数量不高的情况下，是没问题的。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I&#x2F;O 处理模型来应对更高的并发量。</p>
+<h2 id="NIO-Non-blocking-New-I-O"><a href="#NIO-Non-blocking-New-I-O" class="headerlink" title="NIO (Non-blocking&#x2F;New I&#x2F;O)"></a>NIO (Non-blocking&#x2F;New I&#x2F;O)</h2><p>Java 中的 NIO 于 Java 1.4 中引入，对应 <code>java.nio</code> 包，提供了 <code>Channel</code> , <code>Selector</code>，<code>Buffer</code> 等抽象。它是支持面向缓冲的，基于通道的 I&#x2F;O 操作方法。 对于高负载、高并发的（网络）应用，应使用 NIO。</p>
+<p>Java 异步 I&#x2F;O 机制：</p>
+<ul>
+<li>NIO（java.nio）：<ul>
+<li>引入了非阻塞 I&#x2F;O 和选择器（Selector），基于操作系统的多路复用机制（如 Linux 的 <code>select</code> <code>poll</code> <code>epoll</code>）。</li>
+<li>通过 Selector 和 Channel（如 <code>SocketChannel</code> <code>ServerSocketChannel</code> <code>DatagramChannel</code>），Java 可以实现高效的网络 I&#x2F;O。</li>
+<li>但这是 就绪通知（readiness-based）模型，而不是真正的完成型异步 I&#x2F;O。</li>
+</ul>
+</li>
+<li>NIO.2（Asynchronous I&#x2F;O，Java 7+）：<ul>
+<li>在 java.nio.channels 包中提供了异步通道类，如 <code>AsynchronousSocketChannel</code> <code>AsynchronousFileChannel</code></li>
+<li>支持通过 Future 或回调（CompletionHandler）处理 I&#x2F;O 操作的结果。</li>
+<li>底层实现依赖操作系统的异步 I&#x2F;O 接口：<ul>
+<li>在 Linux 上，<code>AsynchronousFileChannel</code> 使用 <code>POSIX AIO</code> 作为其底层实现机制。<code>AsynchronousSocketChannel</code> 使用 <code>epoll</code></li>
+<li>在 Windows 上，使用 IOCP（I&#x2F;O Completion Ports）。</li>
+<li>在 macOS 上，使用线程池或 kqueue。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Java 原生提供的NIO过于底层，编写复杂度很高，不推荐程序员直接使用，可以通过Netty框架来进行网络编程。</p>
+<h2 id="AIO-Asynchronous-I-O"><a href="#AIO-Asynchronous-I-O" class="headerlink" title="AIO (Asynchronous I&#x2F;O)"></a>AIO (Asynchronous I&#x2F;O)</h2><p>Java</p>
+<ul>
+<li><p>在Window上使用IOCP，是完全异步的模型。</p>
+</li>
+<li><p>在Linux和BSD中 <code>AsynchronousFileChannel</code> 使用 <code>POSIX AIO</code> 作为其底层实现机制是完全异步的操作，但<code>AsynchronousSocketChannel</code> 使用 <code>epoll</code> 加线程池模拟异步行为。</p>
+</li>
+</ul>
+<p>目前Java还没有支持Linux的 <code>io_uring</code> 完全异步IO模型。项目中直接使用AIO的情景很少，主要还是使用NIO，如Netty。</p>
+<p>总结：目前主流的Socket IO基本上使用NIO（事件驱动IO），需要自行编写网络IO可使用Netty，需要使用Spring就使用Spring WebFlux（对Netty封装）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/" rel="prev" title="Spring面向切面编程(AOP)">
+                  <i class="fa fa-angle-left"></i> Spring面向切面编程(AOP)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/" rel="next" title="Spring WebFlux 实现 websocket">
+                  Spring WebFlux 实现 websocket <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">YingZheng</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/caohongchuan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a42405d0302812e0bc9d3966eb01665c"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

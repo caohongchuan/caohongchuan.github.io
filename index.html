@@ -123,13 +123,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -154,6 +154,603 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">Spring WebFlux 实现 websocket</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-07 15:33:03" itemprop="dateCreated datePublished" datetime="2025-04-07T15:33:03+08:00">2025-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-09 09:27:52" itemprop="dateModified" datetime="2025-04-09T09:27:52+08:00">2025-04-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSocketConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">echoWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">EchoWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">chatWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ChatWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">notifyWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NotifyWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SimpleUrlHandlerMapping <span class="title function_">handlerMapping</span><span class="params">(WebSocketHandler echoWebSocketHandler,</span></span><br><span class="line"><span class="params">                                                  WebSocketHandler chatWebSocketHandler,</span></span><br><span class="line"><span class="params">                                                  WebSocketHandler notifyWebSocketHandler)</span> &#123;</span><br><span class="line">        Map&lt;String, WebSocketHandler&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;/echo&quot;</span>, echoWebSocketHandler);</span><br><span class="line">        map.put(<span class="string">&quot;/chat&quot;</span>, chatWebSocketHandler);</span><br><span class="line">        map.put(<span class="string">&quot;/notify&quot;</span>, notifyWebSocketHandler); <span class="comment">// 新增通知端点</span></span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleUrlHandlerMapping</span> <span class="variable">mapping</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleUrlHandlerMapping</span>();</span><br><span class="line">        mapping.setUrlMap(map);</span><br><span class="line">        mapping.setOrder(-<span class="number">1</span>);</span><br><span class="line">        mapping.setCorsConfigurations(Map.of(<span class="string">&quot;*&quot;</span>, <span class="keyword">new</span> <span class="title class_">CorsConfiguration</span>().applyPermitDefaultValues()));</span><br><span class="line">        System.out.println(<span class="string">&quot;WebSocket mappings registered: &quot;</span> + map.keySet());</span><br><span class="line">        <span class="keyword">return</span> mapping;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandlerAdapter <span class="title function_">webSocketHandlerAdapter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">WebSocketHandlerAdapter</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.chc.imserver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.socket.WebSocketHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.socket.WebSocketSession;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NotifyWebSocketHandler</span> <span class="keyword">implements</span> <span class="title class_">WebSocketHandler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">handle</span><span class="params">(WebSocketSession session)</span> &#123;</span><br><span class="line">        Flux&lt;String&gt; notifications = Flux.interval(Duration.ofSeconds(<span class="number">2</span>))</span><br><span class="line">            .map(i -&gt; <span class="string">&quot;Notification &quot;</span> + i + <span class="string">&quot; at &quot;</span> + System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> session.send(notifications.map(session::textMessage));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">Java IO面试合集</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-06 10:30:58" itemprop="dateCreated datePublished" datetime="2025-04-06T10:30:58+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-07 15:08:04" itemprop="dateModified" datetime="2025-04-07T15:08:04+08:00">2025-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="IO流（BIO）"><a href="#IO流（BIO）" class="headerlink" title="IO流（BIO）"></a>IO流（BIO）</h1><p>根据数据传输方式，可以将 IO 类分为:</p>
+<ul>
+<li><p><strong>字节流</strong>：字节流读取单个字节，字节流用来处理二进制文件(图片、MP3、视频文件)。</p>
+<img src="https://pdai.tech/images/io/java-io-category-1.png" style="zoom: 80%;" />
+</li>
+<li><p><strong>字符流</strong>：字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。</p>
+<img src="https://pdai.tech/images/io/java-io-category-2.png" style="zoom: 80%;" /></li>
+</ul>
+<p>根据数据操作对象，可以将 IO 类分为:</p>
+<img src="https://pdai.tech/images/io/java-io-category-3.png" style="zoom:80%;" />
+
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><blockquote>
+<p><strong>装饰者模式（Decorator）</strong>：把装饰者套在被装饰者之上，从而动态扩展被装饰者的功能，装饰器模式通过<strong>组合</strong>替代继承来扩展原始类的功能。即可以在不改变原有对象的情况下拓展其功能。</p>
+</blockquote>
+<img src="https://pdai.tech/images/pics/DP-Decorator-java.io.png" style="zoom:80%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(fileName));</span><br><span class="line"><span class="type">ZipInputStream</span> <span class="variable">zis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipInputStream</span>(bis);</span><br><span class="line"></span><br><span class="line"><span class="type">BufferedOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(fileName));</span><br><span class="line"><span class="type">ZipOutputStream</span> <span class="variable">zipOut</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(bos);</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作系统IO模型"><a href="#操作系统IO模型" class="headerlink" title="操作系统IO模型"></a>操作系统IO模型</h1><p>异步IO</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linux</th>
+<th>MacOS</th>
+<th>Window</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>事件驱动IO</td>
+<td><code>select</code> <code>poll</code> <code>epoll</code></td>
+<td><code>kqueue</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>异步IO</td>
+<td><code>POSIX</code><br /><code>io_uring</code> (kernel5.1+)</td>
+<td>无</td>
+<td><code>IOCP</code></td>
+</tr>
+</tbody></table>
+<p>事件驱动IO &#x2F; IO多路复用</p>
+<table>
+<thead>
+<tr>
+<th>IO模型</th>
+<th>相对性能</th>
+<th>关键思路</th>
+<th>操作系统</th>
+<th>JAVA支持情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>select</code></td>
+<td>较高</td>
+<td>Reactor</td>
+<td>windows&#x2F;Linux</td>
+<td>支持,Reactor模式(反应器设计模式)。Linux操作系统的 kernels 2.4内核版本之前，默认使用select；而目前windows下对同步IO的支持，都是select模型</td>
+</tr>
+<tr>
+<td><code>poll</code></td>
+<td>较高</td>
+<td>Reactor</td>
+<td>Linux</td>
+<td>Linux下的JAVA NIO框架，Linux kernels 2.6内核版本之前使用poll进行支持。也是使用的Reactor模式</td>
+</tr>
+<tr>
+<td><code>epoll</code></td>
+<td>高</td>
+<td>Reactor&#x2F;Proactor</td>
+<td>Linux</td>
+<td>Linux kernels 2.6内核版本及以后使用epoll进行支持；Linux kernels 2.6内核版本之前使用poll进行支持；另外一定注意，由于Linux下没有Windows下的IOCP技术提供真正的 异步IO 支持，所以Linux下使用epoll模拟异步IO</td>
+</tr>
+<tr>
+<td><code>kqueue</code></td>
+<td>高</td>
+<td>Proactor</td>
+<td>FreeBSD&#x2F;MacOS</td>
+<td>目前JAVA的版本不支持</td>
+</tr>
+</tbody></table>
+<h1 id="Java-IO模型"><a href="#Java-IO模型" class="headerlink" title="Java IO模型"></a>Java IO模型</h1><h2 id="BIO-Blocking-I-O"><a href="#BIO-Blocking-I-O" class="headerlink" title="BIO (Blocking I&#x2F;O)"></a>BIO (Blocking I&#x2F;O)</h2><p>BIO 属于同步阻塞 IO 模型，同步阻塞 IO 模型中，应用程序发起 read 调用后，会一直阻塞，直到内核把数据拷贝到用户空间。在客户端连接数量不高的情况下，是没问题的。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I&#x2F;O 处理模型来应对更高的并发量。</p>
+<h2 id="NIO-Non-blocking-New-I-O"><a href="#NIO-Non-blocking-New-I-O" class="headerlink" title="NIO (Non-blocking&#x2F;New I&#x2F;O)"></a>NIO (Non-blocking&#x2F;New I&#x2F;O)</h2><p>Java 中的 NIO 于 Java 1.4 中引入，对应 <code>java.nio</code> 包，提供了 <code>Channel</code> , <code>Selector</code>，<code>Buffer</code> 等抽象。它是支持面向缓冲的，基于通道的 I&#x2F;O 操作方法。 对于高负载、高并发的（网络）应用，应使用 NIO。</p>
+<p>Java 异步 I&#x2F;O 机制：</p>
+<ul>
+<li>NIO（java.nio）：<ul>
+<li>引入了非阻塞 I&#x2F;O 和选择器（Selector），基于操作系统的多路复用机制（如 Linux 的 <code>select</code> <code>poll</code> <code>epoll</code>）。</li>
+<li>通过 Selector 和 Channel（如 <code>SocketChannel</code> <code>ServerSocketChannel</code> <code>DatagramChannel</code>），Java 可以实现高效的网络 I&#x2F;O。</li>
+<li>但这是 就绪通知（readiness-based）模型，而不是真正的完成型异步 I&#x2F;O。</li>
+</ul>
+</li>
+<li>NIO.2（Asynchronous I&#x2F;O，Java 7+）：<ul>
+<li>在 java.nio.channels 包中提供了异步通道类，如 <code>AsynchronousSocketChannel</code> <code>AsynchronousFileChannel</code></li>
+<li>支持通过 Future 或回调（CompletionHandler）处理 I&#x2F;O 操作的结果。</li>
+<li>底层实现依赖操作系统的异步 I&#x2F;O 接口：<ul>
+<li>在 Linux 上，<code>AsynchronousFileChannel</code> 使用 <code>POSIX AIO</code> 作为其底层实现机制。<code>AsynchronousSocketChannel</code> 使用 <code>epoll</code></li>
+<li>在 Windows 上，使用 IOCP（I&#x2F;O Completion Ports）。</li>
+<li>在 macOS 上，使用线程池或 kqueue。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Java 原生提供的NIO过于底层，编写复杂度很高，不推荐程序员直接使用，可以通过Netty框架来进行网络编程。</p>
+<h2 id="AIO-Asynchronous-I-O"><a href="#AIO-Asynchronous-I-O" class="headerlink" title="AIO (Asynchronous I&#x2F;O)"></a>AIO (Asynchronous I&#x2F;O)</h2><p>Java</p>
+<ul>
+<li><p>在Window上使用IOCP，是完全异步的模型。</p>
+</li>
+<li><p>在Linux和BSD中 <code>AsynchronousFileChannel</code> 使用 <code>POSIX AIO</code> 作为其底层实现机制是完全异步的操作，但<code>AsynchronousSocketChannel</code> 使用 <code>epoll</code> 加线程池模拟异步行为。</p>
+</li>
+</ul>
+<p>目前Java还没有支持Linux的 <code>io_uring</code> 完全异步IO模型。项目中直接使用AIO的情景很少，主要还是使用NIO，如Netty。</p>
+<p>总结：目前主流的Socket IO基本上使用NIO（事件驱动IO），需要自行编写网络IO可使用Netty，需要使用Spring就使用Spring WebFlux（对Netty封装）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/04/interview/Spring%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8BAOP/" class="post-title-link" itemprop="url">Spring面向切面编程(AOP)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-04 08:20:21" itemprop="dateCreated datePublished" datetime="2025-04-04T08:20:21+08:00">2025-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-05 13:44:28" itemprop="dateModified" datetime="2025-04-05T13:44:28+08:00">2025-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="面向切面编程-AOP-VS-面向对象编程（OOP）"><a href="#面向切面编程-AOP-VS-面向对象编程（OOP）" class="headerlink" title="面向切面编程(AOP) VS 面向对象编程（OOP）"></a>面向切面编程(AOP) VS 面向对象编程（OOP）</h1><blockquote>
+<p>OOP面向对象编程，针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程的某个步骤或阶段，以获得逻辑过程的中各部分之间低耦合的隔离效果。</p>
+<ul>
+<li>OOP：从纵向解决代码重复问题</li>
+<li>AOP：从横向解决代码重复问题，取代了传统从纵向继承体系重复代码（性能监控、事务管理、缓存，日志等）将业务逻辑与系统处理代码进行解耦。</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250404085620522.png" alt="image-20250404085620522"></p>
+<p>图左结构为正常AOP架构，日志处理会被加入到每一个方法中。图右结构为AOP架构，日志处理会被抽离出来，方法中不需要处理日志，会被AOP以切面的形式添加到每个方法开始之前。</p>
+<ul>
+<li><p><strong>连接点（Jointpoint）</strong>：表示需要在程序中插入横切关注点的扩展点，<strong>连接点可能是类初始化、方法执行、方法调用、字段调用或处理异常等等</strong>，<em>Spring只支持方法执行连接点</em>，在AOP中表示为<strong>在哪里干</strong>；</p>
+</li>
+<li><p><strong>切入点（Pointcut）</strong>： 选择一组相关连接点的模式，即可以认为连接点的集合，Spring支持perl5正则表达式和AspectJ切入点模式，Spring默认使用AspectJ语法，在AOP中表示为<strong>在哪里干的集合</strong>；</p>
+</li>
+<li><p><strong>通知（Advice）</strong>：在连接点上执行的行为，通知提供了在AOP中需要在切入点所选择的连接点处进行扩展现有行为的手段；包括前置通知（before advice）、后置通知(after advice)、环绕通知（around advice），在Spring中通过代理模式实现AOP，并通过拦截器模式以环绕连接点的拦截器链织入通知；在AOP中表示为<strong>干什么</strong>。</p>
+</li>
+<li><p><strong>切面（Aspect）</strong>：横切关注点的模块化，比如上边提到的日志组件。可以认为是通知和切入点的组合；在Spring中可以使用Schema和@AspectJ方式进行组织实现；在AOP中表示为<strong>在哪干和干什么集合</strong>。</p>
+</li>
+</ul>
+<h1 id="Spring-AOP和AspectJ"><a href="#Spring-AOP和AspectJ" class="headerlink" title="Spring AOP和AspectJ"></a>Spring AOP和AspectJ</h1><blockquote>
+<p>AspectJ是一个Java实现的AOP框架，它能够对Java代码进行AOP编译（一般在编译期进行），让Java代码具有AspectJ的AOP功能（需要特殊的编译器）</p>
+</blockquote>
+<blockquote>
+<p>Spring 框架通过定义切面, 通过拦截切点实现了不同业务模块的解耦，这个就叫**面向切面编程 - Aspect Oriented Programming (AOP)**。</p>
+<p>AOP的本质也是为了解耦，通过<strong>预编译方式</strong>和<strong>运行期间动态代理</strong>实现程序的统一维护的一种技术。</p>
+</blockquote>
+<p>区别：</p>
+<ul>
+<li><p>AspectJ是更强的AOP框架，是实际意义的<strong>AOP标准</strong>；</p>
+</li>
+<li><p>Spring AOP使用纯Java实现, 它不需要专门的编译过程, 它一个<strong>重要的原则就是无侵入性（non-invasiveness）</strong>。</p>
+</li>
+<li><p>Spring小组喜欢@AspectJ注解风格更胜于Spring XML配置，在Spring 2.0使用了和AspectJ 5一样的注解，并使用AspectJ来做切入点解析和匹配。<strong>但是，AOP在运行时仍旧是纯的Spring AOP，并不依赖于AspectJ的编译器或者织入器（weaver）</strong>。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Spring AOP</th>
+<th>AspectJ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在纯 Java 中实现</td>
+<td>使用 Java 编程语言的扩展实现</td>
+</tr>
+<tr>
+<td>不需要单独的编译过程</td>
+<td>除非设置 LTW，否则需要 AspectJ 编译器 (ajc)</td>
+</tr>
+<tr>
+<td>只能使用运行时织入</td>
+<td>运行时织入不可用。支持编译时、编译后和加载时织入</td>
+</tr>
+<tr>
+<td>功能不强-仅支持方法级编织</td>
+<td>更强大 - 可以编织字段、方法、构造函数、静态初始值设定项、最终类&#x2F;方法等</td>
+</tr>
+<tr>
+<td>只能在由 Spring 容器管理的 bean 上实现</td>
+<td>可以在所有域对象上实现</td>
+</tr>
+<tr>
+<td>仅支持方法执行切入点</td>
+<td>支持所有切入点</td>
+</tr>
+<tr>
+<td>代理是由目标对象创建的, 并且切面应用在这些代理上</td>
+<td>在执行应用程序之前 (在运行时) 前, 各方面直接在代码中进行织入</td>
+</tr>
+<tr>
+<td>比 AspectJ 慢多了</td>
+<td>更好的性能</td>
+</tr>
+<tr>
+<td>易于学习和应用</td>
+<td>相对于 Spring AOP 来说更复杂</td>
+</tr>
+</tbody></table>
+<p>织入器（weaver）：织入分为动态织入和静态织入，织入可以理解为将切面应用到目标函数中，即定义切面后，需要将切面织入到目标代码内。</p>
+<ul>
+<li><p><strong>动态织入</strong>的方式是在运行时动态将要增强的代码织入到目标类中，这样往往是通过动态代理技术完成的，如Java JDK的动态代理(Proxy，底层通过反射实现)或者CGLIB的动态代理(底层通过继承实现)，Spring AOP采用的就是基于运行时增强的代理技术</p>
+</li>
+<li><p>ApectJ采用的就是<strong>静态织入</strong>的方式。ApectJ主要采用的是编译期织入，在这个期间使用AspectJ的acj编译器(类似javac)把aspect类编译成class字节码后，在java目标类编译时织入，即先编译aspect类再编译目标类。</p>
+</li>
+</ul>
+<h1 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h1><blockquote>
+<p>Spring AOP 支持对XML模式和基于@AspectJ注解的两种配置方式。</p>
+</blockquote>
+<h2 id="XML模式"><a href="#XML模式" class="headerlink" title="XML模式"></a>XML模式</h2><p>定义业务实现类<code>xxxServiceImpl.java</code>，定义切面类<code>xxxAspect.java</code>，编写XML配置文件<code>xxx.xml</code>。将业务实现类和切面类注册为bean，然后配置切面（切面中包含切入点和通知类型）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;tech.pdai.springframework&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 目标类 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- configure properties of bean here as normal --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 切面 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- configure properties of aspect here as normal --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置切面 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 配置切入点 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;execution(* xxx.service.*.*(..))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 环绕通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;doAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 前置通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;doBefore&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 后置通知；returning属性：用于设置后置通知的第二个参数的名称，类型是Object --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;doAfterReturning&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 异常通知：如果没有异常，将不会执行增强；throwing属性：用于设置通知第二个参数的的名称、类型--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;doAfterThrowing&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;e&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 最终通知 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;doAfter&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutMethod&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-AOP注解"><a href="#Spring-AOP注解" class="headerlink" title="Spring AOP注解"></a>Spring AOP注解</h2><table>
+<thead>
+<tr>
+<th>注解名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Aspect</td>
+<td>用来定义一个切面。</td>
+</tr>
+<tr>
+<td>@pointcut</td>
+<td>用于定义切入点表达式。在使用时还需要定义一个包含名字和任意参数的方法签名来表示切入点名称，这个方法签名就是一个返回值为void，且方法体为空的普通方法。</td>
+</tr>
+<tr>
+<td>@Before</td>
+<td>用于定义前置通知，相当于BeforeAdvice。在使用时，通常需要指定一个value属性值，该属性值用于指定一个切入点表达式(可以是已有的切入点，也可以直接定义切入点表达式)。</td>
+</tr>
+<tr>
+<td>@AfterReturning</td>
+<td>用于定义后置通知，相当于AfterReturningAdvice。在使用时可以指定pointcut &#x2F; value和returning属性，其中pointcut &#x2F; value这两个属性的作用一样，都用于指定切入点表达式。</td>
+</tr>
+<tr>
+<td>@Around</td>
+<td>用于定义环绕通知，相当于MethodInterceptor。在使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td>@After-Throwing</td>
+<td>用于定义异常通知来处理程序中未处理的异常，相当于ThrowAdvice。在使用时可指定pointcut &#x2F; value和throwing属性。其中pointcut&#x2F;value用于指定切入点表达式，而throwing属性值用于指定-一个形参名来表示Advice方法中可定义与此同名的形参，该形参可用于访问目标方法抛出的异常。</td>
+</tr>
+<tr>
+<td>@After</td>
+<td>用于定义最终final 通知，不管是否异常，该通知都会执行。使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td>@DeclareParents</td>
+<td>用于定义引介通知，相当于IntroductionInterceptor。</td>
+</tr>
+</tbody></table>
+<h2 id="定义日志注解"><a href="#定义日志注解" class="headerlink" title="定义日志注解"></a>定义日志注解</h2><p>首先定义一个日志注解，该注解用来标记需要被切面处理的方法上。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Loggable &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义切面"><a href="#定义切面" class="headerlink" title="定义切面"></a>定义切面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoggingAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Pointcut(&quot;@annotation(top.chc.aspectdemo.aspect.Loggable)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">loggable</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;loggable()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">beforeAdvice</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Before the method is called&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<strong>切入点</strong>是注解<code>Loggable</code>，然后通过<code>@Before @After</code>等注解定义<strong>通知</strong>。</p>
+<h2 id="放置注解"><a href="#放置注解" class="headerlink" title="放置注解"></a>放置注解</h2><p>将注解放置到业务代码中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserServiceImpl</span> &#123;</span><br><span class="line">    <span class="meta">@Loggable</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getUser</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;User name: %s\n&quot;</span>, name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式是侵入式的，会在业务代码中添加了<code>@Loggable</code>注解。</p>
+<p>可以在定义切面的时候，直接将切入点定义到具体的业务类方法上，而不是注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogAspect</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(LogAspect.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义切点（这里以controller包下的所有方法为例）</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.controller..*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logPointcut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 前置通知：在方法执行前记录日志</span></span><br><span class="line">    <span class="meta">@Before(&quot;logPointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logBefore</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法开始执行: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.info(<span class="string">&quot;入参: &#123;&#125;&quot;</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 后置通知：在方法执行后记录日志</span></span><br><span class="line">    <span class="meta">@AfterReturning(pointcut = &quot;logPointcut()&quot;, returning = &quot;result&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logAfterReturning</span><span class="params">(JoinPoint joinPoint, Object result)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法执行结束: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.info(<span class="string">&quot;返回结果: &#123;&#125;&quot;</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异常通知：在方法抛出异常时记录日志</span></span><br><span class="line">    <span class="meta">@AfterThrowing(pointcut = &quot;logPointcut()&quot;, throwing = &quot;exception&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logAfterThrowing</span><span class="params">(JoinPoint joinPoint, Throwable exception)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.error(<span class="string">&quot;方法执行异常: &#123;&#125;.&#123;&#125;&quot;</span>, className, methodName);</span><br><span class="line">        logger.error(<span class="string">&quot;异常信息: &quot;</span>, exception);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 环绕通知：可以控制方法执行的整个过程</span></span><br><span class="line">    <span class="meta">@Around(&quot;logPointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">logAround</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 执行目标方法</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> joinPoint.proceed();</span><br><span class="line">        </span><br><span class="line">        <span class="type">long</span> <span class="variable">timeCost</span> <span class="operator">=</span> System.currentTimeMillis() - startTime;</span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getSimpleName();</span><br><span class="line">        </span><br><span class="line">        logger.info(<span class="string">&quot;方法: &#123;&#125;.&#123;&#125; 执行耗时: &#123;&#125;ms&quot;</span>, className, methodName, timeCost);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Pointcut</code>：定义切入点，可以使用不同的表达式</p>
+<ul>
+<li><code>execution(* com.example..*.*(..))</code>：匹配指定包下的所有方法</li>
+<li><code>within(com.example.controller.*)</code>：匹配指定包下的所有类</li>
+<li><code>@annotation(com.example.annotation.Log)</code>：匹配带有特定注解的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 任意公共方法的执行：</span></span><br><span class="line">execution（<span class="keyword">public</span> * *（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个名字以“set”开始的方法的执行：</span></span><br><span class="line">execution（* set*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// AccountService接口定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service.AccountService.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包中定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service.*.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包或其子包中定义的任意方法的执行：</span></span><br><span class="line">execution（* com.xyz.service..*.*（..））</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包中的任意连接点（在Spring AOP中只是方法执行）：</span></span><br><span class="line">within（com.xyz.service.*）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在service包或其子包中的任意连接点（在Spring AOP中只是方法执行）：</span></span><br><span class="line">within（com.xyz.service..*）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现了AccountService接口的代理对象的任意连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line"><span class="built_in">this</span>（com.xyz.service.AccountService）<span class="comment">// &#x27;this&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现AccountService接口的目标对象的任意连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line">target（com.xyz.service.AccountService） <span class="comment">// &#x27;target&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个只接受一个参数，并且运行时所传入的参数是Serializable 接口的连接点（在Spring AOP中只是方法执行）</span></span><br><span class="line">args（java.io.Serializable） <span class="comment">// &#x27;args&#x27;在绑定表单中更加常用; 请注意在例子中给出的切入点不同于 execution(* *(java.io.Serializable))： args版本只有在动态运行时候传入参数是Serializable时才匹配，而execution版本在方法签名中声明只有一个 Serializable类型的参数时候匹配。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标对象中有一个 @Transactional 注解的任意连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@target</span>（org.springframework.transaction.annotation.Transactional）<span class="comment">// &#x27;@target&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个目标对象声明的类型有一个 @Transactional 注解的连接点 （在Spring AOP中只是方法执行）：</span></span><br><span class="line"><span class="meta">@within</span>（org.springframework.transaction.annotation.Transactional） <span class="comment">// &#x27;@within&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个执行的方法有一个 @Transactional 注解的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@annotation</span>（org.springframework.transaction.annotation.Transactional） <span class="comment">// &#x27;@annotation&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个只接受一个参数，并且运行时所传入的参数类型具有@Classified 注解的连接点（在Spring AOP中只是方法执行）</span></span><br><span class="line"><span class="meta">@args</span>（com.xyz.security.Classified） <span class="comment">// &#x27;@args&#x27;在绑定表单中更加常用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个在名为&#x27;tradeService&#x27;的Spring bean之上的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line">bean（tradeService）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何一个在名字匹配通配符表达式&#x27;*Service&#x27;的Spring bean之上的连接点 （在Spring AOP中只是方法执行）</span></span><br><span class="line">bean（*Service）</span><br><span class="line">    </span><br><span class="line"><span class="comment">// &amp;&amp;：要求连接点同时匹配两个切入点表达式</span></span><br><span class="line"><span class="comment">// ||：要求连接点匹配任意个切入点表达式</span></span><br><span class="line"><span class="comment">// !:：要求连接点不匹配指定的切入点表达式</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>Spring AOP比完全使用AspectJ更加简单， 因为它不需要引入AspectJ的编译器&#x2F;织入器到你开发和构建过程中。 如果你<strong>仅仅需要在Spring bean上通知执行操作，那么Spring AOP是合适的选择</strong>。</li>
+<li>如果你需要通知domain对象或其它没有在Spring容器中管理的任意对象，那么你需要使用AspectJ。</li>
+<li>如果你想通知除了简单的方法执行之外的连接点（调用连接点、字段get或set的连接点等等）， 也需要使用AspectJ。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/02/cf/%E6%A0%91%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/04/02/cf/%E6%A0%91%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="post-title-link" itemprop="url">二叉搜索树</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-04-02 16:35:56 / Modified: 16:39:05" itemprop="dateCreated datePublished" datetime="2025-04-02T16:35:56+08:00">2025-04-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/data-structure/" itemprop="url" rel="index"><span itemprop="name">data_structure</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1381,502 +1978,6 @@
 <p>基本类型数组：向Arrays.sort传入<code>Comparator</code>接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] points;</span><br><span class="line">Arrays.sort(points, (o1, o2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (o1[<span class="number">1</span>] != o2[<span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">1</span>], o2[<span class="number">1</span>]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">0</span>], o2[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/03/01/cf/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/01/cf/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">基本数据结构</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-03-01 22:10:06" itemprop="dateCreated datePublished" datetime="2025-03-01T22:10:06+08:00">2025-03-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-03 11:33:52" itemprop="dateModified" datetime="2025-03-03T11:33:52+08:00">2025-03-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="最小（大）堆"><a href="#最小（大）堆" class="headerlink" title="最小（大）堆"></a>最小（大）堆</h1><p>最小堆的主要操作：</p>
-<ul>
-<li>将已有数组进行堆化</li>
-<li>向最小堆中的添加，删除操作</li>
-<li>将最小堆的数组排序化</li>
-</ul>
-<h2 id="堆化已有数组"><a href="#堆化已有数组" class="headerlink" title="堆化已有数组"></a>堆化已有数组</h2><blockquote>
-<p>从最后一个非叶子节点开始向下调整。</p>
-</blockquote>
-<p>向下调整：</p>
-<ul>
-<li>选择左右儿子中值更大且大于本节点值的节点，与本节点交换位置（本节点值大于左右儿子时不需要操作）</li>
-<li>交换后，将交换后的儿子节点继续执行向下调整</li>
-</ul>
-<p>向上调整：</p>
-<ul>
-<li>将儿子元素与父亲比较，如果儿子元素大于父亲元素，则与父亲元素交换</li>
-<li>交换后，堆交换后的父亲节点继续执行向上调整</li>
-</ul>
-<p>在一个完全二叉树中，最后一个非叶子节点是 $n&#x2F;2-1$，对所有的非叶子节点执行向下调整。完成后数组elements即成为最小（大）堆。</p>
-<p>添加元素：将元素添加到数组最后（完全二叉树最后一个叶子节点）然后对该元素执行向上调整</p>
-<p>删除元素：删除根节点元素（数组第一个元素），将最后一个元素赋值给根节点并对根节点执行向下调整</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">minHeap</span>&lt;T <span class="keyword">extends</span> <span class="title class_">Comparable</span>&lt;T&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T[] elements;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">minHeap</span><span class="params">(T[] arr)</span> &#123;</span><br><span class="line">        elements = Arrays.copyOf(arr, arr.length);        </span><br><span class="line">        <span class="comment">// 对所有非叶子节点执行向下调整</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> arr.length / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            downMove(elements, i, elements.length - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//向下调整</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">downMove</span><span class="params">(T[] elements, <span class="type">int</span> start, <span class="type">int</span> end)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">parent</span> <span class="operator">=</span> start;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start * <span class="number">2</span> + <span class="number">1</span>; i &lt;= end; i = i * <span class="number">2</span> + <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//选择左右儿子中较大的</span></span><br><span class="line">            <span class="keyword">if</span> (i &lt; end &amp;&amp; elements[i].compareTo(elements[i + <span class="number">1</span>]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果较大的儿子比父亲值还大，需要交换位置，并对儿子节点继续向下调整，否则退出循环</span></span><br><span class="line">            <span class="keyword">if</span> (elements[i].compareTo(elements[parent]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">T</span> <span class="variable">tmp</span> <span class="operator">=</span> elements[parent];</span><br><span class="line">                elements[parent] = elements[i];</span><br><span class="line">                elements[i] = tmp;</span><br><span class="line">                parent = i;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ds;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">minHeap</span>&lt;T <span class="keyword">extends</span> <span class="title class_">Comparable</span>&lt;T&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T[] elements;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">minHeap</span><span class="params">(T[] arr, <span class="type">int</span> size)</span> &#123;</span><br><span class="line">        size = arr.length;</span><br><span class="line">        elements = Arrays.copyOf(arr, Math.max(arr.length, size));</span><br><span class="line">        <span class="comment">// 对所有非叶子节点执行向下调整</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> arr.length / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            downMove(elements, i, elements.length - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向下调整</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">downMove</span><span class="params">(T[] elements, <span class="type">int</span> start, <span class="type">int</span> end)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">parent</span> <span class="operator">=</span> start;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start * <span class="number">2</span> + <span class="number">1</span>; i &lt;= end; i = i * <span class="number">2</span> + <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 选择左右儿子中较大的</span></span><br><span class="line">            <span class="keyword">if</span> (i &lt; end &amp;&amp; elements[i].compareTo(elements[i + <span class="number">1</span>]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果较大的儿子比父亲值还大，需要交换位置，并对儿子节点继续向下调整，否则退出循环</span></span><br><span class="line">            <span class="keyword">if</span> (elements[i].compareTo(elements[parent]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">T</span> <span class="variable">tmp</span> <span class="operator">=</span> elements[parent];</span><br><span class="line">                elements[parent] = elements[i];</span><br><span class="line">                elements[i] = tmp;</span><br><span class="line">                parent = i;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">upMove</span><span class="params">(T[] elements, <span class="type">int</span> start)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">child</span> <span class="operator">=</span> start;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (start - <span class="number">1</span>) / <span class="number">2</span>; i &gt; <span class="number">0</span>; i = (i - <span class="number">1</span>) / <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (elements[child].compareTo(elements[i]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">T</span> <span class="variable">tmp</span> <span class="operator">=</span> elements[child];</span><br><span class="line">                elements[child] = elements[i];</span><br><span class="line">                elements[i] = tmp;</span><br><span class="line">                child = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加元素至最后一个位置并向上调整</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(T element)</span> &#123;</span><br><span class="line">        elements[size] = element;</span><br><span class="line">        upMove(elements, size);</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最后一个元素覆盖第一个元素并向下调整</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">        elements[<span class="number">0</span>] = elements[size - <span class="number">1</span>];</span><br><span class="line">        size--;</span><br><span class="line">        downMove(elements, <span class="number">0</span>, size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T[] heapSort() &#123;</span><br><span class="line">        sortArrayFromHeap(elements);</span><br><span class="line">        <span class="keyword">return</span> elements;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sortArrayFromHeap</span><span class="params">(T[] elements)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> elements.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="type">T</span> <span class="variable">tmp</span> <span class="operator">=</span> elements[<span class="number">0</span>];</span><br><span class="line">            elements[<span class="number">0</span>] = elements[i];</span><br><span class="line">            elements[i] = tmp;</span><br><span class="line">            downMove(elements, <span class="number">0</span>, i - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] arr = &#123; -<span class="number">4</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">9</span>, -<span class="number">5</span>, -<span class="number">1</span>, <span class="number">0</span>, -<span class="number">7</span>, -<span class="number">1</span> &#125;;</span><br><span class="line">        Integer[] arrInteger = Arrays.stream(arr).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">        minHeap&lt;Integer&gt; m = <span class="keyword">new</span> <span class="title class_">minHeap</span>&lt;&gt;(arrInteger, arrInteger.length + <span class="number">10</span>);</span><br><span class="line">        m.add(<span class="number">10</span>);</span><br><span class="line">        <span class="type">int</span>[] res = Arrays.stream(m.elements).mapToInt(Integer::intValue).toArray();</span><br><span class="line">        System.out.println(Arrays.toString(res));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/02/19/springboot/SpringBoot%20Swagger/" class="post-title-link" itemprop="url">SpringBoot Swagger</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2025-02-19 10:48:34 / Modified: 12:34:58" itemprop="dateCreated datePublished" datetime="2025-02-19T10:48:34+08:00">2025-02-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><p>SpringBoot依赖<a target="_blank" rel="noopener" href="https://springdoc.org/">springdoc-openapi</a>对接口API进行注解</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>配置信息<code>application.yml</code>中添加swagger-ui</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">springdoc:</span></span><br><span class="line">    <span class="attr">swagger-ui:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">swagger-ui.html</span></span><br></pre></td></tr></table></figure>
-
-<p>启动项目后就可以通过 <code>https://localhost:8443/swagger-ui.html</code> 或者<code>https://localhost:8443/swagger-ui/index.html#/</code>访问后端接口信息。</p>
-<h1 id="Swagger-注解"><a href="#Swagger-注解" class="headerlink" title="Swagger 注解"></a>Swagger 注解</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52774158/article/details/131081371">Swagger Annotation Tutorial</a></p>
-<h2 id="Tag"><a href="#Tag" class="headerlink" title="@Tag"></a>@Tag</h2><p>API分组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Tag(name = &quot;OAuth2 Authorization&quot;, description = &quot;OAuth2 登陆接口&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Operation"><a href="#Operation" class="headerlink" title="@Operation"></a>@Operation</h2><p>用于描述API操作</p>
-<ul>
-<li>summary：操作的摘要信息。</li>
-<li>description：操作的详细描述。</li>
-<li>tags：指定 @Tag 注解的对象数组，用于将操作归类到特定的分组。</li>
-<li>parameters：指定 @Parameter 注解的对象数组，用于描述操作的输入参数</li>
-<li>responses：指定 @ApiResponse 注解的对象数组，用于描述操作的响应结果。</li>
-<li>requestBody：指定 @RequestBody 注解的对象，用于描述操作的请求体。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;跳转到 OAuth2 授权页面&quot;, description = &quot;两次重定向，跳转到Github登陆页面，登陆后与后端交换Token，最后跳转到origin_url&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Parameter"><a href="#Parameter" class="headerlink" title="@Parameter"></a>@Parameter</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Parameter(name = &quot;origin_url&quot;, required = true, description = &quot;OAuth2流程结束后会跳转到该URL&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiResponse(responseCode = &quot;301&quot;, description = &quot;两次跳转到Github登陆窗口&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="OpenAPIDefinition"><a href="#OpenAPIDefinition" class="headerlink" title="@OpenAPIDefinition"></a>@OpenAPIDefinition</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">        info = @Info(</span></span><br><span class="line"><span class="meta">                title = &quot;User Manager API&quot;,</span></span><br><span class="line"><span class="meta">                version = &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="meta">                description = &quot;用户信息管理API&quot;,</span></span><br><span class="line"><span class="meta">                contact = @Contact(</span></span><br><span class="line"><span class="meta">                        name = &quot;yingzheng&quot;,</span></span><br><span class="line"><span class="meta">                        email = &quot;yingzhengttt@gmail.com&quot;</span></span><br><span class="line"><span class="meta">                )</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">)</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/17/react/electron_nextjs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/02/17/react/electron_nextjs/" class="post-title-link" itemprop="url">NextJs集成Electron</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-02-17 10:30:47" itemprop="dateCreated datePublished" datetime="2025-02-17T10:30:47+08:00">2025-02-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-18 15:23:29" itemprop="dateModified" datetime="2025-02-18T15:23:29+08:00">2025-02-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/frontend/" itemprop="url" rel="index"><span itemprop="name">frontend</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>Electron 简单来说就是一个浏览器套壳打包方案，相当于你开发了一个网页后，通过浏览器能访问这个网页；然后如果你想把网页打包成一个单独的应用的话，可以使用Electron，它内置了 chromium 和 node.js 运行环境，使用 Electron 相当于构建了一个只显示你的网页的浏览器程序。而且Electron可以通过node.js提供一些浏览器不能提供的功能。</p>
-<p>Electron 支持 <strong>URL 加载</strong>和<strong>文件加载</strong>两种方式。</p>
-<ul>
-<li>URL加载是传入一个URL，显示URL内容。</li>
-<li>文件加载是传入HTML文件，Electron通过文件渲染内容。</li>
-</ul>
-<p>理论上来说，只要能进行静态导出，就能兼容各种前端框架。同时也提供了 Next.js 动态路由的加载的方式。</p>
-</blockquote>
-<h2 id="创建Nextjs工程文件"><a href="#创建Nextjs工程文件" class="headerlink" title="创建Nextjs工程文件"></a>创建Nextjs工程文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app@latest electron_nextjs</span><br></pre></td></tr></table></figure>
-
-<p>创建参数全部使用默认即可（使用Typescript，使用Tailwind CSS，使用App Router）</p>
-<h2 id="打包Nextjs工程"><a href="#打包Nextjs工程" class="headerlink" title="打包Nextjs工程"></a>打包Nextjs工程</h2><p>在<code>package.json</code>的scripts中已经有了build。</p>
-<p>Nextjs打包有两种方式（需要配置<code>next.config.js</code>）：</p>
-<ul>
-<li><p>静态模式</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next.config.js</span></span><br><span class="line"><span class="keyword">import</span> type &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;export&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动态模式</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next.config.js</span></span><br><span class="line"><span class="keyword">import</span> type &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;standalone&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>静态模式</strong>是将工程压缩到一个HTML中，Electron只需要使用文件加载加载该HTML即可。但静态模式无法进行网络请求所以只用在一些仅展示的页面中，比如博客，公司简介等。</p>
-<p>静态导出会将内容导出到<code>out/</code>目录下的<code>index.html</code>中，后续Electron只需要加载该文件即可（本文不讨论）：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line">mainWindow.<span class="title function_">loadFile</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../out/index.html&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>本文采用<strong>动态模式</strong>，即Nextjs将以standalone模式进行打包，文件被导出到<code>.next/standalone</code>文件夹下，其中有<code>server.js</code>用于启动该项目。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node ./server.js</span><br></pre></td></tr></table></figure>
-
-<p>为了将公共资源包也整合进<code>.next/standalone</code>，需要重定义package.json中的<code>next build</code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package.json</span></span><br><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
-<p>定义<code>build:next</code>脚本，执行<code>next build</code>后将<code>public</code>和<code>.next/static</code>导入到 <code>.next/standalone</code>中。</p>
-<p>执行<code>npm run build:next</code> 即可打包Nextjs项目，然后进入<code>.next/standalone</code>使用<code>node ./server.js</code>启动Nextjs项目。</p>
-<p>至此，Nextjs的打包过程就完成了。</p>
-<h2 id="配置Electron"><a href="#配置Electron" class="headerlink" title="配置Electron"></a>配置Electron</h2><p>根据<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/tutorial/tutorial-first-app#initializing-your-npm-project">Electron官网</a>，将Electron依赖加入到项目中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron --save-dev</span><br></pre></td></tr></table></figure>
-
-<p>为了能同时启动Nextjs和Electron，安装<code>concurrently</code>依赖包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install concurrently --save-dev</span><br></pre></td></tr></table></figure>
-
-<p>创建<code>main/main.js</code>文件作为Electron的启动入口，以及<code>main/preload.js</code>作为主进程与渲染进程的桥梁。</p>
-<p>添加包依赖，需要在<code>main/main.js</code>中使用，<code>electron-is-dev</code>用于判断是否处于dev开发过程，<code>get-port-please</code>是用于获取一个未被使用的端口，用于启动nextjs的standalone。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron-is-dev get-port-please</span><br></pre></td></tr></table></figure>
-
-<p><code>main/main.js</code></p>
-<p>主要功能实现（第一个功能在后续Nextjs中会用到，目前没用）：</p>
-<ul>
-<li>关闭系统自带状态栏，启用自定义按钮。（需要在前端css设置 <code>app-region: drag</code>，提供可拖拽区域）。</li>
-<li>loadURL前进行轮训，直至nextjs服务启动，保证Electron加载URL时，Nextjs已经启动。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main/main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;app, <span class="title class_">BrowserWindow</span>&#125; <span class="keyword">from</span> <span class="string">&quot;electron&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> isDev <span class="keyword">from</span> <span class="string">&quot;electron-is-dev&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&quot;http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;fileURLToPath&#125; <span class="keyword">from</span> <span class="string">&#x27;url&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;dirname&#125; <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&quot;node:path&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;getPort&#125; <span class="keyword">from</span> <span class="string">&quot;get-port-please&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;startServer&#125; <span class="keyword">from</span> <span class="string">&quot;next/dist/server/lib/start-server.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> __filename = <span class="title function_">fileURLToPath</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>);</span><br><span class="line"><span class="keyword">const</span> __dirname = <span class="title function_">dirname</span>(__filename);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> win = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断Nextjs是否启动成功，每一秒检查一次</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">waitForNextJs</span> = (<span class="params">bg_url</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            http.<span class="title function_">get</span>(bg_url, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (res.<span class="property">statusCode</span> === <span class="number">200</span>) &#123;</span><br><span class="line">                    <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">                    <span class="title function_">resolve</span>(); <span class="comment">// Next.js 启动完成</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Next.js not yet started, retrying...&#x27;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动Nextjs standalone包</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">startNextJSServer</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> nextJSPort = <span class="keyword">await</span> <span class="title function_">getPort</span>(&#123;<span class="attr">portRange</span>: [<span class="number">3000</span>, <span class="number">8000</span>]&#125;);</span><br><span class="line">        <span class="keyword">const</span> webDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;../.next/standalone/&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;path: &quot;</span> + webDir);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">startServer</span>(&#123;</span><br><span class="line">            <span class="attr">dir</span>: webDir,</span><br><span class="line">            <span class="attr">isDev</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">hostname</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">            <span class="attr">port</span>: nextJSPort,</span><br><span class="line">            <span class="attr">customServer</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">allowRetry</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">keepAliveTimeout</span>: <span class="number">5000</span>,</span><br><span class="line">            <span class="attr">minimalMode</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nextJSPort;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error starting Next.js server:&quot;</span>, error);</span><br><span class="line">        <span class="keyword">throw</span> error;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// BrowserWindow使用自定义状态栏</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">createWindow</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">        <span class="attr">width</span>: <span class="number">1000</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">800</span>,</span><br><span class="line">        <span class="attr">minWidth</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">minHeight</span>: <span class="number">400</span>,</span><br><span class="line">        <span class="attr">titleBarStyle</span>: <span class="string">&#x27;hidden&#x27;</span>,   <span class="comment">//关闭系统自带状态栏</span></span><br><span class="line">        <span class="attr">titleBarOverlay</span>: &#123;</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">            <span class="attr">symbolColor</span>: <span class="string">&#x27;rgba(255, 255, 255, 0)&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;preload.js&#x27;</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 首先加载Loading页面，等待Nextjs的启动</span></span><br><span class="line">    win.<span class="title function_">loadFile</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public/loading.html&#x27;</span>));</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">loadURL</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (isDev) &#123;</span><br><span class="line">            <span class="keyword">const</span> bg_url = <span class="string">&quot;http://localhost:3000&quot;</span>;</span><br><span class="line">            <span class="title function_">waitForNextJs</span>(bg_url).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                win.<span class="title function_">setTitleBarOverlay</span>(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">                    <span class="attr">symbolColor</span>: <span class="string">&#x27;#74b1be&#x27;</span>,</span><br><span class="line">                    <span class="attr">height</span>: <span class="number">40</span></span><br><span class="line">                &#125;)</span><br><span class="line">                win.<span class="title function_">loadURL</span>(bg_url);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 启动 nextjs 打包后的 standalone 并获取启动 端口</span></span><br><span class="line">                <span class="keyword">const</span> port = <span class="keyword">await</span> <span class="title function_">startNextJSServer</span>();</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Next.js server started on port:&quot;</span>, port);</span><br><span class="line">                win.<span class="title function_">setTitleBarOverlay</span>(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">                    <span class="attr">symbolColor</span>: <span class="string">&#x27;#74b1be&#x27;</span>,</span><br><span class="line">                    <span class="attr">height</span>: <span class="number">40</span></span><br><span class="line">                &#125;)</span><br><span class="line">                win.<span class="title function_">loadURL</span>(<span class="string">`http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error starting Next.js server:&quot;</span>, error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="title function_">loadURL</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// win.webContents.openDevTools();</span></span><br><span class="line">    <span class="comment">// win.webContents.on(&quot;did-fail-load&quot;, (e, code, desc) =&gt; &#123;</span></span><br><span class="line">    <span class="comment">//     win.webContents.reloadIgnoringCache();</span></span><br><span class="line">    <span class="comment">// &#125;);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">disableHardwareAcceleration</span>();</span><br><span class="line">app.<span class="title function_">whenReady</span>().<span class="title function_">then</span>(createWindow)</span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&quot;window-all-closed&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (process.<span class="property">platform</span> !== <span class="string">&quot;darwin&quot;</span>) &#123;</span><br><span class="line">        app.<span class="title function_">quit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><code>main/preload.js</code></p>
-<p>目前没有使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main/preload.js</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在<code>public/</code>目录下创建<code>loading.html</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--public/loading.html--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100vh</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100vw</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, red, blue);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>设置<code>package.json</code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nextjs_electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron ./main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;concurrently --kill-others  \&quot;npm run dev:next\&quot; \&quot;npm run dev:electron\&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>执行 <code>npm run dev</code> 同时启动Nextjs和Electron。（目前窗口时不能拖动的，后续会在Nextjs中添加）</p>
-<h2 id="Electron-Forge打包Electron"><a href="#Electron-Forge打包Electron" class="headerlink" title="Electron Forge打包Electron"></a>Electron Forge打包Electron</h2><p>根据<a target="_blank" rel="noopener" href="https://www.electronforge.io/import-existing-project#using-the-import-script">Electron Forge</a>官网教程安装打包工具：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @electron-forge/cli</span><br><span class="line">npm <span class="built_in">exec</span> --package=@electron-forge/cli -c <span class="string">&quot;electron-forge import&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在<code>package.json</code>中配置需要打包的类型和平台并更新scripts</p>
-<p><code>package.json</code></p>
-<p><em>其中Scripts中<code>&quot;dev:nextweb&quot;: &quot;NEXT_PUBLIC_WEB=true next dev&quot;</code>是为了能让Nextjs能够以WEB的形式启动而不依赖于Electron。因为Nextjs某些特性只能在Electron中才能启动，使用该变量将这些特性只有在启用Electron才加载。</em></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nextjs_electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:nextweb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NEXT_PUBLIC_WEB=true next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron ./main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;concurrently --kill-others  \&quot;npm run dev:next\&quot; \&quot;npm run dev:electron\&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge package&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm run build:next &amp;&amp; npm run build:electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;make&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge make&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dist&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm run build &amp;&amp; npm run make&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge start&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lint&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next lint&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;forge&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;packagerConfig&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;makers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;@electron-forge/maker-deb&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;platforms&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;linux&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;public/chat.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ichat for deb&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;productDescription&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ichat for deb&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  ... ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>注：打包过程中，本文设置了<code>makers.config.icon</code>，所以需要添加图片<code>public/chat.png</code>，不想设置icon可以直接在<code>package.json</code>中删除<code>makers.config.icon</code>。</p>
-<p>执行<code>npm run dist</code>命令，即执行了<em>Nextjs的build</em>，<em>election-forge的package</em> 和 <em>election-forge的make</em>。最终的生成文件在<code>/out/make/</code>内。</p>
-<p>注：本文生成的时Linux的deb文件，执行命令<code>sudo apt install ./nextjs_electron_0.1.0_amd64.deb</code>安装。</p>
-<h2 id="Nextjs可拖拽状态栏-和-更改主题颜色（可选）"><a href="#Nextjs可拖拽状态栏-和-更改主题颜色（可选）" class="headerlink" title="Nextjs可拖拽状态栏 和 更改主题颜色（可选）"></a>Nextjs可拖拽状态栏 和 更改主题颜色（可选）</h2><blockquote>
-<p>本Nextjs项目整合</p>
-<ul>
-<li><strong>HeroUI</strong>前端UI框架，具体方法参照<a target="_blank" rel="noopener" href="https://www.heroui.com/docs/frameworks/nextjs#manual-installation">HeroUI官方文档</a>的手动导入</li>
-<li>**<a target="_blank" rel="noopener" href="https://www.heroui.com/docs/customization/dark-mode#using-next-themes">Next Theme</a>**主题切换，但要记得<a target="_blank" rel="noopener" href="https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app">在html标签中添加</a><code>suppressHydrationWarning</code></li>
-</ul>
-</blockquote>
-<p>添加上述两个依赖后，需要在<code>layout.tsx</code>中自定义状态栏，将状态栏所在的<code>div</code>的CSS添加<code>style=&#123;&#123;"app-region": 'drag'&#125;&#125;</code>。该CSS特性是Electron专属，可以让模块进行拖拽。</p>
-<p><code>src/app/layout.tsx</code></p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;./globals.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Providers</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./providers&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CustomBar</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/CustomBar&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">RootLayout</span>(<span class="params">&#123;children,&#125;: <span class="title class_">Readonly</span>&lt;&#123; children: React.ReactNode; &#125;&gt;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">suppressHydrationWarning</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Providers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;h-screen w-screen flex flex-col&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_height w-full bg-bar_bg&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">CustomBar</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex-1&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;children&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Providers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>src/app/globals.css</code></p>
-<p>其中定义一些TailwindCSS自定义的字段，可以在TailwindCSS中直接使用。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tailwind</span> base;</span><br><span class="line"><span class="meta">@tailwind</span> components;</span><br><span class="line"><span class="meta">@tailwind</span> utilities;</span><br><span class="line"></span><br><span class="line">body &#123;</span><br><span class="line">    font-<span class="attr">family</span>: <span class="title class_">Arial</span>, <span class="title class_">Helvetica</span>, sans-serif;</span><br><span class="line">    <span class="attr">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@layer</span> components &#123;</span><br><span class="line">    --header-<span class="attr">height</span>: 40px;</span><br><span class="line"></span><br><span class="line">    .<span class="property">bar_height</span> &#123;</span><br><span class="line">        <span class="attr">height</span>: <span class="title function_">var</span>(--header-height);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .<span class="property">bar_icon</span> &#123;</span><br><span class="line">        <span class="attr">height</span>: <span class="title function_">var</span>(--header-height);</span><br><span class="line">        <span class="attr">width</span>: 40px;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>tailwind.config.ts</code></p>
-<p>设置不同主题下的颜色，并设置自定义的颜色变量。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">Config</span>&#125; <span class="keyword">from</span> <span class="string">&quot;tailwindcss&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;heroui&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">content</span>: [</span><br><span class="line">        <span class="string">&quot;./src/pages/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./src/components/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./src/app/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./node_modules/@heroui/theme/dist/**/*.&#123;js,ts,jsx,tsx&#125;&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">darkMode</span>: <span class="string">&quot;class&quot;</span>,</span><br><span class="line">    <span class="attr">plugins</span>: [<span class="title function_">heroui</span>(&#123;</span><br><span class="line">        <span class="attr">themes</span>: &#123;</span><br><span class="line">            <span class="attr">light</span>: &#123;</span><br><span class="line">                <span class="attr">colors</span>: &#123;</span><br><span class="line">                    <span class="attr">background</span>: <span class="string">&quot;#FFFFFF&quot;</span>,</span><br><span class="line">                    <span class="attr">foreground</span>: <span class="string">&quot;#11181C&quot;</span>,</span><br><span class="line">                    <span class="attr">bar_bg</span>: <span class="string">&quot;#d4d4d8&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">dark</span>: &#123;</span><br><span class="line">                <span class="attr">colors</span>: &#123;</span><br><span class="line">                    <span class="attr">background</span>: <span class="string">&quot;#000000&quot;</span>,</span><br><span class="line">                    <span class="attr">foreground</span>: <span class="string">&quot;#ECEDEE&quot;</span>,</span><br><span class="line">                    <span class="attr">bar_bg</span>: <span class="string">&quot;#3f3f46&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)],</span><br><span class="line">&#125; <span class="keyword">satisfies</span> <span class="title class_">Config</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>src/app/provider.tsx</code></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;use client&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">HeroUIProvider</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@heroui/react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">ThemeProvider</span> <span class="keyword">as</span> <span class="title class_">NextThemesProvider</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next-themes&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">Providers</span>(<span class="params">&#123;children&#125;: &#123; children: React.ReactNode &#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">HeroUIProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">NextThemesProvider</span> <span class="attr">attribute</span>=<span class="string">&quot;class&quot;</span> <span class="attr">defaultTheme</span>=<span class="string">&quot;system&quot;</span> <span class="attr">enableSystem</span>=<span class="string">&#123;true&#125;</span> <span class="attr">themes</span>=<span class="string">&#123;[</span>&quot;<span class="attr">dark</span>&quot;, &quot;<span class="attr">light</span>&quot;]&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;children&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">NextThemesProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">HeroUIProvider</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>src/app/component/bar/CustomBar.tsx</code></p>
-<p>Nextjs自定状态栏，为了满足能够同时支持WEB和ELECTRON两种启动方式，定义<code>NEXT_PUBLIC_WEB</code>全局变量，用来动态设置是否支持某些ELECTRON特性。后面会在<code>next.config.ts</code>中设置该变量。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;use client&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ThemeSwitcher</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/ThemeSwitcher&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Settings</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/Settings&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">UserInfo</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/UserInfo&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CustomBar</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [web, setWeb] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_WEB</span> === <span class="string">&#x27;true&#x27;</span>) &#123;</span><br><span class="line">            <span class="title function_">setWeb</span>(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, [])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;h-full w-full flex flex-end gap-2 electron_pr&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">             <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&quot;<span class="attr">padding-right</span>&quot;<span class="attr">:</span> &quot;<span class="attr">0px</span>&quot;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">drag</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;mr-auto&quot;</span>&gt;</span>bar<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">ThemeSwitcher</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*    <span class="tag">&lt;<span class="name">Settings</span>/&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;/<span class="name">div</span>&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon flex items-center justify-center&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*    <span class="tag">&lt;<span class="name">UserInfo</span>/&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;/<span class="name">div</span>&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>ThemeSwitcher.tsx</code></p>
-<p>使用<code>useTheme</code>来更改Nextjs的主题，使用HeroUI的<code>Dropdown</code>来提供更改按钮</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;use client&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Button</span>&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useTheme&#125; <span class="keyword">from</span> <span class="string">&quot;next-themes&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Dropdown</span>, <span class="title class_">DropdownItem</span>, <span class="title class_">DropdownMenu</span>, <span class="title class_">DropdownTrigger</span>&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/dropdown&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">DarkIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">LightIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">SystemIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M4 16H20V5H4V16ZM13 18V20H17V22H7V20H11V18H2.9918C2.44405 18 2 17.5511 2 16.9925V4.00748C2 3.45107 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44892 22 4.00748V16.9925C22 17.5489 21.5447 18 21.0082 18H13Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ThemeSwitcher</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [mounted, setMounted] = <span class="title function_">useState</span>(<span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">const</span> &#123;theme, setTheme&#125; = <span class="title function_">useTheme</span>()</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">setMounted</span>(<span class="literal">true</span>)</span><br><span class="line">    &#125;, [])</span><br><span class="line">    <span class="keyword">if</span> (!mounted) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">toggleTheme</span> = (<span class="params"><span class="attr">key</span>: <span class="title class_">React</span>.<span class="title class_">Key</span></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (key === <span class="string">&quot;system&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;system&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key === <span class="string">&quot;dark&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;dark&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key === <span class="string">&quot;light&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;light&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;theme error&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Dropdown</span> <span class="attr">classNames</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">content:</span> &quot;<span class="attr">min-w-32</span> <span class="attr">w-32</span>&quot;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">DropdownTrigger</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Button</span> <span class="attr">className</span>=<span class="string">&quot;h-10 w-10 min-w-10 p-0&quot;</span> <span class="attr">variant</span>=<span class="string">&quot;light&quot;</span> <span class="attr">isIconOnly</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;system&quot; &amp;&amp; <span class="tag">&lt;<span class="name">SystemIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;light&quot; &amp;&amp; <span class="tag">&lt;<span class="name">LightIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;dark&quot; &amp;&amp; <span class="tag">&lt;<span class="name">DarkIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">DropdownTrigger</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">DropdownMenu</span> <span class="attr">onAction</span>=<span class="string">&#123;toggleTheme&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">disallowEmptySelection</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;light&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">LightIcon</span>/&gt;</span>&#125;&gt;Light<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">DarkIcon</span>/&gt;</span>&#125;&gt;Dark<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;system&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">SystemIcon</span>/&gt;</span>&#125;&gt;System<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">DropdownMenu</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Dropdown</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>为了布局美观，将原来的<code>src/app/page.tsx</code>内容删除，改为</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Home</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span> main <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此时执行<code>npm run dev</code>就可以启动程序了，并且可以切换主题。</p>
-<p>但执行<code>npm run dist</code>打包的时候会报错，CSS中没有属性<code>app-region</code>，因为该特性是Electron特有的，在Nextjs打包时候会报错，为了不让Nextjs进行类型认证，在<code>next.config.ts</code>中设置跳过类型认证：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;standalone&#x27;</span>,</span><br><span class="line">    <span class="attr">eslint</span>: &#123;</span><br><span class="line">        <span class="attr">ignoreDuringBuilds</span>: <span class="literal">true</span>, <span class="comment">// 忽略 eslint 检查</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">typescript</span>: &#123;</span><br><span class="line">        <span class="attr">ignoreBuildErrors</span>: <span class="literal">true</span>, <span class="comment">// 忽略 TypeScript 检查</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">env</span>: &#123;</span><br><span class="line">      <span class="attr">NEXT_PUBLIC_WEB</span>: process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_WEB</span> || <span class="string">&#x27;false&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/16/interview/Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/02/16/interview/Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">Java面试合集</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-02-16 17:45:24" itemprop="dateCreated datePublished" datetime="2025-02-16T17:45:24+08:00">2025-02-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-17 10:31:06" itemprop="dateModified" datetime="2025-02-17T10:31:06+08:00">2025-02-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java面试合集"><a href="#Java面试合集" class="headerlink" title="Java面试合集"></a>Java面试合集</h1><h3 id="String底层为和将char-改成了byte"><a href="#String底层为和将char-改成了byte" class="headerlink" title="String底层为和将char[]改成了byte[]"></a>String底层为和将char[]改成了byte[]</h3><p>在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。</p>
 
       
     </div>

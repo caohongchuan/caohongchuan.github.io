@@ -20,26 +20,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Spring Session Spring Session 是 Spring 框架的一个项目，旨在提供会话管理的解决方案。它可以与各种后端存储（如内存、数据库、Redis 等）集成。   SecurityContextHolderFilter中的SecurityContextRepository，存储用户信息上下文，其中一种实现方式就是HttpSessionSecurityContextRepos">
+    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940@Configurationpublic class WebSocketConfig &#123;    @Bean    public WebSocketHandler echoWebSocketHandler() &#123;        return">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Session">
-<meta property="og:url" content="http://caohongchuan.github.io/2025/01/25/springboot/Spring-Session/index.html">
+<meta property="og:title" content="Spring WebFlux 实现 websocket">
+<meta property="og:url" content="http://caohongchuan.github.io/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="Spring Session Spring Session 是 Spring 框架的一个项目，旨在提供会话管理的解决方案。它可以与各种后端存储（如内存、数据库、Redis 等）集成。   SecurityContextHolderFilter中的SecurityContextRepository，存储用户信息上下文，其中一种实现方式就是HttpSessionSecurityContextRepos">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940@Configurationpublic class WebSocketConfig &#123;    @Bean    public WebSocketHandler echoWebSocketHandler() &#123;        return">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-01-25T12:43:15.444Z">
-<meta property="article:modified_time" content="2025-03-17T12:07:15.528Z">
+<meta property="article:published_time" content="2025-04-07T07:33:03.265Z">
+<meta property="article:modified_time" content="2025-04-09T01:27:52.415Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://caohongchuan.github.io/2025/01/25/springboot/Spring-Session/">
+<link rel="canonical" href="http://caohongchuan.github.io/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/01/25/springboot/Spring-Session/","path":"2025/01/25/springboot/Spring-Session/","title":"Spring Session"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://caohongchuan.github.io/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/","path":"2025/04/07/springboot/Spring Webflux即时通信/","title":"Spring WebFlux 实现 websocket"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Spring Session | yingzheng</title>
+<title>Spring WebFlux 实现 websocket | yingzheng</title>
   
 
 
@@ -98,7 +98,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -111,7 +111,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Session"><span class="nav-number">1.</span> <span class="nav-text">Spring Session</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/springboot/Spring-Session/">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/04/07/springboot/Spring%20Webflux%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/photo.png">
@@ -180,12 +179,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Spring Session | yingzheng">
+      <meta itemprop="name" content="Spring WebFlux 实现 websocket | yingzheng">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring Session
+          Spring WebFlux 实现 websocket
         </h1>
 
         <div class="post-meta-container">
@@ -196,23 +195,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
+      <time title="Created: 2025-04-07 15:33:03" itemprop="dateCreated datePublished" datetime="2025-04-07T15:33:03+08:00">2025-04-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-17 20:07:15" itemprop="dateModified" datetime="2025-03-17T20:07:15+08:00">2025-03-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-        </span>
+      <time title="Modified: 2025-04-09 09:27:52" itemprop="dateModified" datetime="2025-04-09T09:27:52+08:00">2025-04-09</time>
     </span>
 
   
@@ -231,13 +221,10 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Spring-Session"><a href="#Spring-Session" class="headerlink" title="Spring Session"></a>Spring Session</h1><blockquote>
-<p>Spring Session 是 Spring 框架的一个项目，旨在提供会话管理的解决方案。它可以与各种后端存储（如内存、数据库、Redis 等）集成。</p>
-</blockquote>
-<ul>
-<li>SecurityContextHolderFilter中的SecurityContextRepository，存储用户信息上下文，其中一种实现方式就是HttpSessionSecurityContextRepository，而且该方式是默认的实现方式。</li>
-<li>AbstractAuthenticationProcessingFilter中，当用户登录成功，也是会调用this.securityContextRepository.saveContext(context, request, response);存储上下文到session中。</li>
-</ul>
+    <div class="post-body" itemprop="articleBody"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSocketConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">echoWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">EchoWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">chatWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ChatWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandler <span class="title function_">notifyWebSocketHandler</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NotifyWebSocketHandler</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SimpleUrlHandlerMapping <span class="title function_">handlerMapping</span><span class="params">(WebSocketHandler echoWebSocketHandler,</span></span><br><span class="line"><span class="params">                                                  WebSocketHandler chatWebSocketHandler,</span></span><br><span class="line"><span class="params">                                                  WebSocketHandler notifyWebSocketHandler)</span> &#123;</span><br><span class="line">        Map&lt;String, WebSocketHandler&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;/echo&quot;</span>, echoWebSocketHandler);</span><br><span class="line">        map.put(<span class="string">&quot;/chat&quot;</span>, chatWebSocketHandler);</span><br><span class="line">        map.put(<span class="string">&quot;/notify&quot;</span>, notifyWebSocketHandler); <span class="comment">// 新增通知端点</span></span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleUrlHandlerMapping</span> <span class="variable">mapping</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleUrlHandlerMapping</span>();</span><br><span class="line">        mapping.setUrlMap(map);</span><br><span class="line">        mapping.setOrder(-<span class="number">1</span>);</span><br><span class="line">        mapping.setCorsConfigurations(Map.of(<span class="string">&quot;*&quot;</span>, <span class="keyword">new</span> <span class="title class_">CorsConfiguration</span>().applyPermitDefaultValues()));</span><br><span class="line">        System.out.println(<span class="string">&quot;WebSocket mappings registered: &quot;</span> + map.keySet());</span><br><span class="line">        <span class="keyword">return</span> mapping;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> WebSocketHandlerAdapter <span class="title function_">webSocketHandlerAdapter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">WebSocketHandlerAdapter</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.chc.imserver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.socket.WebSocketHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.socket.WebSocketSession;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NotifyWebSocketHandler</span> <span class="keyword">implements</span> <span class="title class_">WebSocketHandler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">handle</span><span class="params">(WebSocketSession session)</span> &#123;</span><br><span class="line">        Flux&lt;String&gt; notifications = Flux.interval(Duration.ofSeconds(<span class="number">2</span>))</span><br><span class="line">            .map(i -&gt; <span class="string">&quot;Notification &quot;</span> + i + <span class="string">&quot; at &quot;</span> + System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> session.send(notifications.map(session::textMessage));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -251,14 +238,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/01/25/springboot/OAuth2-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" rel="prev" title="Spring OAuth2 Client流程分析">
-                  <i class="fa fa-angle-left"></i> Spring OAuth2 Client流程分析
+                <a href="/2025/04/06/interview/Java%20IO%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" rel="prev" title="Java IO面试合集">
+                  <i class="fa fa-angle-left"></i> Java IO面试合集
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/01/25/interview/Spring%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" rel="next" title="Spring面试合集">
-                  Spring面试合集 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -347,7 +331,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"530c27c105cb44a2bb624f5f6fe83767"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"caohongchuan","repo":"caohongchuan.github.io","client_id":"967bc44f66d40841715d","client_secret":"8d7caaf8d49e847e9da60bfab064fc2acad2b66d","admin_user":"caohongchuan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en | zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"24a1a07d063dcc022ebaee2f25446700"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
