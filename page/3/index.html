@@ -123,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -154,6 +154,182 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/11/cf/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/11/cf/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">贪心算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-11 18:00:25" itemprop="dateCreated datePublished" datetime="2025-02-11T18:00:25+08:00">2025-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-03-03 19:50:39" itemprop="dateModified" datetime="2025-03-03T19:50:39+08:00">2025-03-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><blockquote>
+<p>贪心算法或贪心思想采用贪心的策略，保证<strong>每次操作都是局部最优</strong>的，从而使最后得到的<strong>结果是全局最优</strong>的。</p>
+</blockquote>
+<h2 id="分配问题"><a href="#分配问题" class="headerlink" title="分配问题"></a>分配问题</h2><h3 id="455-分发饼干"><a href="#455-分发饼干" class="headerlink" title="455. 分发饼干"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/assign-cookies/">455. 分发饼干</a></h3><blockquote>
+<p>贪心+双指针+排序</p>
+</blockquote>
+<p>为了让尽可能多的孩子得到满足，所以让能满足的孩子所给的饼干尺寸与胃口值尽可能的接近，防止浪费。即把大于等于这个孩子饥饿度的、且大小最小的饼干给这个孩子。</p>
+<p><strong>先用小的饼干满足了胃口最小的孩子，然后逐渐满足胃口大的孩子。</strong></p>
+<p><strong>算法思想：</strong></p>
+<ul>
+<li>对胃口值和饼干尺寸升序排序</li>
+<li>从小到大逐个对胃口值进行满足，从小到大寻找第一个满足的饼干尺寸</li>
+<li>等<strong>遍历到完最后一个饼干或者满足所有的胃口值</strong>结束</li>
+</ul>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li>排序使用Java的<code>Arrays.sort()</code> 算法复杂度 $O(nlog(n))$</li>
+<li>对两个数组进行联动遍历，可使用双指针分别指向胃口值数组和饼干尺寸数组</li>
+<li>使用while循环遍历</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findContentChildren</span><span class="params">(<span class="type">int</span>[] g, <span class="type">int</span>[] s)</span> &#123;</span><br><span class="line">    Arrays.sort(g);</span><br><span class="line">    Arrays.sort(s);</span><br><span class="line">    <span class="type">int</span> <span class="variable">gindex</span> <span class="operator">=</span> <span class="number">0</span>, sindex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (sindex &lt; s.length &amp;&amp; gindex &lt; g.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g[gindex] &lt;= s[sindex]) &#123;</span><br><span class="line">            gindex++;</span><br><span class="line">        &#125;</span><br><span class="line">        sindex++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> gindex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="135-分发糖果"><a href="#135-分发糖果" class="headerlink" title="135. 分发糖果"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/candy/">135. 分发糖果</a></h3><blockquote>
+<p>贪心</p>
+</blockquote>
+<p>所有的孩子站成一排，满足相邻两个孩子评分更高的孩子获得更多的糖果，即第$i$个孩子需要与相邻的两个孩子（即第$i-1$,和第$i+1$ 个孩子）进行比较。</p>
+<p>贪心算法时将一个复杂的问题分解为多个局部问题，实现局部最优解，最后实现全局最优。</p>
+<p>将与左右孩子的比较划分为<strong>向右遍历</strong>和<strong>向左遍历</strong>。</p>
+<p><strong>算法思想：</strong></p>
+<p>向右遍历：从左向右，保证右侧评分大于左侧评分的孩子获得的糖果多，即当$ratings[i+1]&gt;ratings[i]$则$candys[i+1]&gt;candys[i]$</p>
+<p>向左遍历：从右向左，保证左侧评分大于右侧评分的孩子获得的糖果多，即当$ratings[i]&gt;ratings[i+1]$则$candys[i]&gt;candys[i+1]$</p>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li><p>将<code>candys[]</code>数组全部赋值为1，因为每个孩子至少获取一个糖果</p>
+</li>
+<li><p>向右遍历：</p>
+</li>
+</ul>
+<p>$$<br>candys[i+1] &#x3D; candys[i] + 1 \quad if ratings[i+1] &gt; ratings[i]<br>$$</p>
+<ul>
+<li>向左遍历：<br>$$<br>candys[i] &#x3D; max(candy[i], candy[i+1]+1) \quad if \quad ratings[i]&gt; ratings[i+1]<br>$$</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">candy</span><span class="params">(<span class="type">int</span>[] ratings)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] candy = <span class="keyword">new</span> <span class="title class_">int</span>[ratings.length];</span><br><span class="line">    Arrays.fill(candy, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ratings.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ratings[i] &lt; ratings[i + <span class="number">1</span>]) &#123;</span><br><span class="line">            candy[i + <span class="number">1</span>] = candy[i] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ratings.length - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ratings[i] &gt; ratings[i + <span class="number">1</span>]) &#123;</span><br><span class="line">            candy[i] = Math.max(candy[i], candy[i + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(candy).sum();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h2><h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435. 无重叠区间"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/non-overlapping-intervals/">435. 无重叠区间</a></h3><blockquote>
+<p>贪心</p>
+</blockquote>
+<p>要保证移除的区间数量最少，就相当于留下的区间尽可能的多。贪心思路是<strong>选择区间的结尾越小，剩余留给其他区间的空间就越大</strong>。</p>
+<p><strong>算法思想：</strong></p>
+<p>从结尾最小的区间开始遍历，去掉与其交叉的所有区间，再选择剩余中结尾最小的区间，重复操作。</p>
+<p><strong>算法实现：</strong></p>
+<ul>
+<li>将<code>intervals</code>根据先结尾后开头的排序规则对其进行升序排序</li>
+<li>选取第一个区间，遍历找出一个区间开头大于等于第一个区间结尾的区间</li>
+<li>选取该区间，再去寻找下一个一个区间开头大于等于该区间结尾的区间</li>
+<li>依次循环</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">eraseOverlapIntervals</span><span class="params">(<span class="type">int</span>[][] intervals)</span> &#123;</span><br><span class="line">    Arrays.sort(intervals, (a, b) -&gt; a[<span class="number">1</span>] == b[<span class="number">1</span>] ? a[<span class="number">0</span>] - b[<span class="number">0</span>] : a[<span class="number">1</span>] - b[<span class="number">1</span>]);</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">curEnd</span> <span class="operator">=</span> intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; intervals.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals[i][<span class="number">0</span>] &lt; curEnd) &#123;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            curEnd = intervals[i][<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/description/">452 用最少数量的箭引爆气球</a></p>
+<p>因为要扎爆所有的气球，所以每一箭需要射中尽可能多的气球。当箭射在气球的右边缘时，既能射爆该气球，又能尽可能的覆盖它后面的气球，所以每个气球的右端点很重要。</p>
+<p>算法实现：</p>
+<ol>
+<li><p>将所有的气球升序排序（先排右端点，若右端点相同，再根据左端点）</p>
+</li>
+<li><p>选择第一个气球，以其右端点为界，依次向后寻找左端点小于该边界的气球，直至找到左端点大于该边界的气球</p>
+</li>
+<li><p>对该气球重复第二步操作，直至扫完所有气球</p>
+</li>
+</ol>
+<p>如下图所示，第一个蓝色边界是第一个气球的右端点，会将第一个球和上面的大球射爆。（但在顺序扫描中，第二个小气球会先出现，因为是根据右端点排序，此时第一个边界没有碰到第二个小气球，所以边界更新为第二条蓝色边界，这时下一个气球就是上面的大球，发现大球的左端点是小于目前的第二条蓝色边界的，所以继续向后搜索，相当于此时才将大气球扎爆。虽然看着有些问题，但并不影响根本）</p>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250303192530005.png" alt="image-20250303192530005"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinArrowShots</span><span class="params">(<span class="type">int</span>[][] points)</span> &#123;</span><br><span class="line">    Arrays.sort(points, (o1, o2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (o1[<span class="number">1</span>] != o2[<span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">1</span>], o2[<span class="number">1</span>]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(o1[<span class="number">0</span>], o2[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>, curPoint = points[<span class="number">0</span>][<span class="number">1</span>]; i &lt; points.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (points[i][<span class="number">0</span>] &gt; curPoint) &#123;</span><br><span class="line">            curPoint = points[i][<span class="number">1</span>];</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/can-place-flowers/description/">种花问题</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canPlaceFlowers</span><span class="params">(<span class="type">int</span>[] flowerbed, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; flowerbed.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (flowerbed[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; flowerbed[i - <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span> &lt; flowerbed.length &amp;&amp; flowerbed[i + <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        flowerbed[i] = <span class="number">1</span>;</span><br><span class="line">        ans++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans &gt;= n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-labels/description/">划分字母区间</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">partitionLabels</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length();) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startPoint</span> <span class="operator">=</span> i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">curPoint</span> <span class="operator">=</span> i; i &lt;= curPoint; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> s.length() - <span class="number">1</span>; j &gt; curPoint; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s.charAt(j) == s.charAt(i)) &#123;</span><br><span class="line">                    curPoint = j;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(i - startPoint);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1223">P1223 排队接水</a></p>
+<blockquote>
+<p>贪心 + 排序</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> luogu;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">p1223</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Time</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Time&gt; &#123;</span><br><span class="line">        <span class="type">int</span> index;</span><br><span class="line">        <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Time</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.index = index;</span><br><span class="line">            <span class="built_in">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Time time)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.value - time.value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">        Time[] times = <span class="keyword">new</span> <span class="title class_">Time</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            times[i] = <span class="keyword">new</span> <span class="title class_">Time</span>(i, in.nextInt());</span><br><span class="line">        &#125;</span><br><span class="line">        in.close();</span><br><span class="line"></span><br><span class="line">        Arrays.sort(times);</span><br><span class="line">        <span class="type">long</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            System.out.print(Integer.toString(times[i].index + <span class="number">1</span>) + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            ans += times[i].value * (n - i - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.printf(<span class="string">&quot;%.2f\n&quot;</span>, (<span class="type">double</span>) ans / n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>[P1090 [NOIP 2004 提高组] 合并果子](P1090 [NOIP 2004 提高组] 合并果子)</p>
+<blockquote>
+<p>贪心 + 堆 + 优先队列</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1194,83 +1370,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/25/template/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-17 21:12:44" itemprop="dateModified" datetime="2025-02-17T21:12:44+08:00">2025-02-17</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
