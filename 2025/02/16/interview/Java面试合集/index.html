@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Java面试合集String底层为和将char[]改成了byte[]在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。">
+    <meta name="description" content="StringString底层为和将char[]改成了byte[]在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。 解释 Java 在处理字符串拼接时如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java面试合集">
 <meta property="og:url" content="http://caohongchuan.github.io/2025/02/16/interview/Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="Java面试合集String底层为和将char[]改成了byte[]在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。">
+<meta property="og:description" content="StringString底层为和将char[]改成了byte[]在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。 解释 Java 在处理字符串拼接时如">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-02-16T09:45:24.658Z">
-<meta property="article:modified_time" content="2025-02-17T02:31:06.145Z">
+<meta property="article:modified_time" content="2025-04-25T12:44:46.667Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 
@@ -111,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">Java面试合集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E5%BA%95%E5%B1%82%E4%B8%BA%E5%92%8C%E5%B0%86char-%E6%94%B9%E6%88%90%E4%BA%86byte"><span class="nav-number">1.0.1.</span> <span class="nav-text">String底层为和将char[]改成了byte[]</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String"><span class="nav-number">1.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E5%BA%95%E5%B1%82%E4%B8%BA%E5%92%8C%E5%B0%86char-%E6%94%B9%E6%88%90%E4%BA%86byte"><span class="nav-number">1.0.1.</span> <span class="nav-text">String底层为和将char[]改成了byte[]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A-Java-%E5%9C%A8%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E6%97%B6%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD-%E5%B0%A4%E5%85%B6%E6%98%AF%E5%9C%A8-Java-9-%E4%BB%A5%E5%90%8E%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">1.0.2.</span> <span class="nav-text">解释 Java 在处理字符串拼接时如何优化性能,尤其是在 Java 9 以后的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0%EF%BC%88String-Pool%EF%BC%89%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">描述一下字符串常量池（String Pool）的工作原理</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -126,7 +126,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-17 10:31:06" itemprop="dateModified" datetime="2025-02-17T10:31:06+08:00">2025-02-17</time>
+      <time title="Modified: 2025-04-25 20:44:46" itemprop="dateModified" datetime="2025-04-25T20:44:46+08:00">2025-04-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -231,7 +231,42 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Java面试合集"><a href="#Java面试合集" class="headerlink" title="Java面试合集"></a>Java面试合集</h1><h3 id="String底层为和将char-改成了byte"><a href="#String底层为和将char-改成了byte" class="headerlink" title="String底层为和将char[]改成了byte[]"></a>String底层为和将char[]改成了byte[]</h3><p>在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><h3 id="String底层为和将char-改成了byte"><a href="#String底层为和将char-改成了byte" class="headerlink" title="String底层为和将char[]改成了byte[]"></a>String底层为和将char[]改成了byte[]</h3><p>在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。</p>
+<h3 id="解释-Java-在处理字符串拼接时如何优化性能-尤其是在-Java-9-以后的版本"><a href="#解释-Java-在处理字符串拼接时如何优化性能-尤其是在-Java-9-以后的版本" class="headerlink" title="解释 Java 在处理字符串拼接时如何优化性能,尤其是在 Java 9 以后的版本"></a>解释 Java 在处理字符串拼接时如何优化性能,尤其是在 Java 9 以后的版本</h3><p><strong>Java 9 之前的优化:</strong><br>编译期优化：在 Java 9 之前，编译器对字符串拼接做了优化。对于简单的字符串常量拼接，编译器会在编译期进行优化，将其直接替换为一个单独的字符串常量。例如：</p>
+<p><code>String str = &quot;Hello, &quot; + &quot;world!&quot;;</code></p>
+<p>这行代码在编译期会被优化成：</p>
+<p><code>String str = &quot;Hello, world!&quot;;</code></p>
+<p>使用 StringBuilder 进行拼接：对于包含变量的字符串拼接，Java 编译器会自动将拼接操作转换为使用 StringBuilder 进行的拼接操作。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> str1 + <span class="string">&quot;, &quot;</span> + str2 + <span class="string">&quot;!&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在编译后的字节码中，上述代码会被转换为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">sb.append(str1);</span><br><span class="line">sb.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">sb.append(str2);</span><br><span class="line">sb.append(<span class="string">&quot;!&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> sb.toString();</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java 9 及以后的优化:</strong></p>
+<p>在 Java 9 以后，JVM 引入了基于 <code>invokedynamic</code>指令的字符串拼接优化，进一步提升了性能。</p>
+<p><code>invokedynamic</code> 指令：Java 9 引入了<code>invokedynamic</code> 指令来优化字符串拼接。编译器在处理字符串拼接时，会生成一个调用 <code>invokedynamic</code> 指令的字节码，而不是直接使用 <code>StringBuilder</code>。 <code>invokedynamic</code> 指令在运行时决定最佳的拼接策略。</p>
+<ul>
+<li><p>减少中间对象：通过动态拼接策略，减少了中间对象的创建，降低了内存使用和 GC 压力。</p>
+</li>
+<li><p>运行时优化：invokedynamic 指令允许 JVM 在运行时根据实际使用情况选择最佳策略，提高了代码的执行效率。</p>
+</li>
+<li><p>更高的灵活性：使用 invokedynamic 提供了更高的灵活性，允许未来的 JVM 优化进一步提升性能，而不需要改变应用代码。</p>
+</li>
+</ul>
+<h3 id="描述一下字符串常量池（String-Pool）的工作原理"><a href="#描述一下字符串常量池（String-Pool）的工作原理" class="headerlink" title="描述一下字符串常量池（String Pool）的工作原理"></a>描述一下字符串常量池（String Pool）的工作原理</h3><p>字符串常量池（String Pool）是 Java 中用于存储字符串字面值的一种特殊内存区域。它的主要目的是为了节省内存和提高性能。以下是字符串常量池的工作原理和它如何影响字符串实例的具体描述：</p>
+<ul>
+<li>字符串字面值的存储：<ul>
+<li>当一个字符串字面值被创建时，如 String str &#x3D; “Hello”;，JVM 会先检查字符串常量池中是否已经存在一个值为 “Hello” 的字符串。</li>
+<li>如果常量池中已经存在这个字符串，JVM 不会创建新的字符串对象，而是直接返回常量池中的引用。这意味着相同的字符串字面值在内存中只会存储一次。</li>
+</ul>
+</li>
+<li>字符串的 intern() 方法：<ul>
+<li>可以显式地将一个字符串添加到常量池中，使用 intern() 方法。例如：String str &#x3D; new String(“Hello”).intern();</li>
+<li>intern() 方法会检查常量池中是否存在一个值等于该字符串对象的字符串。如果存在，则返回池中的字符串引用；如果不存在，则将该字符串添加到常量池中，并返回该字符串的引用。</li>
+</ul>
+</li>
+</ul>
+<p>编译时的优化：编译器会自动将所有字符串字面值添加到常量池中。这意味着在编译时，字符串字面值就已经在常量池中，运行时直接使用。</p>
 
     </div>
 

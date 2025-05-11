@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="HTTPS分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa -des3">
+    <meta name="description" content="HTTPS原理HTTPS分为两个阶段：握手阶段，传输阶段。  TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  或生成RSA加密密钥（使用des3对密钥加密）(可选）： 1o">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Https">
 <meta property="og:url" content="http://caohongchuan.github.io/2025/02/03/springboot/https/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="HTTPS分为两个阶段：握手阶段，传输阶段。 握手阶段 TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  1.证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  生成RSA加密密钥： 1openssl genrsa -des3">
+<meta property="og:description" content="HTTPS原理HTTPS分为两个阶段：握手阶段，传输阶段。  TCP握手 + TLS\SSL握手  网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS  证书生成生成密钥openssl生成RSA密钥： 1openssl genrsa -out prkey.key 2048  或生成RSA加密密钥（使用des3对密钥加密）(可选）： 1o">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png">
 <meta property="article:published_time" content="2025-02-03T08:54:27.024Z">
-<meta property="article:modified_time" content="2025-02-19T05:20:51.980Z">
+<meta property="article:modified_time" content="2025-04-11T05:50:21.060Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png">
@@ -113,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%E9%98%B6%E6%AE%B5"><span class="nav-number">1.</span> <span class="nav-text">握手阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90"><span class="nav-number">1.1.</span> <span class="nav-text">1.证书生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E7%A7%81%E9%92%A5%E4%B8%AD%E5%AF%BC%E5%87%BA%E5%85%AC%E9%92%A5"><span class="nav-number">1.1.2.</span> <span class="nav-text">从私钥中导出公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%90%8D%E8%AF%B7%E6%B1%82%EF%BC%88CSR%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">创建证书签名请求（CSR）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.4.</span> <span class="nav-text">自签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E7%AD%BE%E7%BD%B2%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.5.</span> <span class="nav-text">CA签署证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.1.6.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SpringBoot%E5%90%AF%E7%94%A8SSL"><span class="nav-number">1.2.</span> <span class="nav-text">2.SpringBoot启用SSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-%E6%B7%BB%E5%8A%A0%E4%BF%A1%E4%BB%BB%E8%AF%81%E4%B9%A6"><span class="nav-number">1.3.</span> <span class="nav-text">Springboot 添加信任证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%951-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Java%E4%BF%A1%E4%BB%BB%E5%BA%93"><span class="nav-number">1.3.1.</span> <span class="nav-text">方法1. 将证书添加到Java信任库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Springboot%E4%B8%AD"><span class="nav-number">1.3.2.</span> <span class="nav-text">方法2. 将证书添加到Springboot中</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">HTTPS原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">证书生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">2.0.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E7%A7%81%E9%92%A5%E4%B8%AD%E5%AF%BC%E5%87%BA%E5%85%AC%E9%92%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">2.0.2.</span> <span class="nav-text">从私钥中导出公钥（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%90%8D%E8%AF%B7%E6%B1%82%EF%BC%88CSR%EF%BC%89"><span class="nav-number">2.0.3.</span> <span class="nav-text">创建证书签名请求（CSR）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="nav-number">2.0.4.</span> <span class="nav-text">自签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E7%AD%BE%E7%BD%B2%E8%AF%81%E4%B9%A6%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">2.0.5.</span> <span class="nav-text">CA签署证书（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.0.6.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E5%90%AF%E7%94%A8SSL"><span class="nav-number">3.</span> <span class="nav-text">SpringBoot启用SSL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Springboot-%E6%B7%BB%E5%8A%A0%E4%BF%A1%E4%BB%BB%E8%AF%81%E4%B9%A6"><span class="nav-number">3.1.</span> <span class="nav-text">Springboot 添加信任证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%951-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Java%E4%BF%A1%E4%BB%BB%E5%BA%93"><span class="nav-number">3.1.1.</span> <span class="nav-text">方法1. 将证书添加到Java信任库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952-%E5%B0%86%E8%AF%81%E4%B9%A6%E6%B7%BB%E5%8A%A0%E5%88%B0Springboot%E4%B8%AD"><span class="nav-number">3.1.2.</span> <span class="nav-text">方法2. 将证书添加到Springboot中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-%E5%90%AF%E7%94%A8-SSL"><span class="nav-number">4.</span> <span class="nav-text">Nginx 启用 SSL</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -128,7 +128,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -205,7 +205,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-19 13:20:51" itemprop="dateModified" datetime="2025-02-19T13:20:51+08:00">2025-02-19</time>
+      <time title="Modified: 2025-04-11 13:50:21" itemprop="dateModified" datetime="2025-04-11T13:50:21+08:00">2025-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -233,32 +233,34 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>HTTPS分为两个阶段：握手阶段，传输阶段。</p>
-<h1 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h1><blockquote>
+    <div class="post-body" itemprop="articleBody"><h1 id="HTTPS原理"><a href="#HTTPS原理" class="headerlink" title="HTTPS原理"></a>HTTPS原理</h1><p>HTTPS分为两个阶段：握手阶段，传输阶段。</p>
+<blockquote>
 <p>TCP握手 + TLS\SSL握手</p>
 </blockquote>
 <p>网络协议分为五层，首先完成网络层TCP的三次握手，再完成传输层的TLS\SSL的握手，最后到达应用层的HTTPS</p>
 <p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png" alt="network structure"></p>
-<h2 id="1-证书生成"><a href="#1-证书生成" class="headerlink" title="1.证书生成"></a>1.证书生成</h2><h3 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h3><p><code>openssl</code>生成RSA密钥：</p>
+<h1 id="证书生成"><a href="#证书生成" class="headerlink" title="证书生成"></a>证书生成</h1><h3 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h3><p><code>openssl</code>生成RSA密钥：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out prkey.key 2048</span><br></pre></td></tr></table></figure>
 
-<p>生成RSA加密密钥：</p>
+<p>或生成RSA加密密钥（使用des3对密钥加密）(可选）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -des3 -out prkey.key 2048</span><br></pre></td></tr></table></figure>
 
-<h3 id="从私钥中导出公钥"><a href="#从私钥中导出公钥" class="headerlink" title="从私钥中导出公钥"></a>从私钥中导出公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubout -<span class="keyword">in</span> prkey.key -out pukey.pem</span><br></pre></td></tr></table></figure>
+<h3 id="从私钥中导出公钥（可选）"><a href="#从私钥中导出公钥（可选）" class="headerlink" title="从私钥中导出公钥（可选）"></a>从私钥中导出公钥（可选）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubout -<span class="keyword">in</span> prkey.key -out pukey.pem</span><br></pre></td></tr></table></figure>
 
-<h3 id="创建证书签名请求（CSR）"><a href="#创建证书签名请求（CSR）" class="headerlink" title="创建证书签名请求（CSR）"></a>创建证书签名请求（CSR）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key prkey.key -out cer_request.csr</span><br></pre></td></tr></table></figure>
+<h3 id="创建证书签名请求（CSR）"><a href="#创建证书签名请求（CSR）" class="headerlink" title="创建证书签名请求（CSR）"></a>创建证书签名请求（CSR）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key prkey.key -out cer_request.csr -subj <span class="string">&quot;/C=CN/ST=Beijing/L=Beijing/O=MyCompany/OU=IT/CN=example.com/emailAddress=admin@example.com&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="自签名证书"><a href="#自签名证书" class="headerlink" title="自签名证书"></a>自签名证书</h3><p><code>.crt</code>可以换成<code>.pem</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> cer_request.csr -signkey prkey.key -out certificate.crt</span><br></pre></td></tr></table></figure>
 
-<h3 id="CA签署证书"><a href="#CA签署证书" class="headerlink" title="CA签署证书"></a>CA签署证书</h3><p><code>.crt</code>可以换成<code>.pem</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> cer_request.csr -CA ca_cert.crt -CAkey ca_key.key -CAcreateserial -out certificate.crt </span><br></pre></td></tr></table></figure>
+<h3 id="CA签署证书（可选）"><a href="#CA签署证书（可选）" class="headerlink" title="CA签署证书（可选）"></a>CA签署证书（可选）</h3><p><code>.crt</code>可以换成<code>.pem</code></p>
+<p>需要先生成 认证中心的 私钥 和 证书，然后对CSR请求生成证书。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> cer_request.csr -CA ca_cert.crt -CAkey ca_prkey.key -CAcreateserial -out certificate.crt </span><br></pre></td></tr></table></figure>
 
 <p>查看</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -<span class="keyword">in</span> certificate.crt -noout -text</span><br><span class="line">openssl req -<span class="keyword">in</span> cer_request.csr -noout -text</span><br></pre></td></tr></table></figure>
 
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>自签名证书有两种类型：</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以CA签署证书为例</p>
+<p>自签名证书有两种类型：</p>
 <ul>
 <li><p>自签名证书：自签名证书的<code>Issuer</code>和<code>Subject</code>是相同的。</p>
 </li>
@@ -267,7 +269,7 @@
 </ul>
 <ol>
 <li><p>生成服务器端私钥（server.key)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上就是一个模板配置， 哪些是必要配置，哪些是根据自己实际需求，看一眼就知道了。看一个真实的UserDao-Mapper.xml配openssl genrsa -out server.key 2048</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genrsa -out server.key 2048</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>生成服务端签名证书请求（server.csr)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -config serverssl.cnf -key server.key -out server.csr</span><br></pre></td></tr></table></figure>
@@ -280,7 +282,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out ca.key 2048</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>生成CA自签名证书（ca.crt）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -days 365 -key ca.key -out ca.crt -subj <span class="string">&quot;/C=CN/ST=SD/L=JINAN/O=yingzheng/OU=yingzhengunit/CN=ROOTcert/emailAddress=yingzhengttt@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -days 365 -key ca.key -out ca.crt -subj <span class="string">&quot;/C=CN/ST=SD/L=JINAN/O=yingzheng/OU=yingzhengunit/CN=ROOTcert/emailAddress=ying使用CA证书(ca.crt)对服务端证书请求(server.csr)签名，获取服务端签名（server.crt）zhengttt@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用CA证书(ca.crt)对服务端证书请求(server.csr)签名，获取服务端签名（server.crt）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt </span><br></pre></td></tr></table></figure></li>
@@ -289,7 +291,7 @@
 <p>为了取消报错并在本地使用自签名证书，关闭Chrome的签名认证，在Chrome启动时加入参数 <code>--ignore-certificate-errors</code>。 比如在Ubuntu中，更改<code>/usr/share/applications/google-chrome.desktop</code>，在这里我使用的是canary所以更改<code>/usr/share/applications/google-chrome-canary.desktop</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exec=/usr/bin/google-chrome-canary --ignore-certificate-errors %U</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-SpringBoot启用SSL"><a href="#2-SpringBoot启用SSL" class="headerlink" title="2.SpringBoot启用SSL"></a>2.SpringBoot启用SSL</h2><p>将<code>server.crt</code>，<code>server.key</code>拷贝到resource目录下。</p>
+<h1 id="SpringBoot启用SSL"><a href="#SpringBoot启用SSL" class="headerlink" title="SpringBoot启用SSL"></a>SpringBoot启用SSL</h1><p>将<code>server.crt</code>，<code>server.key</code>拷贝到resource目录下。</p>
 <p>pom.xml</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8433</span></span><br><span class="line">    <span class="attr">ssl:</span></span><br><span class="line">        <span class="attr">certificate:</span> <span class="string">&quot;classpath:server.crt&quot;</span></span><br><span class="line">        <span class="attr">certificate-private-key:</span> <span class="string">&quot;classpath:server.key&quot;</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
 
@@ -298,8 +300,6 @@
 
 <p>并在spring security中配置之允许使用https协议，并将http协议跳转到https协议端口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                .portMapper(portMapper -&gt; portMapper.http(<span class="number">8080</span>).mapsTo(<span class="number">8443</span>))</span><br><span class="line">                .requiresChannel(channel -&gt; channel.anyRequest().requiresSecure())</span><br><span class="line">				...;</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="Springboot-添加信任证书"><a href="#Springboot-添加信任证书" class="headerlink" title="Springboot 添加信任证书"></a>Springboot 添加信任证书</h2><blockquote>
 <p>如果只想添加信任证书能够访问其他https服务，而不是自身启动https，可以只添加证书到信任链中。</p>
@@ -317,6 +317,13 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ssl:</span></span><br><span class="line">    <span class="attr">key-store:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">key-store-password:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">key-store-type:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">trust-store:</span> <span class="string">classpath:server.jks</span></span><br><span class="line">    <span class="attr">trust-store-password:</span> <span class="number">1234</span></span><br><span class="line">    <span class="attr">trust-store-type:</span> <span class="string">JKS</span></span><br></pre></td></tr></table></figure>
 
 <p><em>问题：即使将key-store设置为空，但启动的时候springboot仍然去&#x2F;home&#x2F;amber&#x2F;.keystore (No such file or directory)去拿key-store。一直解决不了。如果设置trust-store，springboot就默认启动ssl也会去找key-store，即使设置为空也还是去找。</em></p>
+<h1 id="Nginx-启用-SSL"><a href="#Nginx-启用-SSL" class="headerlink" title="Nginx 启用 SSL"></a>Nginx 启用 SSL</h1><p>配置Nginx</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">8082</span> ssl;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_certificate</span> /home/amber/Documents/openssl/certificate.crt;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span> /home/amber/Documents/openssl/prkey.key;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;</span><br><span class="line">    <span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">10m</span>;</span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">1d</span>;</span><br><span class="line">    <span class="attribute">ssl_session_tickets</span> <span class="literal">off</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">add_header</span> Strict-Transport-Security <span class="string">&quot;max-age=31536000; includeSubDomains&quot;</span> always;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> /ws/ &#123;</span><br><span class="line">        <span class="attribute">access_log</span> /home/amber/Downloads/websocket.log;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/;</span><br><span class="line">        <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_read_timeout</span> <span class="number">86400</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>后端配置了两个websocket服务<code>ws://localhost:8080/echo</code> 和 <code>ws://localhost:8080/chat</code> </p>
+<p>Nginx监听<code>8082</code>端点，并设置SSL服务，将<code>/ws/*</code>转发给后端<code>localhost:8080/*</code>对应的服务。即访问<code>wss://localhost:8082/ws/echo</code>会解析SSL并转发给<code>ws://localhost:8080/echo</code></p>
 
     </div>
 
