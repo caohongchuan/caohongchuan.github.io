@@ -1,5 +1,5 @@
 ---
-title: Spring OAuth2 Client流程分析
+title: SpringBoot OAuth2单点登陆
 category: springboot
 ---
 
@@ -309,8 +309,6 @@ public class SecurityConfig {
 
 }
 ```
-
-
 
 ## 全流程日志打印
 

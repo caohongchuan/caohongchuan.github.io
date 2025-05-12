@@ -1,6 +1,6 @@
 ---
 title: vscode前端插件
-title: frontend
+category: frontend
 ---
 
 

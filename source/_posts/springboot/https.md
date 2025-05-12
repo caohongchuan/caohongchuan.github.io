@@ -3,9 +3,9 @@ title: Https
 category: springboot
 ---
 
-HTTPS分为两个阶段：握手阶段，传输阶段。
+# HTTPS原理
 
-# 握手阶段
+HTTPS分为两个阶段：握手阶段，传输阶段。
 
 > TCP握手 + TLS\SSL握手
 
@@ -13,7 +13,7 @@ HTTPS分为两个阶段：握手阶段，传输阶段。
 
 ![network structure](https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250203171952087.png)
 
-## 1.证书生成
+# 证书生成
 
 ### 生成密钥
 
@@ -23,13 +23,13 @@ HTTPS分为两个阶段：握手阶段，传输阶段。
 openssl genrsa -out prkey.key 2048
 ```
 
-生成RSA加密密钥：
+或生成RSA加密密钥（使用des3对密钥加密）(可选）：
 
 ```bash
 openssl genrsa -des3 -out prkey.key 2048
 ```
 
-### 从私钥中导出公钥
+### 从私钥中导出公钥（可选）
 
 ```bash
 openssl rsa -pubout -in prkey.key -out pukey.pem
@@ -38,7 +38,7 @@ openssl rsa -pubout -in prkey.key -out pukey.pem
 ### 创建证书签名请求（CSR）
 
 ```bash
-openssl req -new -key prkey.key -out cer_request.csr
+openssl req -new -key prkey.key -out cer_request.csr -subj "/C=CN/ST=Beijing/L=Beijing/O=MyCompany/OU=IT/CN=example.com/emailAddress=admin@example.com"
 ```
 
 ### 自签名证书
@@ -49,12 +49,14 @@ openssl req -new -key prkey.key -out cer_request.csr
 openssl x509 -req -days 365 -in cer_request.csr -signkey prkey.key -out certificate.crt
 ```
 
-### CA签署证书
+### CA签署证书（可选）
 
 `.crt`可以换成`.pem`
 
+需要先生成 认证中心的 私钥 和 证书，然后对CSR请求生成证书。
+
 ```bash
-openssl x509 -req -days 365 -in cer_request.csr -CA ca_cert.crt -CAkey ca_key.key -CAcreateserial -out certificate.crt 
+openssl x509 -req -days 365 -in cer_request.csr -CA ca_cert.crt -CAkey ca_prkey.key -CAcreateserial -out certificate.crt 
 ```
 
 查看
@@ -65,6 +67,8 @@ openssl req -in cer_request.csr -noout -text
 ```
 
 ### 实例
+
+以CA签署证书为例
 
 自签名证书有两种类型：
 
@@ -77,7 +81,7 @@ openssl req -in cer_request.csr -noout -text
 1. 生成服务器端私钥（server.key)
 
    ```bash
-   以上就是一个模板配置， 哪些是必要配置，哪些是根据自己实际需求，看一眼就知道了。看一个真实的UserDao-Mapper.xml配openssl genrsa -out server.key 2048
+   genrsa -out server.key 2048
    ```
 
 2. 生成服务端签名证书请求（server.csr)
@@ -123,7 +127,7 @@ openssl req -in cer_request.csr -noout -text
 4. 生成CA自签名证书（ca.crt）
 
    ```bash 
-   openssl req -new -x509 -days 365 -key ca.key -out ca.crt -subj "/C=CN/ST=SD/L=JINAN/O=yingzheng/OU=yingzhengunit/CN=ROOTcert/emailAddress=yingzhengttt@gmail.com"
+   openssl req -new -x509 -days 365 -key ca.key -out ca.crt -subj "/C=CN/ST=SD/L=JINAN/O=yingzheng/OU=yingzhengunit/CN=ROOTcert/emailAddress=ying使用CA证书(ca.crt)对服务端证书请求(server.csr)签名，获取服务端签名（server.crt）zhengttt@gmail.com"
    ```
 
 5. 使用CA证书(ca.crt)对服务端证书请求(server.csr)签名，获取服务端签名（server.crt）
@@ -140,7 +144,7 @@ openssl req -in cer_request.csr -noout -text
 Exec=/usr/bin/google-chrome-canary --ignore-certificate-errors %U
 ```
 
-## 2.SpringBoot启用SSL
+# SpringBoot启用SSL
 
 将`server.crt`，`server.key`拷贝到resource目录下。
 
@@ -214,8 +218,6 @@ public class SecurityConfig {
 }
 ```
 
-
-
 ## Springboot 添加信任证书
 
 > 如果只想添加信任证书能够访问其他https服务，而不是自身启动https，可以只添加证书到信任链中。
@@ -256,3 +258,48 @@ ssl:
 
 *问题：即使将key-store设置为空，但启动的时候springboot仍然去/home/amber/.keystore (No such file or directory)去拿key-store。一直解决不了。如果设置trust-store，springboot就默认启动ssl也会去找key-store，即使设置为空也还是去找。*
 
+# Nginx 启用 SSL
+
+配置Nginx
+
+```bash
+sudo vim /etc/nginx/nginx.conf
+```
+
+```nginx
+server {
+    listen 8082 ssl;
+    server_name localhost;
+
+    ssl_certificate /home/amber/Documents/openssl/certificate.crt;
+    ssl_certificate_key /home/amber/Documents/openssl/prkey.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location /ws/ {
+        access_log /home/amber/Downloads/websocket.log;
+        proxy_pass http://localhost:8080/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_read_timeout 86400;
+    }
+}
+
+```
+
+后端配置了两个websocket服务`ws://localhost:8080/echo` 和 `ws://localhost:8080/chat` 
+
+Nginx监听`8082`端点，并设置SSL服务，将`/ws/*`转发给后端`localhost:8080/*`对应的服务。即访问`wss://localhost:8082/ws/echo`会解析SSL并转发给`ws://localhost:8080/echo`
