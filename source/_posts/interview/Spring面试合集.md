@@ -45,3 +45,6 @@ Spring提供了**JDBC（Java Database Connectivity）**，**JPA (Java Persistenc
 
 ## SpringBoot 数据库连接池
 
+
+
+## Spring IOC 循环依赖
