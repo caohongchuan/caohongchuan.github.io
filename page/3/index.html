@@ -123,13 +123,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -154,6 +154,427 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/19/springboot/SpringBoot%20Swagger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/19/springboot/SpringBoot%20Swagger/" class="post-title-link" itemprop="url">SpringBoot Swagger</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-02-19 10:48:34 / Modified: 12:34:58" itemprop="dateCreated datePublished" datetime="2025-02-19T10:48:34+08:00">2025-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><p>SpringBoot依赖<a target="_blank" rel="noopener" href="https://springdoc.org/">springdoc-openapi</a>对接口API进行注解</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置信息<code>application.yml</code>中添加swagger-ui</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">springdoc:</span></span><br><span class="line">    <span class="attr">swagger-ui:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">swagger-ui.html</span></span><br></pre></td></tr></table></figure>
+
+<p>启动项目后就可以通过 <code>https://localhost:8443/swagger-ui.html</code> 或者<code>https://localhost:8443/swagger-ui/index.html#/</code>访问后端接口信息。</p>
+<h1 id="Swagger-注解"><a href="#Swagger-注解" class="headerlink" title="Swagger 注解"></a>Swagger 注解</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52774158/article/details/131081371">Swagger Annotation Tutorial</a></p>
+<h2 id="Tag"><a href="#Tag" class="headerlink" title="@Tag"></a>@Tag</h2><p>API分组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Tag(name = &quot;OAuth2 Authorization&quot;, description = &quot;OAuth2 登陆接口&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Operation"><a href="#Operation" class="headerlink" title="@Operation"></a>@Operation</h2><p>用于描述API操作</p>
+<ul>
+<li>summary：操作的摘要信息。</li>
+<li>description：操作的详细描述。</li>
+<li>tags：指定 @Tag 注解的对象数组，用于将操作归类到特定的分组。</li>
+<li>parameters：指定 @Parameter 注解的对象数组，用于描述操作的输入参数</li>
+<li>responses：指定 @ApiResponse 注解的对象数组，用于描述操作的响应结果。</li>
+<li>requestBody：指定 @RequestBody 注解的对象，用于描述操作的请求体。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;跳转到 OAuth2 授权页面&quot;, description = &quot;两次重定向，跳转到Github登陆页面，登陆后与后端交换Token，最后跳转到origin_url&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Parameter"><a href="#Parameter" class="headerlink" title="@Parameter"></a>@Parameter</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Parameter(name = &quot;origin_url&quot;, required = true, description = &quot;OAuth2流程结束后会跳转到该URL&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiResponse(responseCode = &quot;301&quot;, description = &quot;两次跳转到Github登陆窗口&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenAPIDefinition"><a href="#OpenAPIDefinition" class="headerlink" title="@OpenAPIDefinition"></a>@OpenAPIDefinition</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">        info = @Info(</span></span><br><span class="line"><span class="meta">                title = &quot;User Manager API&quot;,</span></span><br><span class="line"><span class="meta">                version = &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="meta">                description = &quot;用户信息管理API&quot;,</span></span><br><span class="line"><span class="meta">                contact = @Contact(</span></span><br><span class="line"><span class="meta">                        name = &quot;yingzheng&quot;,</span></span><br><span class="line"><span class="meta">                        email = &quot;yingzhengttt@gmail.com&quot;</span></span><br><span class="line"><span class="meta">                )</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">)</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/17/react/electron_nextjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/17/react/electron_nextjs/" class="post-title-link" itemprop="url">NextJs集成Electron</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-17 10:30:47" itemprop="dateCreated datePublished" datetime="2025-02-17T10:30:47+08:00">2025-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-18 15:23:29" itemprop="dateModified" datetime="2025-02-18T15:23:29+08:00">2025-02-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/frontend/" itemprop="url" rel="index"><span itemprop="name">frontend</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>Electron 简单来说就是一个浏览器套壳打包方案，相当于你开发了一个网页后，通过浏览器能访问这个网页；然后如果你想把网页打包成一个单独的应用的话，可以使用Electron，它内置了 chromium 和 node.js 运行环境，使用 Electron 相当于构建了一个只显示你的网页的浏览器程序。而且Electron可以通过node.js提供一些浏览器不能提供的功能。</p>
+<p>Electron 支持 <strong>URL 加载</strong>和<strong>文件加载</strong>两种方式。</p>
+<ul>
+<li>URL加载是传入一个URL，显示URL内容。</li>
+<li>文件加载是传入HTML文件，Electron通过文件渲染内容。</li>
+</ul>
+<p>理论上来说，只要能进行静态导出，就能兼容各种前端框架。同时也提供了 Next.js 动态路由的加载的方式。</p>
+</blockquote>
+<h2 id="创建Nextjs工程文件"><a href="#创建Nextjs工程文件" class="headerlink" title="创建Nextjs工程文件"></a>创建Nextjs工程文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app@latest electron_nextjs</span><br></pre></td></tr></table></figure>
+
+<p>创建参数全部使用默认即可（使用Typescript，使用Tailwind CSS，使用App Router）</p>
+<h2 id="打包Nextjs工程"><a href="#打包Nextjs工程" class="headerlink" title="打包Nextjs工程"></a>打包Nextjs工程</h2><p>在<code>package.json</code>的scripts中已经有了build。</p>
+<p>Nextjs打包有两种方式（需要配置<code>next.config.js</code>）：</p>
+<ul>
+<li><p>静态模式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next.config.js</span></span><br><span class="line"><span class="keyword">import</span> type &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;export&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态模式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//next.config.js</span></span><br><span class="line"><span class="keyword">import</span> type &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;standalone&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>静态模式</strong>是将工程压缩到一个HTML中，Electron只需要使用文件加载加载该HTML即可。但静态模式无法进行网络请求所以只用在一些仅展示的页面中，比如博客，公司简介等。</p>
+<p>静态导出会将内容导出到<code>out/</code>目录下的<code>index.html</code>中，后续Electron只需要加载该文件即可（本文不讨论）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line">mainWindow.<span class="title function_">loadFile</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../out/index.html&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>本文采用<strong>动态模式</strong>，即Nextjs将以standalone模式进行打包，文件被导出到<code>.next/standalone</code>文件夹下，其中有<code>server.js</code>用于启动该项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node ./server.js</span><br></pre></td></tr></table></figure>
+
+<p>为了将公共资源包也整合进<code>.next/standalone</code>，需要重定义package.json中的<code>next build</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package.json</span></span><br><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>定义<code>build:next</code>脚本，执行<code>next build</code>后将<code>public</code>和<code>.next/static</code>导入到 <code>.next/standalone</code>中。</p>
+<p>执行<code>npm run build:next</code> 即可打包Nextjs项目，然后进入<code>.next/standalone</code>使用<code>node ./server.js</code>启动Nextjs项目。</p>
+<p>至此，Nextjs的打包过程就完成了。</p>
+<h2 id="配置Electron"><a href="#配置Electron" class="headerlink" title="配置Electron"></a>配置Electron</h2><p>根据<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/latest/tutorial/tutorial-first-app#initializing-your-npm-project">Electron官网</a>，将Electron依赖加入到项目中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>为了能同时启动Nextjs和Electron，安装<code>concurrently</code>依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install concurrently --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>创建<code>main/main.js</code>文件作为Electron的启动入口，以及<code>main/preload.js</code>作为主进程与渲染进程的桥梁。</p>
+<p>添加包依赖，需要在<code>main/main.js</code>中使用，<code>electron-is-dev</code>用于判断是否处于dev开发过程，<code>get-port-please</code>是用于获取一个未被使用的端口，用于启动nextjs的standalone。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install electron-is-dev get-port-please</span><br></pre></td></tr></table></figure>
+
+<p><code>main/main.js</code></p>
+<p>主要功能实现（第一个功能在后续Nextjs中会用到，目前没用）：</p>
+<ul>
+<li>关闭系统自带状态栏，启用自定义按钮。（需要在前端css设置 <code>app-region: drag</code>，提供可拖拽区域）。</li>
+<li>loadURL前进行轮训，直至nextjs服务启动，保证Electron加载URL时，Nextjs已经启动。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main/main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;app, <span class="title class_">BrowserWindow</span>&#125; <span class="keyword">from</span> <span class="string">&quot;electron&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> isDev <span class="keyword">from</span> <span class="string">&quot;electron-is-dev&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&quot;http&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;fileURLToPath&#125; <span class="keyword">from</span> <span class="string">&#x27;url&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;dirname&#125; <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&quot;node:path&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;getPort&#125; <span class="keyword">from</span> <span class="string">&quot;get-port-please&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;startServer&#125; <span class="keyword">from</span> <span class="string">&quot;next/dist/server/lib/start-server.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> __filename = <span class="title function_">fileURLToPath</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>);</span><br><span class="line"><span class="keyword">const</span> __dirname = <span class="title function_">dirname</span>(__filename);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> win = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断Nextjs是否启动成功，每一秒检查一次</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">waitForNextJs</span> = (<span class="params">bg_url</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            http.<span class="title function_">get</span>(bg_url, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (res.<span class="property">statusCode</span> === <span class="number">200</span>) &#123;</span><br><span class="line">                    <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">                    <span class="title function_">resolve</span>(); <span class="comment">// Next.js 启动完成</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Next.js not yet started, retrying...&#x27;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动Nextjs standalone包</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">startNextJSServer</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> nextJSPort = <span class="keyword">await</span> <span class="title function_">getPort</span>(&#123;<span class="attr">portRange</span>: [<span class="number">3000</span>, <span class="number">8000</span>]&#125;);</span><br><span class="line">        <span class="keyword">const</span> webDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;../.next/standalone/&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;path: &quot;</span> + webDir);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">startServer</span>(&#123;</span><br><span class="line">            <span class="attr">dir</span>: webDir,</span><br><span class="line">            <span class="attr">isDev</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">hostname</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">            <span class="attr">port</span>: nextJSPort,</span><br><span class="line">            <span class="attr">customServer</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">allowRetry</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">keepAliveTimeout</span>: <span class="number">5000</span>,</span><br><span class="line">            <span class="attr">minimalMode</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nextJSPort;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error starting Next.js server:&quot;</span>, error);</span><br><span class="line">        <span class="keyword">throw</span> error;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// BrowserWindow使用自定义状态栏</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">createWindow</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">        <span class="attr">width</span>: <span class="number">1000</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">800</span>,</span><br><span class="line">        <span class="attr">minWidth</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">minHeight</span>: <span class="number">400</span>,</span><br><span class="line">        <span class="attr">titleBarStyle</span>: <span class="string">&#x27;hidden&#x27;</span>,   <span class="comment">//关闭系统自带状态栏</span></span><br><span class="line">        <span class="attr">titleBarOverlay</span>: &#123;</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">            <span class="attr">symbolColor</span>: <span class="string">&#x27;rgba(255, 255, 255, 0)&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;preload.js&#x27;</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 首先加载Loading页面，等待Nextjs的启动</span></span><br><span class="line">    win.<span class="title function_">loadFile</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public/loading.html&#x27;</span>));</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">loadURL</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (isDev) &#123;</span><br><span class="line">            <span class="keyword">const</span> bg_url = <span class="string">&quot;http://localhost:3000&quot;</span>;</span><br><span class="line">            <span class="title function_">waitForNextJs</span>(bg_url).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                win.<span class="title function_">setTitleBarOverlay</span>(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">                    <span class="attr">symbolColor</span>: <span class="string">&#x27;#74b1be&#x27;</span>,</span><br><span class="line">                    <span class="attr">height</span>: <span class="number">40</span></span><br><span class="line">                &#125;)</span><br><span class="line">                win.<span class="title function_">loadURL</span>(bg_url);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 启动 nextjs 打包后的 standalone 并获取启动 端口</span></span><br><span class="line">                <span class="keyword">const</span> port = <span class="keyword">await</span> <span class="title function_">startNextJSServer</span>();</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Next.js server started on port:&quot;</span>, port);</span><br><span class="line">                win.<span class="title function_">setTitleBarOverlay</span>(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&quot;rgba(255, 255, 255, 0)&quot;</span>,</span><br><span class="line">                    <span class="attr">symbolColor</span>: <span class="string">&#x27;#74b1be&#x27;</span>,</span><br><span class="line">                    <span class="attr">height</span>: <span class="number">40</span></span><br><span class="line">                &#125;)</span><br><span class="line">                win.<span class="title function_">loadURL</span>(<span class="string">`http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error starting Next.js server:&quot;</span>, error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="title function_">loadURL</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// win.webContents.openDevTools();</span></span><br><span class="line">    <span class="comment">// win.webContents.on(&quot;did-fail-load&quot;, (e, code, desc) =&gt; &#123;</span></span><br><span class="line">    <span class="comment">//     win.webContents.reloadIgnoringCache();</span></span><br><span class="line">    <span class="comment">// &#125;);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">disableHardwareAcceleration</span>();</span><br><span class="line">app.<span class="title function_">whenReady</span>().<span class="title function_">then</span>(createWindow)</span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&quot;window-all-closed&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (process.<span class="property">platform</span> !== <span class="string">&quot;darwin&quot;</span>) &#123;</span><br><span class="line">        app.<span class="title function_">quit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>main/preload.js</code></p>
+<p>目前没有使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main/preload.js</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>public/</code>目录下创建<code>loading.html</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--public/loading.html--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">100vh</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">100vw</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, red, blue);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>设置<code>package.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nextjs_electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron ./main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;concurrently --kill-others  \&quot;npm run dev:next\&quot; \&quot;npm run dev:electron\&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>npm run dev</code> 同时启动Nextjs和Electron。（目前窗口时不能拖动的，后续会在Nextjs中添加）</p>
+<h2 id="Electron-Forge打包Electron"><a href="#Electron-Forge打包Electron" class="headerlink" title="Electron Forge打包Electron"></a>Electron Forge打包Electron</h2><p>根据<a target="_blank" rel="noopener" href="https://www.electronforge.io/import-existing-project#using-the-import-script">Electron Forge</a>官网教程安装打包工具：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @electron-forge/cli</span><br><span class="line">npm <span class="built_in">exec</span> --package=@electron-forge/cli -c <span class="string">&quot;electron-forge import&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>package.json</code>中配置需要打包的类型和平台并更新scripts</p>
+<p><code>package.json</code></p>
+<p><em>其中Scripts中<code>&quot;dev:nextweb&quot;: &quot;NEXT_PUBLIC_WEB=true next dev&quot;</code>是为了能让Nextjs能够以WEB的形式启动而不依赖于Electron。因为Nextjs某些特性只能在Electron中才能启动，使用该变量将这些特性只有在启用Electron才加载。</em></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nextjs_electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;private&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:nextweb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NEXT_PUBLIC_WEB=true next dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron ./main/main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;concurrently --kill-others  \&quot;npm run dev:next\&quot; \&quot;npm run dev:electron\&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next build &amp;&amp; cp -r public .next/standalone/ &amp;&amp; cp -r .next/static .next/standalone/.next/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge package&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm run build:next &amp;&amp; npm run build:electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;make&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge make&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dist&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm run build &amp;&amp; npm run make&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-forge start&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lint&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next lint&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;forge&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;packagerConfig&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;makers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;@electron-forge/maker-deb&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;platforms&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;linux&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;public/chat.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ichat for deb&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;productDescription&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ichat for deb&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  ... ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>注：打包过程中，本文设置了<code>makers.config.icon</code>，所以需要添加图片<code>public/chat.png</code>，不想设置icon可以直接在<code>package.json</code>中删除<code>makers.config.icon</code>。</p>
+<p>执行<code>npm run dist</code>命令，即执行了<em>Nextjs的build</em>，<em>election-forge的package</em> 和 <em>election-forge的make</em>。最终的生成文件在<code>/out/make/</code>内。</p>
+<p>注：本文生成的时Linux的deb文件，执行命令<code>sudo apt install ./nextjs_electron_0.1.0_amd64.deb</code>安装。</p>
+<h2 id="Nextjs可拖拽状态栏-和-更改主题颜色（可选）"><a href="#Nextjs可拖拽状态栏-和-更改主题颜色（可选）" class="headerlink" title="Nextjs可拖拽状态栏 和 更改主题颜色（可选）"></a>Nextjs可拖拽状态栏 和 更改主题颜色（可选）</h2><blockquote>
+<p>本Nextjs项目整合</p>
+<ul>
+<li><strong>HeroUI</strong>前端UI框架，具体方法参照<a target="_blank" rel="noopener" href="https://www.heroui.com/docs/frameworks/nextjs#manual-installation">HeroUI官方文档</a>的手动导入</li>
+<li>**<a target="_blank" rel="noopener" href="https://www.heroui.com/docs/customization/dark-mode#using-next-themes">Next Theme</a>**主题切换，但要记得<a target="_blank" rel="noopener" href="https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app">在html标签中添加</a><code>suppressHydrationWarning</code></li>
+</ul>
+</blockquote>
+<p>添加上述两个依赖后，需要在<code>layout.tsx</code>中自定义状态栏，将状态栏所在的<code>div</code>的CSS添加<code>style=&#123;&#123;"app-region": 'drag'&#125;&#125;</code>。该CSS特性是Electron专属，可以让模块进行拖拽。</p>
+<p><code>src/app/layout.tsx</code></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;./globals.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Providers</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./providers&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CustomBar</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/CustomBar&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">RootLayout</span>(<span class="params">&#123;children,&#125;: <span class="title class_">Readonly</span>&lt;&#123; children: React.ReactNode; &#125;&gt;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">suppressHydrationWarning</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Providers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;h-screen w-screen flex flex-col&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_height w-full bg-bar_bg&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">CustomBar</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex-1&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;children&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Providers</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>src/app/globals.css</code></p>
+<p>其中定义一些TailwindCSS自定义的字段，可以在TailwindCSS中直接使用。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tailwind</span> base;</span><br><span class="line"><span class="meta">@tailwind</span> components;</span><br><span class="line"><span class="meta">@tailwind</span> utilities;</span><br><span class="line"></span><br><span class="line">body &#123;</span><br><span class="line">    font-<span class="attr">family</span>: <span class="title class_">Arial</span>, <span class="title class_">Helvetica</span>, sans-serif;</span><br><span class="line">    <span class="attr">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@layer</span> components &#123;</span><br><span class="line">    --header-<span class="attr">height</span>: 40px;</span><br><span class="line"></span><br><span class="line">    .<span class="property">bar_height</span> &#123;</span><br><span class="line">        <span class="attr">height</span>: <span class="title function_">var</span>(--header-height);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .<span class="property">bar_icon</span> &#123;</span><br><span class="line">        <span class="attr">height</span>: <span class="title function_">var</span>(--header-height);</span><br><span class="line">        <span class="attr">width</span>: 40px;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>tailwind.config.ts</code></p>
+<p>设置不同主题下的颜色，并设置自定义的颜色变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">Config</span>&#125; <span class="keyword">from</span> <span class="string">&quot;tailwindcss&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;heroui&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">content</span>: [</span><br><span class="line">        <span class="string">&quot;./src/pages/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./src/components/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./src/app/**/*.&#123;js,ts,jsx,tsx,mdx&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;./node_modules/@heroui/theme/dist/**/*.&#123;js,ts,jsx,tsx&#125;&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">darkMode</span>: <span class="string">&quot;class&quot;</span>,</span><br><span class="line">    <span class="attr">plugins</span>: [<span class="title function_">heroui</span>(&#123;</span><br><span class="line">        <span class="attr">themes</span>: &#123;</span><br><span class="line">            <span class="attr">light</span>: &#123;</span><br><span class="line">                <span class="attr">colors</span>: &#123;</span><br><span class="line">                    <span class="attr">background</span>: <span class="string">&quot;#FFFFFF&quot;</span>,</span><br><span class="line">                    <span class="attr">foreground</span>: <span class="string">&quot;#11181C&quot;</span>,</span><br><span class="line">                    <span class="attr">bar_bg</span>: <span class="string">&quot;#d4d4d8&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">dark</span>: &#123;</span><br><span class="line">                <span class="attr">colors</span>: &#123;</span><br><span class="line">                    <span class="attr">background</span>: <span class="string">&quot;#000000&quot;</span>,</span><br><span class="line">                    <span class="attr">foreground</span>: <span class="string">&quot;#ECEDEE&quot;</span>,</span><br><span class="line">                    <span class="attr">bar_bg</span>: <span class="string">&quot;#3f3f46&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)],</span><br><span class="line">&#125; <span class="keyword">satisfies</span> <span class="title class_">Config</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>src/app/provider.tsx</code></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;use client&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">HeroUIProvider</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@heroui/react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">ThemeProvider</span> <span class="keyword">as</span> <span class="title class_">NextThemesProvider</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next-themes&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">Providers</span>(<span class="params">&#123;children&#125;: &#123; children: React.ReactNode &#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">HeroUIProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">NextThemesProvider</span> <span class="attr">attribute</span>=<span class="string">&quot;class&quot;</span> <span class="attr">defaultTheme</span>=<span class="string">&quot;system&quot;</span> <span class="attr">enableSystem</span>=<span class="string">&#123;true&#125;</span> <span class="attr">themes</span>=<span class="string">&#123;[</span>&quot;<span class="attr">dark</span>&quot;, &quot;<span class="attr">light</span>&quot;]&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;children&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">NextThemesProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">HeroUIProvider</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>src/app/component/bar/CustomBar.tsx</code></p>
+<p>Nextjs自定状态栏，为了满足能够同时支持WEB和ELECTRON两种启动方式，定义<code>NEXT_PUBLIC_WEB</code>全局变量，用来动态设置是否支持某些ELECTRON特性。后面会在<code>next.config.ts</code>中设置该变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;use client&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ThemeSwitcher</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/ThemeSwitcher&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Settings</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/Settings&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">UserInfo</span> <span class="keyword">from</span> <span class="string">&quot;@/app/component/bar/UserInfo&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CustomBar</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [web, setWeb] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_WEB</span> === <span class="string">&#x27;true&#x27;</span>) &#123;</span><br><span class="line">            <span class="title function_">setWeb</span>(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, [])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;h-full w-full flex flex-end gap-2 electron_pr&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">             <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&quot;<span class="attr">padding-right</span>&quot;<span class="attr">:</span> &quot;<span class="attr">0px</span>&quot;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">drag</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;mr-auto&quot;</span>&gt;</span>bar<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">ThemeSwitcher</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*    <span class="tag">&lt;<span class="name">Settings</span>/&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;/<span class="name">div</span>&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;bar_icon flex items-center justify-center&quot;</span> <span class="attr">style</span>=<span class="string">&#123;web</span> ? &#123;&#125; <span class="attr">:</span> &#123;&quot;<span class="attr">app-region</span>&quot;<span class="attr">:</span> &#x27;<span class="attr">no-drag</span>&#x27;&#125;&#125;&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*    <span class="tag">&lt;<span class="name">UserInfo</span>/&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">            &#123;/*<span class="tag">&lt;/<span class="name">div</span>&gt;</span>*/&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ThemeSwitcher.tsx</code></p>
+<p>使用<code>useTheme</code>来更改Nextjs的主题，使用HeroUI的<code>Dropdown</code>来提供更改按钮</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;use client&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Button</span>&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useTheme&#125; <span class="keyword">from</span> <span class="string">&quot;next-themes&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Dropdown</span>, <span class="title class_">DropdownItem</span>, <span class="title class_">DropdownMenu</span>, <span class="title class_">DropdownTrigger</span>&#125; <span class="keyword">from</span> <span class="string">&quot;@heroui/dropdown&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">DarkIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">LightIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">SystemIcon</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 24 24&quot;</span> <span class="attr">width</span>=<span class="string">&quot;18&quot;</span> <span class="attr">height</span>=<span class="string">&quot;18&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;currentColor&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">path</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">d</span>=<span class="string">&quot;M4 16H20V5H4V16ZM13 18V20H17V22H7V20H11V18H2.9918C2.44405 18 2 17.5511 2 16.9925V4.00748C2 3.45107 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44892 22 4.00748V16.9925C22 17.5489 21.5447 18 21.0082 18H13Z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ThemeSwitcher</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [mounted, setMounted] = <span class="title function_">useState</span>(<span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">const</span> &#123;theme, setTheme&#125; = <span class="title function_">useTheme</span>()</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">setMounted</span>(<span class="literal">true</span>)</span><br><span class="line">    &#125;, [])</span><br><span class="line">    <span class="keyword">if</span> (!mounted) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">toggleTheme</span> = (<span class="params"><span class="attr">key</span>: <span class="title class_">React</span>.<span class="title class_">Key</span></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (key === <span class="string">&quot;system&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;system&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key === <span class="string">&quot;dark&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;dark&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key === <span class="string">&quot;light&quot;</span>) &#123;</span><br><span class="line">            <span class="title function_">setTheme</span>(<span class="string">&quot;light&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;theme error&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Dropdown</span> <span class="attr">classNames</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">content:</span> &quot;<span class="attr">min-w-32</span> <span class="attr">w-32</span>&quot;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">DropdownTrigger</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Button</span> <span class="attr">className</span>=<span class="string">&quot;h-10 w-10 min-w-10 p-0&quot;</span> <span class="attr">variant</span>=<span class="string">&quot;light&quot;</span> <span class="attr">isIconOnly</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;system&quot; &amp;&amp; <span class="tag">&lt;<span class="name">SystemIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;light&quot; &amp;&amp; <span class="tag">&lt;<span class="name">LightIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                    &#123;theme === &quot;dark&quot; &amp;&amp; <span class="tag">&lt;<span class="name">DarkIcon</span>/&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">DropdownTrigger</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">DropdownMenu</span> <span class="attr">onAction</span>=<span class="string">&#123;toggleTheme&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">disallowEmptySelection</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;light&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">LightIcon</span>/&gt;</span>&#125;&gt;Light<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">DarkIcon</span>/&gt;</span>&#125;&gt;Dark<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">DropdownItem</span> <span class="attr">key</span>=<span class="string">&quot;system&quot;</span> <span class="attr">startContent</span>=<span class="string">&#123;</span>&lt;<span class="attr">SystemIcon</span>/&gt;</span>&#125;&gt;System<span class="tag">&lt;/<span class="name">DropdownItem</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">DropdownMenu</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Dropdown</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>为了布局美观，将原来的<code>src/app/page.tsx</code>内容删除，改为</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Home</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span> main <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时执行<code>npm run dev</code>就可以启动程序了，并且可以切换主题。</p>
+<p>但执行<code>npm run dist</code>打包的时候会报错，CSS中没有属性<code>app-region</code>，因为该特性是Electron特有的，在Nextjs打包时候会报错，为了不让Nextjs进行类型认证，在<code>next.config.ts</code>中设置跳过类型认证：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">NextConfig</span>&#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">nextConfig</span>: <span class="title class_">NextConfig</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: <span class="string">&#x27;standalone&#x27;</span>,</span><br><span class="line">    <span class="attr">eslint</span>: &#123;</span><br><span class="line">        <span class="attr">ignoreDuringBuilds</span>: <span class="literal">true</span>, <span class="comment">// 忽略 eslint 检查</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">typescript</span>: &#123;</span><br><span class="line">        <span class="attr">ignoreBuildErrors</span>: <span class="literal">true</span>, <span class="comment">// 忽略 TypeScript 检查</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">env</span>: &#123;</span><br><span class="line">      <span class="attr">NEXT_PUBLIC_WEB</span>: process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_WEB</span> || <span class="string">&#x27;false&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> nextConfig;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/02/16/interview/Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.png">
+      <meta itemprop="name" content="YingZheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yingzheng">
+      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | yingzheng">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/02/16/interview/Java%E9%9D%A2%E8%AF%95%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">Java面试合集</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-16 17:45:24" itemprop="dateCreated datePublished" datetime="2025-02-16T17:45:24+08:00">2025-02-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-04-25 20:44:46" itemprop="dateModified" datetime="2025-04-25T20:44:46+08:00">2025-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><h3 id="String底层为和将char-改成了byte"><a href="#String底层为和将char-改成了byte" class="headerlink" title="String底层为和将char[]改成了byte[]"></a>String底层为和将char[]改成了byte[]</h3><p>在 Java 9 之前，String 的底层实现使用的是 char[]数组来存储字符数据。然而，随着 Unicode 编码的普及和多语言环境的需求增加，char 类型无法满足所有情况下的字符表示要求。因此，在 Java 9 中，String 的底层实现被修改为使用 byte[]数组来存储字符数据。</p>
+<h3 id="解释-Java-在处理字符串拼接时如何优化性能-尤其是在-Java-9-以后的版本"><a href="#解释-Java-在处理字符串拼接时如何优化性能-尤其是在-Java-9-以后的版本" class="headerlink" title="解释 Java 在处理字符串拼接时如何优化性能,尤其是在 Java 9 以后的版本"></a>解释 Java 在处理字符串拼接时如何优化性能,尤其是在 Java 9 以后的版本</h3><p><strong>Java 9 之前的优化:</strong><br>编译期优化：在 Java 9 之前，编译器对字符串拼接做了优化。对于简单的字符串常量拼接，编译器会在编译期进行优化，将其直接替换为一个单独的字符串常量。例如：</p>
+<p><code>String str = &quot;Hello, &quot; + &quot;world!&quot;;</code></p>
+<p>这行代码在编译期会被优化成：</p>
+<p><code>String str = &quot;Hello, world!&quot;;</code></p>
+<p>使用 StringBuilder 进行拼接：对于包含变量的字符串拼接，Java 编译器会自动将拼接操作转换为使用 StringBuilder 进行的拼接操作。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> str1 + <span class="string">&quot;, &quot;</span> + str2 + <span class="string">&quot;!&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在编译后的字节码中，上述代码会被转换为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">sb.append(str1);</span><br><span class="line">sb.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">sb.append(str2);</span><br><span class="line">sb.append(<span class="string">&quot;!&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> sb.toString();</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java 9 及以后的优化:</strong></p>
+<p>在 Java 9 以后，JVM 引入了基于 <code>invokedynamic</code>指令的字符串拼接优化，进一步提升了性能。</p>
+<p><code>invokedynamic</code> 指令：Java 9 引入了<code>invokedynamic</code> 指令来优化字符串拼接。编译器在处理字符串拼接时，会生成一个调用 <code>invokedynamic</code> 指令的字节码，而不是直接使用 <code>StringBuilder</code>。 <code>invokedynamic</code> 指令在运行时决定最佳的拼接策略。</p>
+<ul>
+<li><p>减少中间对象：通过动态拼接策略，减少了中间对象的创建，降低了内存使用和 GC 压力。</p>
+</li>
+<li><p>运行时优化：invokedynamic 指令允许 JVM 在运行时根据实际使用情况选择最佳策略，提高了代码的执行效率。</p>
+</li>
+<li><p>更高的灵活性：使用 invokedynamic 提供了更高的灵活性，允许未来的 JVM 优化进一步提升性能，而不需要改变应用代码。</p>
+</li>
+</ul>
+<h3 id="描述一下字符串常量池（String-Pool）的工作原理"><a href="#描述一下字符串常量池（String-Pool）的工作原理" class="headerlink" title="描述一下字符串常量池（String Pool）的工作原理"></a>描述一下字符串常量池（String Pool）的工作原理</h3><p>字符串常量池（String Pool）是 Java 中用于存储字符串字面值的一种特殊内存区域。它的主要目的是为了节省内存和提高性能。以下是字符串常量池的工作原理和它如何影响字符串实例的具体描述：</p>
+<ul>
+<li>字符串字面值的存储：<ul>
+<li>当一个字符串字面值被创建时，如 String str &#x3D; “Hello”;，JVM 会先检查字符串常量池中是否已经存在一个值为 “Hello” 的字符串。</li>
+<li>如果常量池中已经存在这个字符串，JVM 不会创建新的字符串对象，而是直接返回常量池中的引用。这意味着相同的字符串字面值在内存中只会存储一次。</li>
+</ul>
+</li>
+<li>字符串的 intern() 方法：<ul>
+<li>可以显式地将一个字符串添加到常量池中，使用 intern() 方法。例如：String str &#x3D; new String(“Hello”).intern();</li>
+<li>intern() 方法会检查常量池中是否存在一个值等于该字符串对象的字符串。如果存在，则返回池中的字符串引用；如果不存在，则将该字符串添加到常量池中，并返回该字符串的引用。</li>
+</ul>
+</li>
+</ul>
+<p>编译时的优化：编译器会自动将所有字符串字面值添加到常量池中。这意味着在编译时，字符串字面值就已经在常量池中，运行时直接使用。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -754,7 +1175,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-31 10:30:14" itemprop="dateModified" datetime="2025-01-31T10:30:14+08:00">2025-01-31</time>
+      <time title="Modified: 2025-07-03 00:05:08" itemprop="dateModified" datetime="2025-07-03T00:05:08+08:00">2025-07-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -776,7 +1197,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Git-命令"><a href="#Git-命令" class="headerlink" title="Git 命令"></a>Git 命令</h1><blockquote>
+          <h1 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h1><blockquote>
 <p>Git分为工作区，版本库（暂存区和提交历史）</p>
 <p>工作区即项目目录，版本库为其中的<code>.git</code>隐藏文件夹，其中index即为暂存区。</p>
 </blockquote>
@@ -792,8 +1213,55 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph --pretty=oneline --abbrev-commit</span><br></pre></td></tr></table></figure>
 
-
-
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切换已有本地分支</td>
+<td><code>git switch dev</code></td>
+<td>快速切换</td>
+</tr>
+<tr>
+<td>创建并切换新分支</td>
+<td><code>git switch -c dev</code></td>
+<td>不关联远程</td>
+</tr>
+<tr>
+<td>基于远程创建并跟踪</td>
+<td><code>git switch --track -c dev origin/dev</code></td>
+<td>推荐用法</td>
+</tr>
+<tr>
+<td>基于 tag 创建新分支</td>
+<td><code>git switch -c dev v1.0</code></td>
+<td>基于 tag</td>
+</tr>
+<tr>
+<td>切换到 tag</td>
+<td><code>git switch v1.0</code></td>
+<td>游离 HEAD</td>
+</tr>
+<tr>
+<td>切换到 commit</td>
+<td><code>git switch a1b2c3d</code></td>
+<td>游离 HEAD</td>
+</tr>
+<tr>
+<td>强制切换丢弃修改</td>
+<td><code>git switch -f dev</code></td>
+<td>小心使用</td>
+</tr>
+<tr>
+<td>游离 HEAD（只查看）</td>
+<td><code>git switch --detach origin/dev</code></td>
+<td>只看不提交</td>
+</tr>
+</tbody></table>
 <p>Git在切换分支时，如果工作区或暂存区存在数据并没有提交，Git会尝试将这些数据（未追踪的数据，修改但没加入暂存区的数据，加入暂存区的数据）转移到新分支的工作区和暂存区，如果合并过程中出现冲突，那么Git会阻止分支切换。</p>
 <p>解决冲突的方案：</p>
 <ul>
@@ -804,6 +1272,233 @@
 <p>注意：一般来说，在切换分支前需要将工作区、暂存区清空，防止将一些不必要的修改带入到其他分支。</p>
 <p>工作区中包含了<strong>未被追踪的数据</strong>和<strong>加入暂存区后又被修改的数据</strong></p>
 <p>暂存区中包含了<strong>上一次add时数据的状态</strong></p>
+<h2 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git restore &lt;file&gt;</code></td>
+<td>恢复指定文件到最新提交版本，覆盖工作区的改动（<strong>未提交的更改会丢失</strong>）。</td>
+</tr>
+<tr>
+<td><code>git restore .</code></td>
+<td>恢复所有文件，丢弃全部工作区未提交的更改。</td>
+</tr>
+<tr>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+<td>取消暂存区的指定文件，保留工作区改动。</td>
+</tr>
+<tr>
+<td><code>git restore --staged .</code></td>
+<td>取消所有已暂存的文件，保留工作区改动。</td>
+</tr>
+<tr>
+<td><code>git restore --staged --worktree &lt;file&gt;</code></td>
+<td>同时恢复暂存区和工作区，彻底还原文件到最近一次提交版本。</td>
+</tr>
+<tr>
+<td><code>git restore --source=&lt;branch&gt; --staged --worktree &lt;file&gt;</code></td>
+<td>从指定提交恢复文件，同时覆盖工作区和暂存区。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>恢复工作区到仓库版本</td>
+<td><code>git restore &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td>恢复工作区到暂存区版本</td>
+<td><code>git restore --source=: &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td>恢复暂存区到仓库版本</td>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+</tr>
+</tbody></table>
+<h2 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保存修改</td>
+<td><code>git stash</code></td>
+</tr>
+<tr>
+<td>保存修改（含未跟踪）</td>
+<td><code>git stash -u</code></td>
+</tr>
+<tr>
+<td>保存所有</td>
+<td><code>git stash -a</code></td>
+</tr>
+<tr>
+<td>查看列表</td>
+<td><code>git stash list</code></td>
+</tr>
+<tr>
+<td>查看修改</td>
+<td><code>git stash show -p stash@&#123;0&#125;</code></td>
+</tr>
+<tr>
+<td>应用最新 stash （但不删除）</td>
+<td><code>git stash apply</code></td>
+</tr>
+<tr>
+<td>应用并删除</td>
+<td><code>git stash pop</code></td>
+</tr>
+<tr>
+<td>删除指定 stash</td>
+<td><code>git stash drop stash@&#123;0&#125;</code></td>
+</tr>
+<tr>
+<td>清空 stash</td>
+<td><code>git stash clear</code></td>
+</tr>
+<tr>
+<td>交互式 stash</td>
+<td><code>git stash push -p</code></td>
+</tr>
+<tr>
+<td>新建分支恢复 stash</td>
+<td><code>git stash branch new-branch stash@&#123;0&#125;</code></td>
+</tr>
+</tbody></table>
+<h2 id="Merge-Rebase"><a href="#Merge-Rebase" class="headerlink" title="Merge &#x2F; Rebase"></a>Merge &#x2F; Rebase</h2><p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250629210400266.png" alt="image-20250629210400266"></p>
+<h2 id="Reset-Revert"><a href="#Reset-Revert" class="headerlink" title="Reset &#x2F; Revert"></a>Reset &#x2F; Revert</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>修改历史</th>
+<th>生成新提交</th>
+<th>是否安全</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git reset --soft &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，将当前commit保留到暂存区</td>
+</tr>
+<tr>
+<td><code>git reset --mixed &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，将当前commit保留到工作区</td>
+</tr>
+<tr>
+<td><code>git reset --hard &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，丢弃所有修改</td>
+</tr>
+<tr>
+<td><code>git revert</code></td>
+<td>❌ 否</td>
+<td>✅ 是</td>
+<td>✅ 是</td>
+<td>撤销当前 commit，生成一个新的节点，协作开发，不改历史</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>HEAD 指针移动</th>
+<th>暂存区变化</th>
+<th>工作区变化</th>
+<th>场景总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git reset --soft HEAD^</code></td>
+<td>✅ 回退</td>
+<td>保持回退前commit的内容</td>
+<td>❌ 保留（工作区内容不变，保持回退前commit的内容）</td>
+<td>回退 commit，修改回到暂存区，适合继续提交</td>
+</tr>
+<tr>
+<td><code>git reset --mixed HEAD^</code></td>
+<td>✅ 回退</td>
+<td>更改至目标commit的内容</td>
+<td>❌ 保留（工作区内容不变，保持回退前commit的内容）</td>
+<td>回退 commit，修改回到工作区，适合继续编辑</td>
+</tr>
+<tr>
+<td><code>git reset --hard HEAD^</code></td>
+<td>✅ 回退</td>
+<td>更改至目标commit的内容</td>
+<td>✅ 恢复为目标commit的状态</td>
+<td>回退 commit，直接丢弃修改，彻底干净</td>
+</tr>
+</tbody></table>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><p>添加远程分支</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加远程</td>
+<td><code>git remote add origin &lt;url&gt;</code></td>
+</tr>
+<tr>
+<td>查看远程</td>
+<td><code>git remote -v</code></td>
+</tr>
+<tr>
+<td>修改远程地址</td>
+<td><code>git remote set-url origin &lt;new-url&gt;</code></td>
+</tr>
+<tr>
+<td>删除远程</td>
+<td><code>git remote remove origin</code></td>
+</tr>
+</tbody></table>
+<p>push本地分支到远程分支并关联在一起</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否需要手动指定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一次推送主分支</td>
+<td>需要执行 <code>git push -u origin main</code></td>
+</tr>
+<tr>
+<td>后续推送主分支</td>
+<td>直接 <code>git push</code> 即可</td>
+</tr>
+<tr>
+<td>新建其他分支第一次推送</td>
+<td>需要执行 <code>git push -u origin 分支名</code></td>
+</tr>
+<tr>
+<td>新建其他分支后续推送</td>
+<td>直接 <code>git push</code> 即可</td>
+</tr>
+</tbody></table>
+<h2 id="Fetch-Pull"><a href="#Fetch-Pull" class="headerlink" title="Fetch &#x2F; Pull"></a>Fetch &#x2F; Pull</h2><p><code>git fetch</code> + <code>git merge</code> &#x3D; <code>git pull</code></p>
 
       
     </div>
@@ -866,7 +1561,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-16 17:46:15" itemprop="dateModified" datetime="2025-02-16T17:46:15+08:00">2025-02-16</time>
+      <time title="Modified: 2025-06-12 18:27:08" itemprop="dateModified" datetime="2025-06-12T18:27:08+08:00">2025-06-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -901,7 +1596,7 @@
 
 
 
-<h2 id="SpringBoot-数据库连接池"><a href="#SpringBoot-数据库连接池" class="headerlink" title="SpringBoot 数据库连接池"></a>SpringBoot 数据库连接池</h2>
+<h2 id="SpringBoot-数据库连接池"><a href="#SpringBoot-数据库连接池" class="headerlink" title="SpringBoot 数据库连接池"></a>SpringBoot 数据库连接池</h2><h2 id="Spring-IOC-循环依赖"><a href="#Spring-IOC-循环依赖" class="headerlink" title="Spring IOC 循环依赖"></a>Spring IOC 循环依赖</h2>
       
     </div>
 
@@ -993,366 +1688,6 @@
 <li>AbstractAuthenticationProcessingFilter中，当用户登录成功，也是会调用this.securityContextRepository.saveContext(context, request, response);存储上下文到session中。</li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/springboot/SpringBoot%20OAuth2%E5%8D%95%E7%82%B9%E7%99%BB%E9%99%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/25/springboot/SpringBoot%20OAuth2%E5%8D%95%E7%82%B9%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">SpringBoot OAuth2单点登陆</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-04-20 15:47:24" itemprop="dateModified" datetime="2025-04-20T15:47:24+08:00">2025-04-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>目标是实现前后端分离（BFF）的OAuth2登陆流程。需要详细分析Spring OAuth2 Client认证流程，才能对后端的认证进行修改满足前后端分离的要求。</p>
-</blockquote>
-<h1 id="Spring-OAuth-配置"><a href="#Spring-OAuth-配置" class="headerlink" title="Spring OAuth 配置"></a>Spring OAuth 配置</h1><h2 id="1-依赖（Dependency"><a href="#1-依赖（Dependency" class="headerlink" title="1. 依赖（Dependency)"></a>1. 依赖（Dependency)</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-oauth2-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-OAuth2-Server-Configuration-application-yml"><a href="#2-OAuth2-Server-Configuration-application-yml" class="headerlink" title="2. OAuth2 Server Configuration (application.yml)"></a>2. OAuth2 Server Configuration (application.yml)</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">security:</span></span><br><span class="line">        <span class="attr">oauth2:</span></span><br><span class="line">            <span class="attr">client:</span></span><br><span class="line">                <span class="attr">registration:</span></span><br><span class="line">                    <span class="attr">github:</span></span><br><span class="line">                        <span class="attr">client-id:</span> <span class="string">Ov23lisFyLM8ev2mgeX1</span></span><br><span class="line">                        <span class="attr">client-secret:</span> <span class="string">da386df22b42d1374216995f47c3d05d441b3da6</span></span><br><span class="line">                    <span class="attr">google:</span></span><br><span class="line">                        <span class="attr">client-id:</span> <span class="string">google-client-id</span></span><br><span class="line">                        <span class="attr">client-secret:</span> <span class="string">google-client-secret</span></span><br><span class="line">                    <span class="attr">facebook:</span></span><br><span class="line">                        <span class="attr">client-id:</span> <span class="string">okta-client-id</span></span><br><span class="line">                        <span class="attr">client-secret:</span> <span class="string">okta-client-secret</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#为了更好的了解后端认证流程，将TRACE log打印出来                        </span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">    <span class="attr">level:</span></span><br><span class="line">        <span class="attr">org:</span></span><br><span class="line">            <span class="attr">springframework:</span></span><br><span class="line">                <span class="attr">security:</span> <span class="string">TRACE</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Config-SecurityFilterChain"><a href="#3-Config-SecurityFilterChain" class="headerlink" title="3. Config SecurityFilterChain"></a>3. Config <code>SecurityFilterChain</code></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests</span><br><span class="line">                        .anyRequest().authenticated())</span><br><span class="line">                .oauth2Login(Customizer.withDefaults());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>到目前为止，默认的Spring security OAuth2已经配置完成了。启动项目并访问<code>localhost:8080</code> 会自动跳转到登陆窗口 <code>localhost:8080/login</code></p>
-<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250103195400116.png" alt="login_window"></p>
-<p>我们发现登陆的API为<code>localhost:8080/oauth2/authorization/github</code>，<strong>这也是我们前端需要跳转的页面API地址</strong>。</p>
-<h1 id="授权流程"><a href="#授权流程" class="headerlink" title="授权流程"></a>授权流程</h1><blockquote>
-<p>当访问 <code>localhost:8080</code> 跳转到 <code>localhost:8080/login</code> 是由于在 SecurityFilterChain 中所有的页面都需要认证，当访问<code>\</code>时，被<code>AuthorizationFilter</code>抛出异常，并被<code>ExceptionTranslationFilter</code>中的<code>LoginUrlAuthenticationEntryPoint</code>处理 并重定向到 <code>localhost:8080/login</code>。 访问<code>localhost:8080/login</code>的时候，会被<code>DefaultLoginPageGeneratingFilter</code>拦截并返回Login页面。</p>
-<p>该过程在前端的核心认证过程中用不到，就不展开了。但在规范API的时候可以自定义AuthenticationEntryPoint，将错误API统一返回为JSON格式，而不是返回<code>/login</code>页面。</p>
-</blockquote>
-<h3 id="1-访问localhost-8080-oauth2-authorization-github"><a href="#1-访问localhost-8080-oauth2-authorization-github" class="headerlink" title="1. 访问localhost:8080/oauth2/authorization/github"></a>1. 访问<code>localhost:8080/oauth2/authorization/github</code></h3><p>当浏览器访问该地址后会自动跳转到Github的Login页面，此时后端日志停在了<code>OAuth2AuthorizationRequestRedirectFilter (7/16)</code>，也就是请求被该类处理了并发起了Redirecting to <code> https://github.com/login/oauth/authorize?</code>的页面跳转。	</p>
-<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250103202726604.png" alt="image-20250103202726604"></p>
-<p>通过前端调试Network可以看到，当访问<code>localhost:8080/oauth2/authorization/github</code>后端会发送重定向请求，将Response的Location设置为<code>https://github.com/login/oauth/authorize?</code>并进行跳转。</p>
-<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250103203153119.png" alt="image-20250103203153119"></p>
-<p>访问<code>https://github.com/login/oauth/authorize?</code>后再次跳转到<code>https://github.com/login?</code> </p>
-<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250103213105419.png"></p>
-<p>登陆完成后，Github OAuth Server会重定向到<code>https://github.com/login/oauth/authorize?</code> 然后Github会根据之前在Spring OAuth中设置的<code>Authorization callback URL</code>并跳转到该地址。下图是本文在Github中的设置：</p>
-<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250219171534862.png" alt="image-20250219171534862" style="zoom:50%;" />
-
-<p>即后续跳转到<code>https://localhost:8443/login/oauth2/code/github?code=3fd7543e7cf92aab5d53&amp;state=1NiT_GBSj2pOolkHnTHpSft8V9x6uOMTsvYveTHM6GE%3D</code></p>
-<p>此时后端日志中可以看到过滤链停在了<code>OAuth2LoginAuthenticationFilter (8/16)</code>，该类会接受code和state参数并进行处理。</p>
-<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250104112126452.png" alt="image-20250104112126452" style="zoom: 67%;" />
-
-<p>在该类结束的时候会重定向到<code>/</code>页面。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2025-01-03T23:55:11.589+08:00 DEBUG 46026 --- [nio-8080-exec-4] o.s.s.web.DefaultRedirectStrategy        : Redirecting to /</span><br><span class="line">2025-01-03T23:55:11.590+08:00 TRACE 46026 --- [nio-8080-exec-4] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match request to [Is Secure]</span><br></pre></td></tr></table></figure>
-
-<p>进入到类<code>OAuth2LoginAuthenticationFilter</code>，发现请求会进入到<code>attemptAuthentication()</code>方法中。该类主要完成以下步骤：</p>
-<ul>
-<li><code>redirect_uri</code>的请求会被过滤器<code>OAuth2LoginAuthenticationFilter</code>拦截处理</li>
-<li>向Github发送<code>&#123;token-uri&#125;/login/oauth/access_token</code>请求并获取token</li>
-<li>将获取的token封装到<code>OAuth2AuthenticationToken</code>中并返回该值</li>
-<li>设置Session</li>
-<li><code>SecurityContextHolder</code> 存储 <code>OAuth2AuthenticationToken</code></li>
-<li>从Session拿出之前访问的受限地址并重定向到该地址。</li>
-</ul>
-<h1 id="SpringBoot-OAuth2-Client前后端分离"><a href="#SpringBoot-OAuth2-Client前后端分离" class="headerlink" title="SpringBoot OAuth2 Client前后端分离"></a>SpringBoot OAuth2 Client前后端分离</h1><p>经过上述分析，前端只需要访问<code>localhost:8080/oauth2/authorization/github</code>即可开始认证过程。只要设置了<code>http.oauth2Login()</code>，SpringSecurity 即会保证<code>/oauth2/authorization/&#123;client&#125;</code>认证端点对外开放。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests</span><br><span class="line">                        .anyRequest().authenticated())</span><br><span class="line">                .oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                        .authorizationEndpoint();</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但前端调用该接口是需要添加参数，告诉后端处理完成之后需要跳转回哪里。所以目前需要在Spring Security OAuth中完成两项工作：</p>
-<ul>
-<li>修改拦截<code>localhost:8080/oauth2/authorization/github?origin_url=xxx</code>的拦截器，将其中的参数<code>origin_url</code>取出存到Session中。</li>
-<li>登陆完成后，从Session取出之前的<code>origin_url</code>并将用户从Github拿到的基本信息添加到该URL中进行跳转，返回到原来的页面。</li>
-</ul>
-<p>通过上一章节的页面调试，可以看到针对<code>localhost:8080/oauth2/authorization/github?origin_url=xxx</code>的处理是过滤连中<code>OAuth2AuthorizationRequestRedirectFilter</code>处理的。</p>
-<p>当Github根据提前设置的<code>Authorization callback URL</code>将code返回时，是过滤链中<code>OAuth2LoginAuthenticationFilter</code>处理的，处理过程包括1.接收Github传回的code。2.使用该code向Github发起POST请求来换取Token，最后接收到Token。 3.根据Token来获取Github用户基本信息。</p>
-<p>处理完成后跳转回最初的访问地址（此处需要更改为 从Session中拿出<code>origin_url</code>并跳转）。</p>
-<h2 id="设置拦截器，拦截-oauth2-authorization-github-origin-url-xxx的参数"><a href="#设置拦截器，拦截-oauth2-authorization-github-origin-url-xxx的参数" class="headerlink" title="设置拦截器，拦截/oauth2/authorization/github?origin_url=xxx的参数"></a>设置拦截器，拦截<code>/oauth2/authorization/github?origin_url=xxx</code>的参数</h2><blockquote>
-<p>本文通过重写<code>AuthorizationRequestRepository</code>将<code>origin_url</code>写入Session。</p>
-<p>也可以通过重写<code>AuthorizationRequestResolver</code>来解析<code>origin_url</code>，在解析选择哪种数据源的同时将<code>origin_url</code>封装到<code>OAuth2AuthorizationRequest</code>类里，后续<code>AuthorizationRequestRepository</code>会将该类直接放到Session中，最后需要通过获取Session中的<code>OAuth2AuthorizationRequest</code>对象，再从里面获取<code>origin_url</code>。读者可以自行尝试。</p>
-</blockquote>
-<p>经过调试<code>OAuth2AuthorizationRequestRedirectFilter</code>，发现只要是authorization_code认证方式的OAuth请求，都会经过<code>HttpSessionOAuth2AuthorizationRequestRepository</code>的处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OAuth2AuthorizationRequestRedirectFilter.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sendRedirectForAuthorization</span><span class="params">(HttpServletRequest request, HttpServletResponse response,</span></span><br><span class="line"><span class="params">        OAuth2AuthorizationRequest authorizationRequest)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">if</span> (AuthorizationGrantType.AUTHORIZATION_CODE.equals(authorizationRequest.getGrantType())) &#123;</span><br><span class="line">        <span class="built_in">this</span>.authorizationRequestRepository.saveAuthorizationRequest(authorizationRequest, request, response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.authorizationRedirectStrategy.sendRedirect(request, response,</span><br><span class="line">            authorizationRequest.getAuthorizationRequestUri());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中的<code>this.authorizationRequestRepository</code>默认是<code>HttpSessionOAuth2AuthorizationRequestRepository</code>。它的源码显示其专门在Session中存储请求信息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HttpSessionOAuth2AuthorizationRequestRepository.java</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An implementation of an &#123;<span class="doctag">@link</span> AuthorizationRequestRepository&#125; that stores</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> OAuth2AuthorizationRequest&#125; in the &#123;<span class="doctag">@code</span> HttpSession&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">HttpSessionOAuth2AuthorizationRequestRepository</span></span><br><span class="line">		<span class="keyword">implements</span> <span class="title class_">AuthorizationRequestRepository</span>&lt;OAuth2AuthorizationRequest&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以，可以自定义该类来解析Request请求中的参数<code>origin_url</code>。查看<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#oauth2-client-authorization-code-authorization-request-repository">Spring Security OAuth2 Client文档</a>可以配置自定义的<code>AuthorizationRequestRepository</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OAuth2ClientSecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="keyword">public</span> SecurityFilterChain <span class="title function_">filterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		http</span><br><span class="line">            .oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                .authorizationEndpoint(endpoint -&gt; endpoint</span><br><span class="line">                    .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span>())</span><br><span class="line">                    <span class="comment">// ...</span></span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">			<span class="keyword">return</span> http.build();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>目的只是为了增加一个解析URL参数，所以核心代码仍然使用它默认的<code>HttpSessionOAuth2AuthorizationRequestRepository</code>，只在<code>saveAuthorizationRequest()</code>方法中加入对<code>origin_url</code>的解析。</p>
-<p>定义类<code>ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</code>，将<code>HttpSessionOAuth2AuthorizationRequestRepository</code>的内容完全复制过来，将Class名字更改，并在<code>saveAuthorizationRequest()</code>中加入三行代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set url params to session</span></span><br><span class="line"><span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">Assert.hasText(originUrl, <span class="string">&quot;authorizationRequest.origin_url cannot be empty&quot;</span>);</span><br><span class="line">request.getSession().setAttribute(<span class="string">&quot;origin_url&quot;</span>, originUrl);</span><br></pre></td></tr></table></figure>
-
-<p>解析URL获取<code>origin_url</code>，并将URL存入到Session中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ParseUrlHttpSessionOAuth2AuthorizationRequestRepository.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span> <span class="keyword">implements</span> <span class="title class_">AuthorizationRequestRepository</span>&lt;OAuth2AuthorizationRequest&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME</span> <span class="operator">=</span> HttpSessionOAuth2AuthorizationRequestRepository.class</span><br><span class="line">            .getName() + <span class="string">&quot;.AUTHORIZATION_REQUEST&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">sessionAttributeName</span> <span class="operator">=</span> DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> OAuth2AuthorizationRequest <span class="title function_">loadAuthorizationRequest</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveAuthorizationRequest</span><span class="params">(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,</span></span><br><span class="line"><span class="params">                                         HttpServletResponse response)</span> &#123;</span><br><span class="line">        Assert.notNull(request, <span class="string">&quot;request cannot be null&quot;</span>);</span><br><span class="line">        Assert.notNull(response, <span class="string">&quot;response cannot be null&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (authorizationRequest == <span class="literal">null</span>) &#123;</span><br><span class="line">            removeAuthorizationRequest(request, response);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> authorizationRequest.getState();</span><br><span class="line">        Assert.hasText(state, <span class="string">&quot;authorizationRequest.state cannot be empty&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// set url params to session</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">        Assert.hasText(originUrl, <span class="string">&quot;authorizationRequest.origin_url cannot be empty&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;origin_url&quot;</span>, originUrl);</span><br><span class="line"></span><br><span class="line">        request.getSession().setAttribute(<span class="built_in">this</span>.sessionAttributeName, authorizationRequest);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> OAuth2AuthorizationRequest <span class="title function_">removeAuthorizationRequest</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">                                                                 HttpServletResponse response)</span> &#123;</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">getStateParameter</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> request.getParameter(OAuth2ParameterNames.STATE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OAuth2AuthorizationRequest <span class="title function_">getAuthorizationRequest</span><span class="params">(HttpServletRequest request)</span> &#123;</span><br><span class="line"> 	...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="设置登陆成功后跳转回制定URL-origin-url"><a href="#设置登陆成功后跳转回制定URL-origin-url" class="headerlink" title="设置登陆成功后跳转回制定URL(origin_url)"></a>设置登陆成功后跳转回制定URL(<code>origin_url</code>)</h2><p>当OAuth2处理成功后，需要从Session中拿出<code>origin_url</code>并重定向。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/reactive/oauth2/login/advanced.html">Spring Security OAuth2文档</a>显示可以自定义<code>authenticationSuccessHandler</code>，即<code>http.oauth2Login.successHandler()</code>来设置自定义成功后处理逻辑。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http.oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">    .successHandler(</span><br><span class="line">            (request, response, authentication) -&gt; &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> (String)request.getSession().getAttribute(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">                response.sendRedirect(originUrl);</span><br><span class="line">            &#125;)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
-
-<p>最终OAuth2的配置如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SecurityFilterChain <span class="title function_">securityFilterChain</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http.oauth2Login(oauth2 -&gt; oauth2</span><br><span class="line">                        .authorizationEndpoint(authorization -&gt; authorization</span><br><span class="line">                                .authorizationRequestRepository(<span class="keyword">new</span> <span class="title class_">ParseUrlHttpSessionOAuth2AuthorizationRequestRepository</span>()))</span><br><span class="line">                        .successHandler(</span><br><span class="line">                                (request, response, authentication) -&gt; &#123;</span><br><span class="line">                                    <span class="type">String</span> <span class="variable">originUrl</span> <span class="operator">=</span> (String) request.getSession().getAttribute(<span class="string">&quot;origin_url&quot;</span>);</span><br><span class="line">                                    response.sendRedirect(originUrl);</span><br><span class="line">                                &#125;)</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">return</span> http.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="全流程日志打印"><a href="#全流程日志打印" class="headerlink" title="全流程日志打印"></a>全流程日志打印</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">2025-02-21T23:45:30.306+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OAuth2LoginAuthenticationProvider (1/3)</span><br><span class="line">2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] o.s.s.authentication.ProviderManager     : Authenticating request with OidcAuthorizationCodeAuthenticationProvider (2/3)</span><br><span class="line">2025-02-21T23:46:00.313+08:00 DEBUG 156775 --- [nio-8443-exec-2] .s.a.DefaultAuthenticationEventPublisher : No event was found for the exception org.springframework.security.oauth2.core.OAuth2AuthenticationException</span><br><span class="line">2025-02-21T23:46:00.313+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Failed to process authentication request</span><br><span class="line"></span><br><span class="line">org.springframework.security.oauth2.core.OAuth2AuthenticationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:115) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.authentication.ObservationAuthenticationManager.lambda$authenticate$1(ObservationAuthenticationManager.java:54) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at io.micrometer.observation.Observation.observe(Observation.java:564) ~[micrometer-observation-1.14.2.jar:1.14.2]</span><br><span class="line">	at org.springframework.security.authentication.ObservationAuthenticationManager.authenticate(ObservationAuthenticationManager.java:53) ~[spring-security-core-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:196) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:231) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.access.channel.ChannelProcessingFilter.doFilter(ChannelProcessingFilter.java:133) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142) ~[spring-session-core-3.4.1.jar:3.4.1]</span><br><span class="line">	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82) ~[spring-session-core-3.4.1.jar:3.4.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:114) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:598) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.34.jar:10.1.34]</span><br><span class="line">	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]</span><br><span class="line">Caused by: org.springframework.security.oauth2.core.OAuth2AuthorizationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:101) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:80) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:57) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationProvider.authenticate(OAuth2AuthorizationCodeAuthenticationProvider.java:85) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:109) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	... 100 common frames omitted</span><br><span class="line">Caused by: org.springframework.web.client.ResourceAccessException: I/O error on POST request for &quot;https://github.com/login/oauth/access_token&quot;: Unexpected end of file from server</span><br><span class="line">	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:926) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:906) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:741) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:94) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	... 104 common frames omitted</span><br><span class="line">Caused by: java.net.SocketException: Unexpected end of file from server</span><br><span class="line">	at java.base/sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:955) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:759) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1690) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1599) ~[na:na]</span><br><span class="line">	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531) ~[na:na]</span><br><span class="line">	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:307) ~[na:na]</span><br><span class="line">	at org.springframework.http.client.SimpleClientHttpResponse.getStatusCode(SimpleClientHttpResponse.java:55) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.DefaultResponseErrorHandler.hasError(DefaultResponseErrorHandler.java:85) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler.hasError(OAuth2ErrorResponseErrorHandler.java:52) ~[spring-security-oauth2-client-6.4.2.jar:6.4.2]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:942) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:902) ~[spring-web-6.2.1.jar:6.2.1]</span><br><span class="line">	... 106 common frames omitted</span><br><span class="line"></span><br><span class="line">2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Cleared SecurityContextHolder</span><br><span class="line">2025-02-21T23:46:00.317+08:00 TRACE 156775 --- [nio-8443-exec-2] .s.o.c.w.OAuth2LoginAuthenticationFilter : Handling authentication failure</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">2025-02-19T13:38:16.582+08:00  INFO 28513 --- [on(4)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet &#x27;dispatcherServlet&#x27;</span><br><span class="line">2025-02-19T13:38:16.583+08:00  INFO 28513 --- [on(4)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet &#x27;dispatcherServlet&#x27;</span><br><span class="line">2025-02-19T13:38:16.586+08:00  INFO 28513 --- [on(4)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms</span><br><span class="line">2025-02-19T13:43:35.633+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain defined as &#x27;securityFilterChain&#x27; in [class path resource [top/chc/usermanager/config/SecurityConfig.class]] matching [any request] and having filters [DisableEncodeUrl, ChannelProcessing, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Cors, Logout, OAuth2AuthorizationRequestRedirect, OAuth2LoginAuthentication, BasicAuthentication, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization] (1/1)</span><br><span class="line">2025-02-19T13:43:35.634+08:00 DEBUG 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /oauth2/authorization/github?origin_url=localhost:8443</span><br><span class="line">2025-02-19T13:43:35.635+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/14)</span><br><span class="line">2025-02-19T13:43:35.638+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking ChannelProcessingFilter (2/14)</span><br><span class="line">2025-02-19T13:43:35.638+08:00 DEBUG 28513 --- [nio-8443-exec-2] o.s.s.w.a.c.ChannelProcessingFilter      : Request: filter invocation [GET /oauth2/authorization/github?origin_url=localhost:8443]; ConfigAttributes: [REQUIRES_SECURE_CHANNEL]</span><br><span class="line">2025-02-19T13:43:35.638+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (3/14)</span><br><span class="line">2025-02-19T13:43:35.640+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (4/14)</span><br><span class="line">2025-02-19T13:43:35.641+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (5/14)</span><br><span class="line">2025-02-19T13:43:35.642+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking CorsFilter (6/14)</span><br><span class="line">2025-02-19T13:43:35.643+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (7/14)</span><br><span class="line">2025-02-19T13:43:35.643+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern=&#x27;/logout&#x27;, GET], Ant [pattern=&#x27;/logout&#x27;, POST], Ant [pattern=&#x27;/logout&#x27;, PUT], Ant [pattern=&#x27;/logout&#x27;, DELETE]]</span><br><span class="line">2025-02-19T13:43:35.644+08:00 TRACE 28513 --- [nio-8443-exec-2] o.s.security.web.FilterChainProxy        : Invoking OAuth2AuthorizationRequestRedirectFilter (8/14)</span><br><span class="line">2025-02-19T13:43:35.687+08:00 DEBUG 28513 --- [nio-8443-exec-2] o.s.s.web.DefaultRedirectStrategy        : Redirecting to https://github.com/login/oauth/authorize?response_type=code&amp;client_id=Ov23lisFyLM8ev2mgeX1&amp;scope=read:user&amp;state=1NiT_GBSj2pOolkHnTHpSft8V9x6uOMTsvYveTHM6GE%3D&amp;redirect_uri=https://localhost:8443/login/oauth2/code/github</span><br><span class="line">2025-02-19T13:44:50.058+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Trying to match request against DefaultSecurityFilterChain defined as &#x27;securityFilterChain&#x27; in [class path resource [top/chc/usermanager/config/SecurityConfig.class]] matching [any request] and having filters [DisableEncodeUrl, ChannelProcessing, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Cors, Logout, OAuth2AuthorizationRequestRedirect, OAuth2LoginAuthentication, BasicAuthentication, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization] (1/1)</span><br><span class="line">2025-02-19T13:44:50.058+08:00 DEBUG 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /login/oauth2/code/github?code=3fd7543e7cf92aab5d53&amp;state=1NiT_GBSj2pOolkHnTHpSft8V9x6uOMTsvYveTHM6GE%3D</span><br><span class="line">2025-02-19T13:44:50.058+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking DisableEncodeUrlFilter (1/14)</span><br><span class="line">2025-02-19T13:44:50.059+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking ChannelProcessingFilter (2/14)</span><br><span class="line">2025-02-19T13:44:50.059+08:00 DEBUG 28513 --- [io-8443-exec-10] o.s.s.w.a.c.ChannelProcessingFilter      : Request: filter invocation [GET /login/oauth2/code/github?code=3fd7543e7cf92aab5d53&amp;state=1NiT_GBSj2pOolkHnTHpSft8V9x6uOMTsvYveTHM6GE%3D]; ConfigAttributes: [REQUIRES_SECURE_CHANNEL]</span><br><span class="line">2025-02-19T13:44:50.059+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking WebAsyncManagerIntegrationFilter (3/14)</span><br><span class="line">2025-02-19T13:44:50.059+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking SecurityContextHolderFilter (4/14)</span><br><span class="line">2025-02-19T13:44:50.059+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking HeaderWriterFilter (5/14)</span><br><span class="line">2025-02-19T13:44:50.060+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking CorsFilter (6/14)</span><br><span class="line">2025-02-19T13:44:50.060+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking LogoutFilter (7/14)</span><br><span class="line">2025-02-19T13:44:50.061+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.s.w.a.logout.LogoutFilter            : Did not match request to Or [Ant [pattern=&#x27;/logout&#x27;, GET], Ant [pattern=&#x27;/logout&#x27;, POST], Ant [pattern=&#x27;/logout&#x27;, PUT], Ant [pattern=&#x27;/logout&#x27;, DELETE]]</span><br><span class="line">2025-02-19T13:44:50.061+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking OAuth2AuthorizationRequestRedirectFilter (8/14)</span><br><span class="line">2025-02-19T13:44:50.062+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.security.web.FilterChainProxy        : Invoking OAuth2LoginAuthenticationFilter (9/14)</span><br><span class="line">2025-02-19T13:44:50.102+08:00 TRACE 28513 --- [io-8443-exec-10] o.s.s.authentication.ProviderManager     : Authenticating request with OAuth2LoginAuthenticationProvider (1/3)</span><br><span class="line">2025-02-19T13:44:51.534+08:00 TRACE 28513 --- [io-8443-exec-10] s.CompositeSessionAuthenticationStrategy : Preparing session with ChangeSessionIdAuthenticationStrategy (1/1)</span><br><span class="line">2025-02-19T13:44:51.539+08:00 DEBUG 28513 --- [io-8443-exec-10] .s.ChangeSessionIdAuthenticationStrategy : Changed session id from 2cb1fec3-dba6-4a8f-8376-40934da49d8d</span><br><span class="line">2025-02-19T13:44:51.541+08:00 DEBUG 28513 --- [io-8443-exec-10] w.c.HttpSessionSecurityContextRepository : Stored SecurityContextImpl [Authentication=OAuth2AuthenticationToken [Principal=Name: [42151586], Granted Authorities: [[OAUTH2_USER, SCOPE_read:user]], User Attributes: [&#123;login=caohongchuan, id=42151586, node_id=MDQ6VXNlcjQyMTUxNTg2, avatar_url=https://avatars.githubusercontent.com/u/42151586?v=4, gravatar_id=, url=https://api.github.com/users/caohongchuan, html_url=https://github.com/caohongchuan, followers_url=https://api.github.com/users/caohongchuan/followers, following_url=https://api.github.com/users/caohongchuan/following&#123;/other_user&#125;, gists_url=https://api.github.com/users/caohongchuan/gists&#123;/gist_id&#125;, starred_url=https://api.github.com/users/caohongchuan/starred&#123;/owner&#125;&#123;/repo&#125;, subscriptions_url=https://api.github.com/users/caohongchuan/subscriptions, organizations_url=https://api.github.com/users/caohongchuan/orgs, repos_url=https://api.github.com/users/caohongchuan/repos, events_url=https://api.github.com/users/caohongchuan/events&#123;/privacy&#125;, received_events_url=https://api.github.com/users/caohongchuan/received_events, type=User, user_view_type=private, site_admin=false, name=Zheng Ying, company=null, blog=blog.caohongchuan.com, location=null, email=null, hireable=null, bio=Java/nlp, twitter_username=null, notification_email=null, public_repos=13, public_gists=0, followers=0, following=0, created_at=2018-08-06T17:32:16Z, updated_at=2025-02-19T05:44:49Z, private_gists=0, total_private_repos=2, owned_private_repos=2, disk_usage=28310, collaborators=0, two_factor_authentication=true, plan=&#123;name=free, space=976562499, collaborators=0, private_repos=10000&#125;&#125;], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=2cb1fec3-dba6-4a8f-8376-40934da49d8d], Granted Authorities=[OAUTH2_USER, SCOPE_read:user]]] to HttpSession [org.springframework.session.web.http.SessionRepositoryFilter$SessionRepositoryRequestWrapper$HttpSessionWrapper@66bfb1a7]</span><br><span class="line">2025-02-19T13:44:51.542+08:00 DEBUG 28513 --- [io-8443-exec-10] .s.o.c.w.OAuth2LoginAuthenticationFilter : Set SecurityContextHolder to OAuth2AuthenticationToken [Principal=Name: [42151586], Granted Authorities: [[OAUTH2_USER, SCOPE_read:user]], User Attributes: [&#123;login=caohongchuan, id=42151586, node_id=MDQ6VXNlcjQyMTUxNTg2, avatar_url=https://avatars.githubusercontent.com/u/42151586?v=4, gravatar_id=, url=https://api.github.com/users/caohongchuan, html_url=https://github.com/caohongchuan, followers_url=https://api.github.com/users/caohongchuan/followers, following_url=https://api.github.com/users/caohongchuan/following&#123;/other_user&#125;, gists_url=https://api.github.com/users/caohongchuan/gists&#123;/gist_id&#125;, starred_url=https://api.github.com/users/caohongchuan/starred&#123;/owner&#125;&#123;/repo&#125;, subscriptions_url=https://api.github.com/users/caohongchuan/subscriptions, organizations_url=https://api.github.com/users/caohongchuan/orgs, repos_url=https://api.github.com/users/caohongchuan/repos, events_url=https://api.github.com/users/caohongchuan/events&#123;/privacy&#125;, received_events_url=https://api.github.com/users/caohongchuan/received_events, type=User, user_view_type=private, site_admin=false, name=Zheng Ying, company=null, blog=blog.caohongchuan.com, location=null, email=null, hireable=null, bio=Java/nlp, twitter_username=null, notification_email=null, public_repos=13, public_gists=0, followers=0, following=0, created_at=2018-08-06T17:32:16Z, updated_at=2025-02-19T05:44:49Z, private_gists=0, total_private_repos=2, owned_private_repos=2, disk_usage=28310, collaborators=0, two_factor_authentication=true, plan=&#123;name=free, space=976562499, collaborators=0, private_repos=10000&#125;&#125;], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=2cb1fec3-dba6-4a8f-8376-40934da49d8d], Granted Authorities=[OAUTH2_USER, SCOPE_read:user]]</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/springboot/Spring%20Security%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/25/springboot/Spring%20Security%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Spring Security流程分析</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-19 12:42:14" itemprop="dateModified" datetime="2025-02-19T12:42:14+08:00">2025-02-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java-Servlet"><a href="#Java-Servlet" class="headerlink" title="Java Servlet"></a>Java Servlet</h1><p>Spring接受请求使用的是Java Servlet的过滤器（Filter）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[Client] --&gt;|http request| B(Filter1)</span><br><span class="line">    B(Filter1) --&gt; C(Filter2)</span><br><span class="line">    C(Filter2) --&gt; D(Filter...)</span><br><span class="line">    D(Filter...) --&gt; E(Sevlet)</span><br></pre></td></tr></table></figure>
-<p>向Servlet中加入Filter有两种方式：</p>
-<ul>
-<li>直接添加在<code>web.xml</code>里面</li>
-<li>使用Java注解<code>WebFilter()</code>添加</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebFilter(&quot;/*&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyFilter</span>  <span class="keyword">implements</span> <span class="title class_">Filter</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;----初始化---&quot;</span>);</span><br><span class="line">        System.out.println(filterConfig.getFilterName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">        <span class="type">HttpServletRequest</span> <span class="variable">req</span> <span class="operator">=</span> (HttpServletRequest) request;</span><br><span class="line">        <span class="type">HttpServletResponse</span> <span class="variable">resp</span> <span class="operator">=</span> (HttpServletResponse) response;</span><br><span class="line">        <span class="comment">//设置字符编码</span></span><br><span class="line">        request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;--------放行前--------&quot;</span>);</span><br><span class="line">        chain.doFilter(request,response); <span class="comment">//放行</span></span><br><span class="line">        System.out.println(<span class="string">&quot;--------放行后--------&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Spring-Security"><a href="#Spring-Security" class="headerlink" title="Spring Security"></a>Spring Security</h1><img src="https://docs.spring.io/spring-security/reference/_images/servlet/architecture/multi-securityfilterchain.png" alt="spring security" style="zoom: 67%;" />
-
-
-
-<p>SpringBoot会将<code>DelegatingFilterProxy</code>注册到FilterChain里，请求在进入Servlet之前会通过<code>DelegatingFilterProxy</code>这个Filter，<code>DelegatingFilterProxy</code>在初始化的时候会通过<code>WebApplicationContext</code>加载名称为<code>springSecurityFilterChain</code>的bean，该bean类中doFilterDelegate中包含了<code>FilterChainProxy</code>。</p>
-<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20241230133737429.png" alt="image-20241230133737429" style="zoom:67%;" />
-
-<p>通过将<code>DelegatingFilterProxy</code>加入到Servlet的Filter中，并且<code>DelegatingFilterProxy</code>中通过调用<code>WebApplicationContext</code>创建<code>FilterChainProxy</code>，二者将Servlet和Spring框架结合起来。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> generateSecureRandomString = (<span class="attr">length</span>: number): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> charset = <span class="string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> crypto = <span class="variable language_">window</span>.<span class="property">crypto</span></span><br><span class="line">    <span class="keyword">const</span> randomValues = <span class="keyword">new</span> <span class="title class_">Uint32Array</span>(length);</span><br><span class="line">    crypto.<span class="title function_">getRandomValues</span>(randomValues);</span><br><span class="line">    <span class="keyword">let</span> randomString = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> randomIndex = randomValues[i] % charset.<span class="property">length</span>;</span><br><span class="line">        randomString += charset.<span class="title function_">charAt</span>(randomIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> randomString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">login</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">CLIENT_ID</span> = <span class="string">&#x27;Ov23lisFyLM8ev2mgeX1&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> authorize_uri = <span class="string">&#x27;https://github.com/login/oauth/authorize&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> redirect_uri = <span class="string">&#x27;http://localhost:8080/login/oauth2/code/github&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">state</span>: string = <span class="title function_">generateSecureRandomString</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">`<span class="subst">$&#123;authorize_uri&#125;</span>?client_id=<span class="subst">$&#123;CLIENT_ID&#125;</span>&amp;scope=user:email&amp;redirect_uri=<span class="subst">$&#123;redirect_uri&#125;</span>&amp;state=<span class="subst">$&#123;state&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://caohongchuan.github.io/2025/01/25/interview/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/photo.png">
-      <meta itemprop="name" content="YingZheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yingzheng">
-      <meta itemprop="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | yingzheng">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/25/interview/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-01-25 20:43:15" itemprop="dateCreated datePublished" datetime="2025-01-25T20:43:15+08:00">2025-01-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-02-17 23:24:01" itemprop="dateModified" datetime="2025-02-17T23:24:01+08:00">2025-02-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>23种设计模式（Java实现）</p>
-<h2 id="1-工厂模式"><a href="#1-工厂模式" class="headerlink" title="1. 工厂模式"></a>1. 工厂模式</h2><p>工厂模式是SpringBoot最常见的模式。</p>
-<h2 id="2-模板模式"><a href="#2-模板模式" class="headerlink" title="2. 模板模式"></a>2. 模板模式</h2><h2 id="3-单例模式"><a href="#3-单例模式" class="headerlink" title="3. 单例模式"></a>3. 单例模式</h2>
       
     </div>
 

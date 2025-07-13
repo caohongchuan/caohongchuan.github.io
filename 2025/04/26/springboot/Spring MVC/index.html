@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+    <meta name="description" content="SpringMVC 是基于 Servlet 为核心，核心组件为DispatcherServlet。其基于Tomcat或Jetty或Undertow或WebSphere。   模型(Model)：模型表示应用程序的数据、业务逻辑和规则。它是系统的核心，负责管理数据、状态以及与数据库或外部服务的交互。 视图(View)：视图负责向用户呈现数据，是用户与应用程序交互的界面。 控制器(Controlle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="String MVC 原理详解">
 <meta property="og:url" content="http://caohongchuan.github.io/2025/04/26/springboot/Spring%20MVC/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="Programmer of Java and JavaScript. Programming with Springboot, Electron and React-Native.">
+<meta property="og:description" content="SpringMVC 是基于 Servlet 为核心，核心组件为DispatcherServlet。其基于Tomcat或Jetty或Undertow或WebSphere。   模型(Model)：模型表示应用程序的数据、业务逻辑和规则。它是系统的核心，负责管理数据、状态以及与数据库或外部服务的交互。 视图(View)：视图负责向用户呈现数据，是用户与应用程序交互的界面。 控制器(Controlle">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-26T13:07:22.618Z">
-<meta property="article:modified_time" content="2025-04-26T13:07:49.113Z">
+<meta property="article:modified_time" content="2025-06-25T04:46:48.931Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 
@@ -98,7 +98,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -111,6 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot-%E5%8A%A0%E8%BD%BD-DispatcherServlet"><span class="nav-number">1.</span> <span class="nav-text">SpringBoot 加载 DispatcherServlet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DispatcherServlet-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">DispatcherServlet 处理请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">请求类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">3.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">3.2.</span> <span class="nav-text">POST</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">请求数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Form%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">Form格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">JSON格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">请求路径格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%AE%E9%80%9A-URL-%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-number">5.1.</span> <span class="nav-text">普通 URL 路径映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI-%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F%E6%98%A0%E5%B0%84"><span class="nav-number">5.2.</span> <span class="nav-text">URI 模板模式映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ant-%E9%A3%8E%E6%A0%BC%E7%9A%84-URL-%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-number">5.3.</span> <span class="nav-text">Ant 风格的 URL 路径映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%A3%8E%E6%A0%BC%E7%9A%84-URL-%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-number">5.4.</span> <span class="nav-text">正则表达式风格的 URL 路径映射</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.</span> <span class="nav-text">SpringMVC注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.1.</span> <span class="nav-text">控制器相关注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E4%B8%8E%E8%B7%AF%E5%BE%84%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.2.</span> <span class="nav-text">请求参数与路径处理注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.3.</span> <span class="nav-text">响应处理注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.4.</span> <span class="nav-text">异常处理注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E4%B8%8E%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.5.</span> <span class="nav-text">跨域与配置相关注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%AB%98%E7%BA%A7%E6%B3%A8%E8%A7%A3"><span class="nav-number">6.6.</span> <span class="nav-text">其他高级注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE"><span class="nav-number">7.</span> <span class="nav-text">建议</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -125,13 +126,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -194,9 +195,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-04-26 21:07:22 / Modified: 21:07:49" itemprop="dateCreated datePublished" datetime="2025-04-26T21:07:22+08:00">2025-04-26</time>
+      <time title="Created: 2025-04-26 21:07:22" itemprop="dateCreated datePublished" datetime="2025-04-26T21:07:22+08:00">2025-04-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-06-25 12:46:48" itemprop="dateModified" datetime="2025-06-25T12:46:48+08:00">2025-06-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,7 +231,278 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>SpringMVC 是基于 Servlet 为核心，核心组件为DispatcherServlet。其基于Tomcat或Jetty或Undertow或WebSphere。</p>
+</blockquote>
+<blockquote>
+<p>模型(Model)：模型表示应用程序的数据、业务逻辑和规则。它是系统的核心，负责管理数据、状态以及与数据库或外部服务的交互。</p>
+<p>视图(View)：视图负责向用户呈现数据，是用户与应用程序交互的界面。</p>
+<p>控制器(Controller)：控制器是模型和视图之间的中介，负责处理用户输入并协调模型与视图的交互。</p>
+<p>工作原理：</p>
+<ol>
+<li>用户通过视图（如点击按钮、提交表单）与应用程序交互。</li>
+<li>控制器接收用户输入，解析请求，并调用相应的模型进行数据处理。</li>
+<li>模型执行必要的业务逻辑，更新数据状态，并通知视图需要更新。</li>
+<li>视图根据模型的最新数据重新渲染，呈现给用户。</li>
+<li>循环重复此过程，保持用户界面的动态更新。</li>
+</ol>
+</blockquote>
+<h1 id="SpringBoot-加载-DispatcherServlet"><a href="#SpringBoot-加载-DispatcherServlet" class="headerlink" title="SpringBoot 加载 DispatcherServlet"></a>SpringBoot 加载 DispatcherServlet</h1><p><strong>若按照XML的形式配置文件，需要在Tomcat中的web.xml中添加DispatcherServlet</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置 DispatcherServlet --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定 Spring MVC 配置文件路径（可选） --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>/WEB-INF/spring-mvc-config.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 启动时加载 Servlet --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 映射 DispatcherServlet 处理的 URL 模式 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此XML配置下，所有的请求都会被传递给<code>DispatcherServlet</code>处理。默认 DispatcherServlet 会加载 <code>WEB-INF/[DispatcherServlet的Servlet名字]-servlet.xml</code> 配 置 文 件 。 本 示 例 为 <code>/WEB-INF/spring-mvc-config.xml</code> 其中会注册一些bean类。</p>
+<p><strong>若按照Java注解配置，SpringBoot会根据自动配置将<code>DispatcherServlet</code>传递给内置Tomcat</strong></p>
+<p>在springboot启动过程中，会处理自动配置注解<code>@EnableAutoConfiguration</code>，其中通过<code>@Import(AutoConfigurationImportSelector.class)</code>注解执行<code>AutoConfigurationImportSelector.class</code>的<code>selectImports()</code>方法。在此方法中会将路径中所有的<code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code>文件中的配置类读入。其中与MVC的有关的主要类是<code>org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration</code>和<code>org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration</code>和<code>org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration</code></p>
+<p>其中</p>
+<ul>
+<li><p><code>WebMvcAutoConfiguration</code>中存储Spring Web MVC的一些默认配置；</p>
+</li>
+<li><p><code>DispatcherServletAutoConfiguration</code>中注册两个bean类<code>DispatcherServlet</code>和<code>DispatcherServletRegistrationBean</code> 后者中会注入前者，并在Servlet容器（如Tomcat）启动时会将前者的Sevlet类自动加载。即在内置Servlet容器时会自动执行<code>DispatcherServletRegistrationBean</code>的父类方法<code>ServletContextInitializer</code>的<code>onStartup()</code>方法，将<code>DispatcherServlet</code>注册到Servlet容器中； </p>
+<p>SpringBoot启动过程中，因为是 web servlet 所以执行 <code>ServletWebServerApplicationContext.onRefresh().createWebServer()</code> 其中会调用<code>TomcatServletWebServerFactory.getWebServer()</code> 其中会创建 Tomcat类并在<code>prepareContext(tomcat.getHost(), initializers);</code>中将SpringBoot中的<code>ServletContextInitializer</code>注册进Tomcat中。</p>
+</li>
+<li><p><code>ServletWebServerFactoryAutoConfiguration</code>会将SpringBoot支持的Servlet容器根据条件自动导入，包括<code>EmbeddedTomcat</code> <code>EmbeddedJetty</code> <code>EmbeddedUndertow</code> 然后注册两个bean类<code>ServletWebServerFactoryCustomizer</code>和<code>ServletWebServerFactoryCustomizer</code></p>
+</li>
+</ul>
+<h1 id="DispatcherServlet-处理请求"><a href="#DispatcherServlet-处理请求" class="headerlink" title="DispatcherServlet 处理请求"></a>DispatcherServlet 处理请求</h1><p>DispatcherServlet主要组成：</p>
+<ul>
+<li>HandlerMapping：映射请求</li>
+<li>HandlerAdapter：执行控制器</li>
+<li>ViewResolver：用于解析视图（如Thymeleaf 或 JSP）。</li>
+<li>HttpMessageConverter：支持JSON&#x2F;XML的序列化和反序列化</li>
+</ul>
+<p>当DispatcherServlet注册到Tomcat中后，每当请求进入后会自动执行DispatcherServlet的<code>Service()</code>方法，在其父类<code>FrameworkServlet</code>中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line">        <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (HTTP_SERVLET_METHODS.contains(request.getMethod())) &#123;</span><br><span class="line">        <span class="built_in">super</span>.service(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        processRequest(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终都会执行<code>processRequest(request, response)</code>方法，其中会执行<code>doService(request, response)</code>方法，<code>DispatcherServlet.doService()</code>会执行<code>DispatcherServlet.doDispatch(request, response)</code></p>
+<p>主要步骤有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doDispatch</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Determine handler for the current request.</span></span><br><span class="line">            mappedHandler = getHandler(processedRequest);</span><br><span class="line">            <span class="type">HandlerAdapter</span> <span class="variable">ha</span> <span class="operator">=</span> getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line">            <span class="comment">// Actually invoke the handler.</span></span><br><span class="line">            mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br><span class="line">            applyDefaultViewName(processedRequest, mv);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>mappedHandler = getHandler(processedRequest);</code> 通过<code>handlerMappings</code>寻找符合条件的handler（即Controller）</li>
+<li><code>getHandlerAdapter(mappedHandler.getHandler());</code> 找到适配<code>handler</code>的适配器<code>HandlerAdapter</code></li>
+<li><code>ha.handle(processedRequest, response, mappedHandler.getHandler());</code> 将 <code>handler</code> 传入适配的<code>HandlerAdapter</code>并执行其<code>hanlder()</code>方法，适配器调用处理器方法（如 <code>@RequestMapping</code> 方法），生成 <code>ModelAndView</code></li>
+<li><code>processDispatchResult()</code>：通过 <code>ViewResolver</code> 解析视图 和 统一处理异常，生成错误响应。</li>
+</ul>
+<p>整体处理流程：</p>
+<ol>
+<li><strong>Servlet 容器（Tomcat）的请求转发：</strong></li>
+</ol>
+<ul>
+<li><p><strong>Tomcat 接收请求</strong>：客户端请求首先由 Tomcat 的 <code>Connector</code> 接收，解析 HTTP 协议后生成 <code>HttpServletRequest</code> 和 <code>HttpServletResponse</code> 对象。</p>
+</li>
+<li><p><strong>Servlet 匹配</strong>：Tomcat 根据 URL 映射规则，将请求转发到对应的 <code>Servlet</code>（此处为 <code>DispatcherServlet</code>）。</p>
+</li>
+</ul>
+<ol start="2">
+<li><strong><code>DispatcherServlet</code> 的初始化流程：</strong></li>
+</ol>
+<ul>
+<li><p><strong><code>service()</code> 方法</strong>：Tomcat 调用 <code>DispatcherServlet</code> 的 <code>service()</code> 方法（继承自 <code>HttpServlet</code>）。</p>
+</li>
+<li><p><strong><code>doService()</code> 方法</strong>：<code>DispatcherServlet</code> 重写了 <code>doService()</code>，在其中初始化一些上下文（如 <code>LocaleContext</code>、<code>RequestAttributes</code>），然后调用 <code>doDispatch()</code>。</p>
+</li>
+</ul>
+<ol start="3">
+<li><p><strong><code>doDispatch()</code> 的核心逻辑：</strong></p>
+<p><code>doDispatch()</code> 负责以下关键步骤：</p>
+<ol>
+<li><strong>处理 Multipart 请求</strong>（如文件上传）。</li>
+<li><strong>获取处理器链</strong>（<code>HandlerExecutionChain</code>），包含目标处理器和拦截器。</li>
+<li>**调用拦截器的 <code>preHandle()</code>**。</li>
+<li><strong>执行处理器方法</strong>（如 <code>@Controller</code> 中的方法），生成 <code>ModelAndView</code>。</li>
+<li>**调用拦截器的 <code>postHandle()</code>**。</li>
+<li><strong>处理结果</strong>（渲染视图或处理异常）。</li>
+</ol>
+</li>
+<li><p><strong>视图渲染与响应写入</strong></p>
+</li>
+</ol>
+<ul>
+<li>**<code>processDispatchResult()</code>**：在 <code>doDispatch()</code> 的末尾，调用此方法处理视图渲染或异常。<ul>
+<li><strong>视图渲染</strong>：通过 <code>ViewResolver</code> 解析视图，调用 <code>View.render()</code> 将模型数据写入响应。</li>
+<li><strong>异常处理</strong>：通过 <code>HandlerExceptionResolver</code> 生成错误响应。</li>
+</ul>
+</li>
+</ul>
+<h1 id="请求类型"><a href="#请求类型" class="headerlink" title="请求类型"></a>请求类型</h1><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/create&quot;, method = RequestMethod.GET)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/create&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/create&quot;, method = RequestMethod.POST)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/create&quot;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>其他请求类型限制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, params = &quot;id&quot;)</span> <span class="comment">// 必须有id参数</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, params = &quot;!id&quot;)</span> <span class="comment">// 不能有id参数</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, params = &quot;id=123&quot;)</span> <span class="comment">// id参数必须为123</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, headers = &quot;content-type=text/*&quot;)</span> <span class="comment">// 匹配特定Content-Type</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, headers = &quot;!X-Custom-Header&quot;)</span> <span class="comment">// 不能包含特定头</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, consumes = &quot;application/json&quot;)</span> <span class="comment">// 只处理Content-Type为JSON的请求</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;, produces = &quot;application/json&quot;)</span> <span class="comment">// 只产生JSON响应</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="请求数据格式"><a href="#请求数据格式" class="headerlink" title="请求数据格式"></a>请求数据格式</h1><h2 id="Form格式"><a href="#Form格式" class="headerlink" title="Form格式"></a>Form格式</h2><p>前端代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/login&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>账号:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;password&quot;</span>&gt;</span>密码:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>传输数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /login HTTP/1.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">username=user123&amp;password=pass123</span><br></pre></td></tr></table></figure>
+
+<p>后端代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/login_form&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">loginForm</span><span class="params">(<span class="meta">@ModelAttribute</span> LoginRequest loginRequest)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> loginRequest.getUsername();</span><br><span class="line">    <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> loginRequest.getPassword();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟验证逻辑（实际中应调用服务层验证）</span></span><br><span class="line">    <span class="keyword">if</span> (username != <span class="literal">null</span> &amp;&amp; password != <span class="literal">null</span> &amp;&amp; !username.isEmpty() &amp;&amp; !password.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">// 假设验证通过</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.success(<span class="string">&quot;登录成功，用户: &quot;</span> + username);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.badRequest(<span class="string">&quot;账号或密码无效&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h2><p>JavaScript代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/login&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">        <span class="attr">username</span>: <span class="string">&#x27;user123&#x27;</span>,</span><br><span class="line">        <span class="attr">password</span>: <span class="string">&#x27;pass123&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">text</span>())</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data));</span><br></pre></td></tr></table></figure>
+
+<p>传输数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /login HTTP/1.1</span><br><span class="line">Content-Type: application/json</span><br><span class="line"></span><br><span class="line">&#123;&quot;username&quot;:&quot;user123&quot;,&quot;password&quot;:&quot;pass123&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后端代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> LoginRequest loginRequest)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> loginRequest.getUsername();</span><br><span class="line">    <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> loginRequest.getPassword();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟验证逻辑（实际中应调用服务层验证）</span></span><br><span class="line">    <span class="keyword">if</span> (username != <span class="literal">null</span> &amp;&amp; password != <span class="literal">null</span> &amp;&amp; !username.isEmpty() &amp;&amp; !password.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">// 假设验证通过</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.success(<span class="string">&quot;登录成功，用户: &quot;</span> + username);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.badRequest(<span class="string">&quot;账号或密码无效&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="请求路径格式"><a href="#请求路径格式" class="headerlink" title="请求路径格式"></a>请求路径格式</h1><h2 id="普通-URL-路径映射"><a href="#普通-URL-路径映射" class="headerlink" title="普通 URL 路径映射"></a>普通 URL 路径映射</h2><p><code>@RequestMapping(value=&#123;&quot;/test1&quot;, &quot;/user/create&quot;&#125;)</code></p>
+<h2 id="URI-模板模式映射"><a href="#URI-模板模式映射" class="headerlink" title="URI 模板模式映射"></a>URI 模板模式映射</h2><ul>
+<li><code>@RequestMapping(value=&quot;/users/&#123;userId&#125;&quot;)</code></li>
+<li><code>@RequestMapping(value=&quot;/users/&#123;userId&#125;/create&quot;)</code> </li>
+<li><code>@RequestMapping(value=&quot;/users/&#123;userId&#125;/topics/&#123;topicId&#125;&quot;)</code></li>
+</ul>
+<p>需要通过<code>@PathVariable</code>来获取URL中参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/users/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getUserById</span><span class="params">(<span class="meta">@PathVariable</span> Long id)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User ID: &quot;</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(&quot;/users/&#123;userId&#125;/orders/&#123;orderId&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getOrderDetails</span><span class="params">(<span class="meta">@PathVariable</span> Long userId, <span class="meta">@PathVariable</span> Long orderId)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User: &quot;</span> + userId + <span class="string">&quot;, Order: &quot;</span> + orderId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ant-风格的-URL-路径映射"><a href="#Ant-风格的-URL-路径映射" class="headerlink" title="Ant 风格的 URL 路径映射"></a>Ant 风格的 URL 路径映射</h2><ul>
+<li><code>@RequestMapping(value=&quot;/users/**&quot;)</code>：可以匹配<code>/users/abc/abc</code>，但<code>/users/123</code>将会被【URI模板模式映射 中的<code>/users/&#123;Id&#125;</code>模式优先映射到】</li>
+<li><code>@RequestMapping(value=&quot;/product?&quot;)</code>：可匹配<code>/product1</code>或<code>/producta</code>，但不匹配<code>/product</code>或<code>/productaa</code></li>
+<li><code>@RequestMapping(value=&quot;/product*&quot;)</code>：可匹配<code>/productabc</code>或<code>/product</code>，但不匹配<code>/productabc/abc</code></li>
+<li><code>@RequestMapping(value=&quot;/product/*&quot;)</code>：可匹配<code>/product/abc</code>，但不匹配<code>/productabc</code></li>
+<li><code>@RequestMapping(value=&quot;/products/**/&#123;productId&#125;&quot;)</code>：可匹配<code>/products/abc/abc/123</code>或<code>/products/123</code>，也就是Ant风格和URI模板变量风格可混用</li>
+</ul>
+<h2 id="正则表达式风格的-URL-路径映射"><a href="#正则表达式风格的-URL-路径映射" class="headerlink" title="正则表达式风格的 URL 路径映射"></a>正则表达式风格的 URL 路径映射</h2><p><code>@RequestMapping(value=&quot;/products/&#123;categoryCode:\\d+&#125;-&#123;pageNumber:\\d+&#125;&quot;)</code>：可 以 匹 配 <code>/products/123-1</code>，但不能匹配<code>/products/abc-1</code>，这样可以设计更加严格的规则。</p>
+<p><code>@RequestMapping(&quot;/&#123;textualPart:[a-z-]+&#125;-&#123;numericPart:[\\d]+&#125;&quot;)</code></p>
+<h1 id="SpringMVC注解"><a href="#SpringMVC注解" class="headerlink" title="SpringMVC注解"></a>SpringMVC注解</h1><h2 id="控制器相关注解"><a href="#控制器相关注解" class="headerlink" title="控制器相关注解"></a><strong>控制器相关注解</strong></h2><ul>
+<li><code>@Controller</code><ul>
+<li>标记一个类为 Spring MVC 控制器，负责处理 HTTP 请求。</li>
+<li>示例：@Controller public class MyController { … }</li>
+</ul>
+</li>
+<li><code>@RestController</code><ul>
+<li>组合注解，等价于 @Controller + @ResponseBody，表示控制器方法返回的对象直接序列化为 JSON 或 XML。</li>
+<li>示例：@RestController public class ApiController { … }</li>
+</ul>
+</li>
+<li><code>@Component</code><ul>
+<li>通用注解，可用于控制器类，纳入 Spring 容器管理（通常搭配其他注解使用）。</li>
+</ul>
+</li>
+<li><code>@RequestMapping</code><ul>
+<li>映射 HTTP 请求到控制器方法或类，支持 GET、POST 等方法。</li>
+<li>属性：value（路径）、method（请求方法）、produces（响应类型）、consumes（请求类型）。</li>
+<li>示例：@RequestMapping(value &#x3D; “&#x2F;home”, method &#x3D; RequestMethod.GET)</li>
+</ul>
+</li>
+<li><code>@GetMapping</code>、<code>@PostMapping</code>、<code>@PutMapping</code>、<code>@DeleteMapping</code>、<code>@PatchMapping</code><ul>
+<li>@RequestMapping 的快捷方式，分别对应 HTTP 的 GET、POST、PUT、DELETE 和 PATCH 请求。</li>
+<li>示例：@GetMapping(“&#x2F;users”)</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求参数与路径处理注解"><a href="#请求参数与路径处理注解" class="headerlink" title="请求参数与路径处理注解"></a><strong>请求参数与路径处理注解</strong></h2><ul>
+<li><code>@PathVariable</code><ul>
+<li>从 URL 路径中提取变量，绑定到方法参数。</li>
+<li>示例：@GetMapping(“&#x2F;user&#x2F;{id}”) public String getUser(@PathVariable Long id)</li>
+</ul>
+</li>
+<li><code>@RequestParam</code><ul>
+<li>从请求参数（查询字符串或表单数据）中提取值，绑定到方法参数。</li>
+<li>属性：name（参数名）、required（是否必须）、defaultValue（默认值）。</li>
+<li>示例：@RequestParam(value &#x3D; “name”, defaultValue &#x3D; “Guest”) String name</li>
+</ul>
+</li>
+<li><code>@RequestBody</code><ul>
+<li>将 HTTP 请求的正文（如 JSON 或 XML）绑定到方法参数，通常用于 RESTful API。</li>
+<li>示例：@PostMapping(“&#x2F;user”) public void saveUser(@RequestBody User user)</li>
+</ul>
+</li>
+<li><code>@RequestHeader</code><ul>
+<li>从 HTTP 请求头中提取值，绑定到方法参数。</li>
+<li>示例：@RequestHeader(“User-Agent”) String userAgent</li>
+</ul>
+</li>
+<li><code>@CookieValue</code><ul>
+<li>从请求的 Cookie 中提取值，绑定到方法参数。</li>
+<li>示例：@CookieValue(“sessionId”) String sessionId</li>
+</ul>
+</li>
+<li><code>@MatrixVariable</code><ul>
+<li>从 URL 路径中的矩阵变量（如 &#x2F;path;key&#x3D;value）提取值。</li>
+<li>示例：@GetMapping(“&#x2F;data&#x2F;{path}”) public String getMatrix(@MatrixVariable String key)</li>
+</ul>
+</li>
+</ul>
+<h2 id="响应处理注解"><a href="#响应处理注解" class="headerlink" title="响应处理注解"></a><strong>响应处理注解</strong></h2><ul>
+<li><code>@ResponseBody</code><ul>
+<li>表示方法返回值直接作为 HTTP 响应正文，通常序列化为 JSON 或 XML。</li>
+<li>示例：@ResponseBody public User getUser()</li>
+</ul>
+</li>
+<li><code>@ResponseStatus</code><ul>
+<li>指定控制器方法或异常处理方法的 HTTP 状态码。</li>
+<li>示例：@ResponseStatus(HttpStatus.CREATED)</li>
+</ul>
+</li>
+<li><code>@ModelAttribute</code><ul>
+<li>将方法返回值或参数绑定到模型对象，供视图使用；也可用于方法级，预填充模型数据。</li>
+<li>示例：@ModelAttribute(“user”) public User getUser()</li>
+</ul>
+</li>
+</ul>
+<h2 id="异常处理注解"><a href="#异常处理注解" class="headerlink" title="异常处理注解"></a><strong>异常处理注解</strong></h2><ul>
+<li><code>@ExceptionHandler</code><ul>
+<li>标记方法用于处理特定异常，限定在控制器内部。</li>
+<li>示例：@ExceptionHandler(NullPointerException.class) public ResponseEntity handleException()</li>
+</ul>
+</li>
+<li><code>@ControllerAdvice</code><ul>
+<li>定义全局异常处理、模型增强或绑定器，作用于所有控制器。</li>
+<li>示例：@ControllerAdvice public class GlobalExceptionHandler { … }</li>
+</ul>
+</li>
+</ul>
+<h2 id="跨域与配置相关注解"><a href="#跨域与配置相关注解" class="headerlink" title="跨域与配置相关注解"></a><strong>跨域与配置相关注解</strong></h2><ul>
+<li><code>@CrossOrigin</code><ul>
+<li>启用跨域资源共享（CORS），可用于类或方法级别。</li>
+<li>属性：origins（允许的域名）、methods（允许的请求方法）。</li>
+<li>示例：@CrossOrigin(origins &#x3D; “<a target="_blank" rel="noopener" href="http://example.com/">http://example.com</a>“)</li>
+</ul>
+</li>
+<li><code>@SessionAttributes</code><ul>
+<li>指定模型属性存储在会话（Session）中，作用于类级别。</li>
+<li>示例：@SessionAttributes(“user”)</li>
+</ul>
+</li>
+<li><code>@InitBinder</code><ul>
+<li>标记方法用于自定义数据绑定或验证逻辑，作用于控制器内部。</li>
+<li>示例：@InitBinder public void initBinder(WebDataBinder binder)</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他高级注解"><a href="#其他高级注解" class="headerlink" title="其他高级注解"></a><strong>其他高级注解</strong></h2><ul>
+<li><code>@SessionAttribute</code><ul>
+<li>从会话中获取属性值，绑定到方法参数。</li>
+<li>示例：@SessionAttribute(“user”) User user</li>
+</ul>
+</li>
+<li><code>@RequestAttribute</code><ul>
+<li>从请求属性中获取值，绑定到方法参数。</li>
+<li>示例：@RequestAttribute(“data”) String data</li>
+</ul>
+</li>
+<li><code>@EnableWebMvc</code><ul>
+<li>启用 Spring MVC 配置，通常用于自定义 MVC 配置类。</li>
+<li>示例：@EnableWebMvc @Configuration public class WebConfig { … }</li>
+</ul>
+</li>
+</ul>
+<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p>对于前后端分离的项目可以选择RESTful风格的API，使用JSON作为传递类型。通过<code>@RequestBody</code>（将HTTP的body使用JSON反序列化为Java对象） 和 <code>@ResponseBody</code> （将返回数据使用JSON序列化并赋值到HTTP的body中）加载请求和响应。</p>
+<p>对于文件等二进制传输，使用<code>Multipart/form-data</code>格式传输：</p>
+<p>前端上传代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const formData = new FormData();</span><br><span class="line">formData.append(&#x27;username&#x27;, &#x27;john&#x27;);</span><br><span class="line">formData.append(&#x27;avatar&#x27;, fileInput.files[0]); // 文件</span><br><span class="line"></span><br><span class="line">// 使用 Fetch API 发送</span><br><span class="line">fetch(&#x27;/api/upload&#x27;, &#123;</span><br><span class="line">  method: &#x27;POST&#x27;,</span><br><span class="line">  body: formData</span><br><span class="line">  // 不需要设置 Content-Type，浏览器会自动设置</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -242,6 +520,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/05/12/tools/proxy/" rel="next" title="proxy">
+                  proxy <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

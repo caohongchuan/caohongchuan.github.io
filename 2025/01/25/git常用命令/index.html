@@ -20,17 +20,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"caohongchuan.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":"auto","version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Git 命令 Git分为工作区，版本库（暂存区和提交历史） 工作区即项目目录，版本库为其中的.git隐藏文件夹，其中index即为暂存区。  123git add &lt;filename&gt;git commit -m &quot;message&quot;git commit -a -m &quot;message&quot;  1234git switch &lt;branchname&amp;g">
+    <meta name="description" content="Git 常用命令 Git分为工作区，版本库（暂存区和提交历史） 工作区即项目目录，版本库为其中的.git隐藏文件夹，其中index即为暂存区。  123git add &lt;filename&gt;git commit -m &quot;message&quot;git commit -a -m &quot;message&quot;  1234git switch &lt;branchname">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git常用命令">
 <meta property="og:url" content="http://caohongchuan.github.io/2025/01/25/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="yingzheng">
-<meta property="og:description" content="Git 命令 Git分为工作区，版本库（暂存区和提交历史） 工作区即项目目录，版本库为其中的.git隐藏文件夹，其中index即为暂存区。  123git add &lt;filename&gt;git commit -m &quot;message&quot;git commit -a -m &quot;message&quot;  1234git switch &lt;branchname&amp;g">
+<meta property="og:description" content="Git 常用命令 Git分为工作区，版本库（暂存区和提交历史） 工作区即项目目录，版本库为其中的.git隐藏文件夹，其中index即为暂存区。  123git add &lt;filename&gt;git commit -m &quot;message&quot;git commit -a -m &quot;message&quot;  1234git switch &lt;branchname">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250629210400266.png">
 <meta property="article:published_time" content="2025-01-25T12:43:15.473Z">
-<meta property="article:modified_time" content="2025-01-31T02:30:14.748Z">
+<meta property="article:modified_time" content="2025-07-02T16:05:08.564Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250629210400266.png">
 
 
 <link rel="canonical" href="http://caohongchuan.github.io/2025/01/25/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
@@ -111,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Git 命令</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Git 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Switch"><span class="nav-number">1.1.</span> <span class="nav-text">Switch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Restore"><span class="nav-number">1.2.</span> <span class="nav-text">Restore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stash"><span class="nav-number">1.3.</span> <span class="nav-text">Stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Merge-Rebase"><span class="nav-number">1.4.</span> <span class="nav-text">Merge &#x2F; Rebase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reset-Revert"><span class="nav-number">1.5.</span> <span class="nav-text">Reset &#x2F; Revert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Push"><span class="nav-number">1.6.</span> <span class="nav-text">Push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fetch-Pull"><span class="nav-number">1.7.</span> <span class="nav-text">Fetch &#x2F; Pull</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -126,13 +128,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -203,7 +205,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-01-31 10:30:14" itemprop="dateModified" datetime="2025-01-31T10:30:14+08:00">2025-01-31</time>
+      <time title="Modified: 2025-07-03 00:05:08" itemprop="dateModified" datetime="2025-07-03T00:05:08+08:00">2025-07-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -231,7 +233,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Git-命令"><a href="#Git-命令" class="headerlink" title="Git 命令"></a>Git 命令</h1><blockquote>
+    <div class="post-body" itemprop="articleBody"><h1 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h1><blockquote>
 <p>Git分为工作区，版本库（暂存区和提交历史）</p>
 <p>工作区即项目目录，版本库为其中的<code>.git</code>隐藏文件夹，其中index即为暂存区。</p>
 </blockquote>
@@ -247,8 +249,55 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph --pretty=oneline --abbrev-commit</span><br></pre></td></tr></table></figure>
 
-
-
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切换已有本地分支</td>
+<td><code>git switch dev</code></td>
+<td>快速切换</td>
+</tr>
+<tr>
+<td>创建并切换新分支</td>
+<td><code>git switch -c dev</code></td>
+<td>不关联远程</td>
+</tr>
+<tr>
+<td>基于远程创建并跟踪</td>
+<td><code>git switch --track -c dev origin/dev</code></td>
+<td>推荐用法</td>
+</tr>
+<tr>
+<td>基于 tag 创建新分支</td>
+<td><code>git switch -c dev v1.0</code></td>
+<td>基于 tag</td>
+</tr>
+<tr>
+<td>切换到 tag</td>
+<td><code>git switch v1.0</code></td>
+<td>游离 HEAD</td>
+</tr>
+<tr>
+<td>切换到 commit</td>
+<td><code>git switch a1b2c3d</code></td>
+<td>游离 HEAD</td>
+</tr>
+<tr>
+<td>强制切换丢弃修改</td>
+<td><code>git switch -f dev</code></td>
+<td>小心使用</td>
+</tr>
+<tr>
+<td>游离 HEAD（只查看）</td>
+<td><code>git switch --detach origin/dev</code></td>
+<td>只看不提交</td>
+</tr>
+</tbody></table>
 <p>Git在切换分支时，如果工作区或暂存区存在数据并没有提交，Git会尝试将这些数据（未追踪的数据，修改但没加入暂存区的数据，加入暂存区的数据）转移到新分支的工作区和暂存区，如果合并过程中出现冲突，那么Git会阻止分支切换。</p>
 <p>解决冲突的方案：</p>
 <ul>
@@ -259,6 +308,233 @@
 <p>注意：一般来说，在切换分支前需要将工作区、暂存区清空，防止将一些不必要的修改带入到其他分支。</p>
 <p>工作区中包含了<strong>未被追踪的数据</strong>和<strong>加入暂存区后又被修改的数据</strong></p>
 <p>暂存区中包含了<strong>上一次add时数据的状态</strong></p>
+<h2 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git restore &lt;file&gt;</code></td>
+<td>恢复指定文件到最新提交版本，覆盖工作区的改动（<strong>未提交的更改会丢失</strong>）。</td>
+</tr>
+<tr>
+<td><code>git restore .</code></td>
+<td>恢复所有文件，丢弃全部工作区未提交的更改。</td>
+</tr>
+<tr>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+<td>取消暂存区的指定文件，保留工作区改动。</td>
+</tr>
+<tr>
+<td><code>git restore --staged .</code></td>
+<td>取消所有已暂存的文件，保留工作区改动。</td>
+</tr>
+<tr>
+<td><code>git restore --staged --worktree &lt;file&gt;</code></td>
+<td>同时恢复暂存区和工作区，彻底还原文件到最近一次提交版本。</td>
+</tr>
+<tr>
+<td><code>git restore --source=&lt;branch&gt; --staged --worktree &lt;file&gt;</code></td>
+<td>从指定提交恢复文件，同时覆盖工作区和暂存区。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>恢复工作区到仓库版本</td>
+<td><code>git restore &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td>恢复工作区到暂存区版本</td>
+<td><code>git restore --source=: &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td>恢复暂存区到仓库版本</td>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+</tr>
+</tbody></table>
+<h2 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保存修改</td>
+<td><code>git stash</code></td>
+</tr>
+<tr>
+<td>保存修改（含未跟踪）</td>
+<td><code>git stash -u</code></td>
+</tr>
+<tr>
+<td>保存所有</td>
+<td><code>git stash -a</code></td>
+</tr>
+<tr>
+<td>查看列表</td>
+<td><code>git stash list</code></td>
+</tr>
+<tr>
+<td>查看修改</td>
+<td><code>git stash show -p stash@&#123;0&#125;</code></td>
+</tr>
+<tr>
+<td>应用最新 stash （但不删除）</td>
+<td><code>git stash apply</code></td>
+</tr>
+<tr>
+<td>应用并删除</td>
+<td><code>git stash pop</code></td>
+</tr>
+<tr>
+<td>删除指定 stash</td>
+<td><code>git stash drop stash@&#123;0&#125;</code></td>
+</tr>
+<tr>
+<td>清空 stash</td>
+<td><code>git stash clear</code></td>
+</tr>
+<tr>
+<td>交互式 stash</td>
+<td><code>git stash push -p</code></td>
+</tr>
+<tr>
+<td>新建分支恢复 stash</td>
+<td><code>git stash branch new-branch stash@&#123;0&#125;</code></td>
+</tr>
+</tbody></table>
+<h2 id="Merge-Rebase"><a href="#Merge-Rebase" class="headerlink" title="Merge &#x2F; Rebase"></a>Merge &#x2F; Rebase</h2><p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250629210400266.png" alt="image-20250629210400266"></p>
+<h2 id="Reset-Revert"><a href="#Reset-Revert" class="headerlink" title="Reset &#x2F; Revert"></a>Reset &#x2F; Revert</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>修改历史</th>
+<th>生成新提交</th>
+<th>是否安全</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git reset --soft &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，将当前commit保留到暂存区</td>
+</tr>
+<tr>
+<td><code>git reset --mixed &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，将当前commit保留到工作区</td>
+</tr>
+<tr>
+<td><code>git reset --hard &lt;commit&gt;</code></td>
+<td>✅ 是</td>
+<td>❌ 否</td>
+<td>❌ 否</td>
+<td>回退到目标 commit，丢弃所有修改</td>
+</tr>
+<tr>
+<td><code>git revert</code></td>
+<td>❌ 否</td>
+<td>✅ 是</td>
+<td>✅ 是</td>
+<td>撤销当前 commit，生成一个新的节点，协作开发，不改历史</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>HEAD 指针移动</th>
+<th>暂存区变化</th>
+<th>工作区变化</th>
+<th>场景总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git reset --soft HEAD^</code></td>
+<td>✅ 回退</td>
+<td>保持回退前commit的内容</td>
+<td>❌ 保留（工作区内容不变，保持回退前commit的内容）</td>
+<td>回退 commit，修改回到暂存区，适合继续提交</td>
+</tr>
+<tr>
+<td><code>git reset --mixed HEAD^</code></td>
+<td>✅ 回退</td>
+<td>更改至目标commit的内容</td>
+<td>❌ 保留（工作区内容不变，保持回退前commit的内容）</td>
+<td>回退 commit，修改回到工作区，适合继续编辑</td>
+</tr>
+<tr>
+<td><code>git reset --hard HEAD^</code></td>
+<td>✅ 回退</td>
+<td>更改至目标commit的内容</td>
+<td>✅ 恢复为目标commit的状态</td>
+<td>回退 commit，直接丢弃修改，彻底干净</td>
+</tr>
+</tbody></table>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><p>添加远程分支</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加远程</td>
+<td><code>git remote add origin &lt;url&gt;</code></td>
+</tr>
+<tr>
+<td>查看远程</td>
+<td><code>git remote -v</code></td>
+</tr>
+<tr>
+<td>修改远程地址</td>
+<td><code>git remote set-url origin &lt;new-url&gt;</code></td>
+</tr>
+<tr>
+<td>删除远程</td>
+<td><code>git remote remove origin</code></td>
+</tr>
+</tbody></table>
+<p>push本地分支到远程分支并关联在一起</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否需要手动指定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一次推送主分支</td>
+<td>需要执行 <code>git push -u origin main</code></td>
+</tr>
+<tr>
+<td>后续推送主分支</td>
+<td>直接 <code>git push</code> 即可</td>
+</tr>
+<tr>
+<td>新建其他分支第一次推送</td>
+<td>需要执行 <code>git push -u origin 分支名</code></td>
+</tr>
+<tr>
+<td>新建其他分支后续推送</td>
+<td>直接 <code>git push</code> 即可</td>
+</tr>
+</tbody></table>
+<h2 id="Fetch-Pull"><a href="#Fetch-Pull" class="headerlink" title="Fetch &#x2F; Pull"></a>Fetch &#x2F; Pull</h2><p><code>git fetch</code> + <code>git merge</code> &#x3D; <code>git pull</code></p>
 
     </div>
 

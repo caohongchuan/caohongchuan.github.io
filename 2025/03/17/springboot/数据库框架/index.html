@@ -28,7 +28,7 @@
 <meta property="og:description" content="SpringBoot连接数据库基本都通过数据库框架，主要框架分为纯底层框架，半ORM框架，ORM框架。 ORM框架：ORM（Object-Relational Mapping）框架是一种编程技术，用于在对象模型和关系数据库之间建立映射，从而实现数据的持久化存储和操作。具体来说，ORM框架将数据库中的表（table）映射为编程语言中的类（class），表中的记录（record）映射为类的实例（ob">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-17T12:06:24.406Z">
-<meta property="article:modified_time" content="2025-03-18T14:11:32.490Z">
+<meta property="article:modified_time" content="2025-07-05T09:53:11.027Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 
@@ -111,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">SpringBoot数据库框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Spring-Data-JPA%EF%BC%88ORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1.Spring Data JPA（ORM框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MyBatis%EF%BC%88%E5%8D%8AORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. MyBatis（半ORM框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Spring-JDBC%EF%BC%88%E7%BA%AF%E5%BA%95%E5%B1%82%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3.Spring JDBC（纯底层框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Hibernate%EF%BC%88ORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">4. Hibernate（ORM框架）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text">Mybatis数据库框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BDDataSource"><span class="nav-number">2.1.</span> <span class="nav-text">加载DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.1.</span> <span class="nav-text">触发条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.2.</span> <span class="nav-text">读取数据库配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E6%B1%A0"><span class="nav-number">2.1.3.</span> <span class="nav-text">加载数据池</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Java 数据库框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDBC%EF%BC%88Java-Database-Connectivity%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">JDBC（Java Database Connectivity）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORM%EF%BC%88Object-Relational-Mapping%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">ORM（Object Relational Mapping）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text">SpringBoot数据库框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Spring-Data-JPA%EF%BC%88ORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1.Spring Data JPA（ORM框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MyBatis%EF%BC%88%E5%8D%8AORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. MyBatis（半ORM框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Spring-JDBC%EF%BC%88%E7%BA%AF%E5%BA%95%E5%B1%82%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">3.Spring JDBC（纯底层框架）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Hibernate%EF%BC%88ORM%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">4. Hibernate（ORM框架）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">SpringBoot数据库连接原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A1%86%E6%9E%B6"><span class="nav-number">4.</span> <span class="nav-text">Mybatis数据库框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BDDataSource"><span class="nav-number">4.1.</span> <span class="nav-text">加载DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.1.1.</span> <span class="nav-text">触发条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">4.1.2.</span> <span class="nav-text">读取数据库配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E6%B1%A0"><span class="nav-number">4.1.3.</span> <span class="nav-text">加载数据池</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -126,13 +126,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -203,7 +203,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-03-18 22:11:32" itemprop="dateModified" datetime="2025-03-18T22:11:32+08:00">2025-03-18</time>
+      <time title="Modified: 2025-07-05 17:53:11" itemprop="dateModified" datetime="2025-07-05T17:53:11+08:00">2025-07-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -235,6 +235,72 @@
 <p>SpringBoot连接数据库基本都通过数据库框架，主要框架分为纯底层框架，半ORM框架，ORM框架。</p>
 <p>ORM框架：ORM（Object-Relational Mapping）框架是一种编程技术，用于在对象模型和关系数据库之间建立映射，从而实现数据的持久化存储和操作。具体来说，ORM框架将数据库中的表（table）映射为编程语言中的类（class），表中的记录（record）映射为类的实例（object），字段（field）映射为对象的属性（attribute）。</p>
 </blockquote>
+<h1 id="Java-数据库框架"><a href="#Java-数据库框架" class="headerlink" title="Java 数据库框架"></a>Java 数据库框架</h1><h2 id="JDBC（Java-Database-Connectivity）"><a href="#JDBC（Java-Database-Connectivity）" class="headerlink" title="JDBC（Java Database Connectivity）"></a>JDBC（Java Database Connectivity）</h2><blockquote>
+<p>JDBC（Java Database Connectivity，Java 数据库连接）是 Java 官方设计的一套 <strong>关系型数据库访问标准 API</strong></p>
+<p>设计目标：统一访问标准，屏蔽关系型数据库差异。</p>
+<ul>
+<li>关系型数据库：MySQL、PostgreSQL、Oracle、SQL Server、DB2、SQLite、MariaDB</li>
+<li>嵌入式数据库：H2、HSQLDB、Derby</li>
+<li>云数据库：Amazon RDS、Google Cloud SQL、Azure SQL Database</li>
+</ul>
+<p>注：部分非关系型数据库如MongoDB虽然侧面支持JDBC驱动但仍然推荐使用原生驱动，redis也需要使用原生驱动。</p>
+</blockquote>
+<ol>
+<li><strong>加载驱动</strong>：通过Class.forName()或DriverManager注册数据库驱动，加载JDBC驱动类。</li>
+<li><strong>建立连接</strong>：使用DriverManager.getConnection(url, user, password)创建与数据库的连接，生成Connection对象。</li>
+<li><strong>创建语句</strong>：通过Connection创建Statement或PreparedStatement对象，用于执行SQL查询。</li>
+<li><strong>执行SQL</strong>：调用executeQuery()（查询）或executeUpdate()（增删改）发送SQL语句到数据库，获取结果。</li>
+<li><strong>处理结果</strong>：对于查询，处理ResultSet对象，提取数据；对于更新，返回受影响行数。</li>
+<li><strong>释放资源</strong>：关闭ResultSet、Statement和Connection对象，释放数据库和JDBC资源。</li>
+</ol>
+<h2 id="ORM（Object-Relational-Mapping）"><a href="#ORM（Object-Relational-Mapping）" class="headerlink" title="ORM（Object Relational Mapping）"></a>ORM（Object Relational Mapping）</h2><blockquote>
+<p>把 <strong>面向对象编程语言中的对象</strong> 映射为 <strong>关系型数据库中的数据表</strong> 的技术。</p>
+<ul>
+<li>将数据库表结构映射为 Java 对象</li>
+<li>提供 CRUD（增删改查）接口，自动生成 SQL</li>
+<li>提供查询语法（如 JPQL、HQL）</li>
+<li>提供事务、缓存、懒加载等扩展功能</li>
+</ul>
+</blockquote>
+<p>流程图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Java 对象 → ORM 映射 → SQL 生成 → JDBC 执行 → 结果映射回 Java 对象</span><br></pre></td></tr></table></figure>
+
+<p>详细流程：</p>
+<ol>
+<li>ORM 扫描实体类（@Entity）读取注解或 XML 映射信息。</li>
+<li>ORM 根据对象操作（save、find、update、delete）动态生成 SQL。</li>
+<li>ORM 调用 JDBC 执行 SQL。</li>
+<li>ORM 将 ResultSet 转换为 Java 对象，自动封装数据。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hibernate</td>
+<td>功能最全，自动 SQL，支持缓存</td>
+<td>复杂对象关系，高度自动化需求</td>
+</tr>
+<tr>
+<td>JPA（规范）</td>
+<td>标准接口（Hibernate 常用实现）</td>
+<td>需要标准化 ORM 接口，Spring 官方推荐</td>
+</tr>
+<tr>
+<td>MyBatis</td>
+<td>半自动映射，手写 SQL</td>
+<td>SQL 灵活控制，复杂查询</td>
+</tr>
+<tr>
+<td>Spring Data JPA</td>
+<td>基于 JPA，进一步封装</td>
+<td>简单快速开发，配合 Spring Boot 最佳</td>
+</tr>
+</tbody></table>
 <h1 id="SpringBoot数据库框架"><a href="#SpringBoot数据库框架" class="headerlink" title="SpringBoot数据库框架"></a>SpringBoot数据库框架</h1><p>在使用 Spring Boot 开发应用时，选择合适的数据库框架（主要是 ORM 框架）对项目的开发效率和性能至关重要。</p>
 <h2 id="1-Spring-Data-JPA（ORM框架）"><a href="#1-Spring-Data-JPA（ORM框架）" class="headerlink" title="1.Spring Data JPA（ORM框架）"></a>1.Spring Data JPA（ORM框架）</h2><blockquote>
 <p>Spring Data JPA 是 Spring Boot 的默认 ORM 框架，基于 <strong>Hibernate</strong> 实现。它提供了简单易用的接口和注解，可以极大减少样板代码。</p>
@@ -300,6 +366,15 @@
 <hr>
 <p>对于有经验的程序员，Mybatis框架是一个很好的选择，程序员可以自定义SQL语句用于优化性能，又可以通过ORM框架将SQL语句封装到Java对象中。</p>
 <p>如果对数据库不甚了解，可以选择Spring Data JPA通过Java对象直接执行SQL语句，不需要了解SQL语句。</p>
+<h1 id="SpringBoot数据库连接原理"><a href="#SpringBoot数据库连接原理" class="headerlink" title="SpringBoot数据库连接原理"></a>SpringBoot数据库连接原理</h1><p>SpringBoot需要创建一个<code>DataSource</code>的bean类，用于告诉框架如何连接数据库，而且其中也可以包含连接池。</p>
+<p><strong>DataSource 是一个数据库连接的统一管理接口，用于获取数据库连接。</strong></p>
+<p>原理：</p>
+<ul>
+<li><code>DataSource</code> 是 <strong>数据库连接池的门面</strong>。</li>
+<li>程序通过 <code>DataSource</code> 向数据库请求连接（Connection）。</li>
+<li>连接池的管理细节（如 HikariCP、Druid、Tomcat Pool）都被 <code>DataSource</code> 封装起来，对上层透明。</li>
+<li>数据库的驱动：<code>DataSource</code>通过<code>DriverManager</code>利用Java SPI机制（<code>ServiceLoader.load(Driver.class)</code>）加载类路径中的 JDBC 驱动（基于 <code>META-INF/services/java.sql.Driver</code> 配置）。</li>
+</ul>
 <h1 id="Mybatis数据库框架"><a href="#Mybatis数据库框架" class="headerlink" title="Mybatis数据库框架"></a>Mybatis数据库框架</h1><p>添加依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 

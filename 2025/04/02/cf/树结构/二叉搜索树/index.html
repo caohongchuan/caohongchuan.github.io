@@ -28,6 +28,8 @@
 <meta property="og:description" content="[TOC] 红黑树 红黑树的定义：  每个节点为红色或黑色。 根节点始终为黑色。 红色节点的子节点必须为黑色（无连续红色节点）。 从根到每个叶节点（NIL节点）的黑色节点数量（黑色高度）相等。 所有叶节点（NIL节点）为黑色。   通过红黑树的定义，可确保其没有一条路径长度能够超出其他路径的2倍。 通过下图可知，因为需要保证从根到每个叶节点的黑色节点数量（黑色高度）相等，所以左侧为black -&amp;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250508203425141.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250512173800440.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250512183009307.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511120425567.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511120419480.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511141844943.png">
@@ -42,7 +44,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511231147168.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511231157008.png">
 <meta property="article:published_time" content="2025-04-02T08:35:56.165Z">
-<meta property="article:modified_time" content="2025-05-11T15:49:20.880Z">
+<meta property="article:modified_time" content="2025-05-12T10:44:31.555Z">
 <meta property="article:author" content="YingZheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250508203425141.png">
@@ -126,7 +128,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">红黑树节点的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">红黑树的插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B51%EF%BC%9A-cur-%E6%9C%89%E4%B8%A4%E4%B8%AA%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.1.</span> <span class="nav-text">情况1：(cur)有两个儿子节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B52%EF%BC%9A-cur-%E6%9C%89%E4%B8%80%E4%B8%AA%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">情况2：(cur)有一个儿子节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1%EF%BC%9A-cur-%E6%98%AF%E7%BA%A2%E8%89%B2-%EF%BC%88%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%89"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">情况2.1：(cur)是红色 （不存在）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-2%EF%BC%9A-cur-%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">情况2.2：(cur)是黑色</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B53%EF%BC%9A-cur-%E6%B2%A1%E6%9C%89%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">情况3：(cur)没有儿子节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B53-1%EF%BC%9A-cur-%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">情况3.1：(cur)是红色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2%EF%BC%9A-cur-%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">情况3.2：(cur)是黑色</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-1%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E5%A4%96%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.1.</span> <span class="nav-text">情况3.2.1：(cur)的兄弟节点(b)是黑色，且(b)的外节点儿子是红色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-2%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E5%86%85%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E7%BA%A2%E8%89%B2%EF%BC%88%E5%85%B6%E5%A4%96%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%89"><span class="nav-number">1.3.3.2.2.</span> <span class="nav-text">情况3.2.2：(cur)的兄弟节点(b)是黑色，且(b)的内节点儿子是红色（其外节点儿子是黑色）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%84%BF%E5%AD%90%E9%83%BD%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.3.</span> <span class="nav-text">情况3.2.3：(cur)的兄弟节点(b)是黑色，且(b)的两个儿子都是黑色</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3-1-%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.3.1.</span> <span class="nav-text">情况3.2.3.1: 父节点(p)为红色</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3-2-%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.3.2.</span> <span class="nav-text">情况3.2.3.2: 父节点(p)为黑色</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-4%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.4.</span> <span class="nav-text">情况3.2.4：(cur)的兄弟节点(b)是红色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-5%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF-NIL-%EF%BC%88%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%89"><span class="nav-number">1.3.3.2.5.</span> <span class="nav-text">情况3.2.5：(cur)的兄弟节点(b)是(NIL) （不存在）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.4.</span> <span class="nav-text">删除总结</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">红黑树节点的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">红黑树的插入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B51%EF%BC%9Aroot%E6%98%AF%E7%A9%BA"><span class="nav-number">1.2.1.</span> <span class="nav-text">情况1：root是空</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B52%EF%BC%9Aroot%E4%B8%8D%E4%B8%BA%E7%A9%BA"><span class="nav-number">1.2.2.</span> <span class="nav-text">情况2：root不为空</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1%EF%BC%9A%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E9%BB%91%E8%89%B2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">情况2.1：父节点(p)为黑色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1%EF%BC%9A%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">情况2.1：父节点(p)为红色</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1-1%EF%BC%9A%E7%88%B6%E8%8A%82%E7%82%B9-p-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-u-%E4%B8%BA%E9%BB%91%E8%89%B2%E6%88%96-NIL"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text">情况2.1.1：父节点(p)的兄弟节点(u)为黑色或(NIL)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1-2%EF%BC%9A%E7%88%B6%E8%8A%82%E7%82%B9-p-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-u-%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text">情况2.1.2：父节点(p)的兄弟节点(u)为红色</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B51%EF%BC%9A-cur-%E6%9C%89%E4%B8%A4%E4%B8%AA%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.1.</span> <span class="nav-text">情况1：(cur)有两个儿子节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B52%EF%BC%9A-cur-%E6%9C%89%E4%B8%80%E4%B8%AA%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">情况2：(cur)有一个儿子节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-1%EF%BC%9A-cur-%E6%98%AF%E7%BA%A2%E8%89%B2-%EF%BC%88%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%89"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">情况2.1：(cur)是红色 （不存在）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B52-2%EF%BC%9A-cur-%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">情况2.2：(cur)是黑色</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B53%EF%BC%9A-cur-%E6%B2%A1%E6%9C%89%E5%84%BF%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">情况3：(cur)没有儿子节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B53-1%EF%BC%9A-cur-%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">情况3.1：(cur)是红色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2%EF%BC%9A-cur-%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">情况3.2：(cur)是黑色</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-1%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E5%A4%96%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.1.</span> <span class="nav-text">情况3.2.1：(cur)的兄弟节点(b)是黑色，且(b)的外节点儿子是红色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-2%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E5%86%85%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E7%BA%A2%E8%89%B2%EF%BC%88%E5%85%B6%E5%A4%96%E8%8A%82%E7%82%B9%E5%84%BF%E5%AD%90%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%89"><span class="nav-number">1.3.3.2.2.</span> <span class="nav-text">情况3.2.2：(cur)的兄弟节点(b)是黑色，且(b)的内节点儿子是红色（其外节点儿子是黑色）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E9%BB%91%E8%89%B2%EF%BC%8C%E4%B8%94-b-%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%84%BF%E5%AD%90%E9%83%BD%E6%98%AF%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.3.</span> <span class="nav-text">情况3.2.3：(cur)的兄弟节点(b)是黑色，且(b)的两个儿子都是黑色</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3-1-%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.3.1.</span> <span class="nav-text">情况3.2.3.1: 父节点(p)为红色</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-3-2-%E7%88%B6%E8%8A%82%E7%82%B9-p-%E4%B8%BA%E9%BB%91%E8%89%B2"><span class="nav-number">1.3.3.2.3.2.</span> <span class="nav-text">情况3.2.3.2: 父节点(p)为黑色</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-4%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF%E7%BA%A2%E8%89%B2"><span class="nav-number">1.3.3.2.4.</span> <span class="nav-text">情况3.2.4：(cur)的兄弟节点(b)是红色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%83%85%E5%86%B53-2-5%EF%BC%9A-cur-%E7%9A%84%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9-b-%E6%98%AF-NIL-%EF%BC%88%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%89"><span class="nav-number">1.3.3.2.5.</span> <span class="nav-text">情况3.2.5：(cur)的兄弟节点(b)是(NIL) （不存在）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.4.</span> <span class="nav-text">删除总结</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -141,13 +143,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -218,7 +220,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-05-11 23:49:20" itemprop="dateModified" datetime="2025-05-11T23:49:20+08:00">2025-05-11</time>
+      <time title="Modified: 2025-05-12 18:44:31" itemprop="dateModified" datetime="2025-05-12T18:44:31+08:00">2025-05-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -262,11 +264,55 @@
 <p>红黑树控制了最长路径和最短路径之比，间接地使红黑树达到了“近似平衡”，增删查改地时间消耗不会过大，并且相比AVL树，旋转调整次数会更少。</p>
 <h2 id="红黑树节点的数据结构"><a href="#红黑树节点的数据结构" class="headerlink" title="红黑树节点的数据结构"></a>红黑树节点的数据结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RBNode</span>&lt;K <span class="keyword">extends</span> <span class="title class_">Comparable</span>&lt;K&gt;, V&gt; &#123;</span><br><span class="line">    K key;</span><br><span class="line">    V value;</span><br><span class="line">    RBNode&lt;K, V&gt; parent, leftChild, rightChild;</span><br><span class="line">    <span class="type">boolean</span> isRed;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RBNode</span><span class="params">(K key, V value, RBNode&lt;K, V&gt; leftChild, RBNode&lt;K, V&gt; rightChild, RBNode&lt;K, V&gt; parent, <span class="type">boolean</span> isRed)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.key = key;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">        <span class="built_in">this</span>.leftChild = leftChild;</span><br><span class="line">        <span class="built_in">this</span>.rightChild = rightChild;</span><br><span class="line">        <span class="built_in">this</span>.parent = parent;</span><br><span class="line">        <span class="built_in">this</span>.isRed = isRed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><ol>
-<li>首先按照二叉搜索树的插入规则确定插入节点的位置。</li>
-<li>插入新节点，初始化节点颜色为红色。</li>
-<li>为保持红黑树的性质，需要对原有树结构进行<strong>平衡调整</strong>。</li>
+<h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><p>为了不影响红黑树中黑色数量的平衡，<strong>将插入的节点默认设置为红色</strong>，但插入红色后会出现<strong>双红</strong>的情况，需进行调整。</p>
+<h3 id="情况1：root是空"><a href="#情况1：root是空" class="headerlink" title="情况1：root是空"></a><strong>情况1：root是空</strong></h3><p>直接插入到root并设置为黑色</p>
+<h3 id="情况2：root不为空"><a href="#情况2：root不为空" class="headerlink" title="情况2：root不为空"></a><strong>情况2：root不为空</strong></h3><p>根据二叉树找到需要插入的位置，即某个叶子节点(NIL)并记录它的父节点(p)</p>
+<h4 id="情况2-1：父节点-p-为黑色"><a href="#情况2-1：父节点-p-为黑色" class="headerlink" title="情况2.1：父节点(p)为黑色"></a><strong>情况2.1：父节点(p)为黑色</strong></h4><p>直接在该叶子节点(NIL)插入并设置为红色</p>
+<h4 id="情况2-1：父节点-p-为红色"><a href="#情况2-1：父节点-p-为红色" class="headerlink" title="情况2.1：父节点(p)为红色"></a><strong>情况2.1：父节点(p)为红色</strong></h4><p>若加入红色的插入节点，会出现双红的情况。</p>
+<h5 id="情况2-1-1：父节点-p-的兄弟节点-u-为黑色或-NIL"><a href="#情况2-1-1：父节点-p-的兄弟节点-u-为黑色或-NIL" class="headerlink" title="情况2.1.1：父节点(p)的兄弟节点(u)为黑色或(NIL)"></a><strong>情况2.1.1：父节点(p)的兄弟节点(u)为黑色或(NIL)</strong></h5><p>父节点(p)的兄弟节点(u)也就是插入节点(cur)的叔叔节点。该情况共有四种情况：</p>
+<ul>
+<li>(p)是(g)的左儿子，(cur)是(p)的左儿子，执行LL情况</li>
+<li>(p)是(g)的左儿子，(cur)是(p)的右儿子，执行LR情况</li>
+<li>(p)是(g)的右儿子，(cur)是(p)的左儿子，执行RL情况</li>
+<li>(p)是(g)的右儿子，(cur)是(p)的右儿子，执行RR情况</li>
+</ul>
+<p><strong>LL情况：</strong></p>
+<p>算法：</p>
+<ol>
+<li>对(p)节点右旋</li>
+<li>重新着色： (p)设置为黑色，(g)设置为红色</li>
+<li>结束</li>
 </ol>
+<p><em>分析（其他情况类推）：</em></p>
+<p>若下图是红黑树的最底层叶子节点，则(curl) &#x3D; NIL, (curr) &#x3D; NIL, (pr) &#x3D; NIL, (u) &#x3D; NIL。所以旋转结束后，以(p)为根节点的子树黑色平衡且高度为一 没有发生变化。</p>
+<p>若下图是递归迭代过程中，并假设(u)存在，如果不存在就变为上面红黑树的最底层的情况一致了。那么(g)的右子树黑色高度为 [1 + (u)子树黑色高度] 为保持平衡，(pr)中黑色节点的高度为 [1 + (u)子树黑色高度]也就是至少有一个黑色节点，(curl)与(curr)跟(pr)是一样的。在旋转后，(curl)(curr)(pr)的黑色高度都为 [1 + (u)子树黑色高度]，(g)的右子树黑色高度也是 [1 + (u)子树黑色高度] 所以旋转后黑色仍然平衡且没有发生变化。</p>
+<p>无论是红黑树的最底层叶子节点还是递归迭代过程中，旋转变色之后黑色都是平衡且高度不变的，并且子树的根节点为黑色不变。故不需要向上调整。</p>
+<p><strong>LR情况：</strong></p>
+<p>算法：</p>
+<ol>
+<li>对(cur)节点左旋</li>
+<li>变为<strong>LL情况</strong>，按照LL情况执行后续操作</li>
+</ol>
+<p><strong>RR情况：</strong></p>
+<p>算法：</p>
+<ol>
+<li>对(p)节点左旋</li>
+<li>重新着色： (p)设置为黑色，(g)设置为红色</li>
+<li>结束</li>
+</ol>
+<p><strong>RL情况：</strong></p>
+<p>算法：</p>
+<ol>
+<li>对(cur)节点右旋</li>
+<li>变为<strong>RR情况</strong>，按照RR情况执行后续操作</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250512173800440.png" alt="image-20250512173800440"></p>
+<h5 id="情况2-1-2：父节点-p-的兄弟节点-u-为红色"><a href="#情况2-1-2：父节点-p-的兄弟节点-u-为红色" class="headerlink" title="情况2.1.2：父节点(p)的兄弟节点(u)为红色"></a><strong>情况2.1.2：父节点(p)的兄弟节点(u)为红色</strong></h5><p>算法：</p>
+<ol>
+<li>重新着色：(p)设置为黑色，(u)设置为黑色，(g)设置为红色</li>
+<li>将(g)看作新插入的红色节点，向上递归迭代。一直迭代到根节点即(g)为root，将(g)改为黑色，直接结束。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250512183009307.png" alt="image-20250512183009307"></p>
 <h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>首先要明确几个概念：</p>
 <p>1.<strong>约定(NIL)是黑色，也可以作为实际节点的儿子。</strong></p>
 <p>旋转操作 包括<strong>左旋</strong>和<strong>右旋</strong></p>
@@ -338,7 +384,7 @@
 <ol>
 <li>对兄弟节点(b)左旋</li>
 <li>重新着色：(br)设置为黑色，(b)设置为(p)的颜色，(p)设置为黑色</li>
-<li>删除(cur)节点，用(NIL)替代；若是递归过程中，(cur)节点已经替代过了，不需要操作，以双黑的话术是一开始即用**(NIL)<strong>或</strong>(cur)自身**替代(cur)形成双黑节点，此时将双黑节点变为单黑（即正常的黑色节点）</li>
+<li>删除(cur)节点，用(NIL)替代；若是递归过程中，(cur)节点已经替代过了，不需要操作，以双黑的话术是一开始即用 <strong>(NIL)</strong> 或 <strong>(cur)自身</strong> 替代(cur)形成双黑节点，此时将双黑节点变为单黑（即正常的黑色节点）</li>
 </ol>
 <p>完成操作后，以(b)为根节点的子树黑色平衡且高度与原来一致，结束平衡过程。</p>
 <p><img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20250511184757521.png" alt="image-20250511184757521"></p>
