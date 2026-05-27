@@ -26,7 +26,7 @@ comments: true
 >
 > Dependencies: Spring Web
 
-# 启动类
+## 启动类
 
 ```java
 @SpringBootApplication
@@ -51,7 +51,7 @@ public static ConfigurableApplicationContext run(Class<?>[] primarySources, Stri
 
 先创建SpringApplication类然后执行其run方法。
 
-# 创建 `SpringApplication` 实例
+## 创建 `SpringApplication` 实例
 
 ```java
 public SpringApplication(@Nullable ResourceLoader resourceLoader, Class<?>... primarySources) {
@@ -74,7 +74,7 @@ public SpringApplication(@Nullable ResourceLoader resourceLoader, Class<?>... pr
 }
 ```
 
-## 3.判断 application 的类型
+### 3.判断 application 的类型
 
 ```java
  this.properties.setWebApplicationType(WebApplicationType.deduce());
@@ -111,7 +111,7 @@ private static boolean isServletApplication() {
 
 > Java通过`Class.forName(name, false, clToUse)` 判断路径中是否有某类，但不初始化该类，只会加载，链接（在Metaspace中存储元数据，在堆中存储class对象，在堆中开辟静态变量空间赋予默认值）
 
-## 4 5 6.从META-INF/spring.factories中读取并加载类
+### 4 5 6.从META-INF/spring.factories中读取并加载类
 
 `getSpringFactoriesInstances()`方法使用`SpringFactoriesLoader.forDefaultResourceLocation(getClassLoader()).load(type, argumentResolver)`读取META-INF/spring.factories中的类并加载。然后分别被存储到`this.bootstrapRegistryInitializers`，`this.initializers`，`this.listeners`中，以上均为`ArrayList<>`结构。
 
@@ -166,13 +166,13 @@ private static boolean isServletApplication() {
 > 2. 调用`FactoryInstantiator.forClass(factoryImplementationClass);`获取该类的构造器
 > 3. 调用`factoryInstantiator.instantiate(argumentResolver)`使用构造器初始化该类
 
-4 5 6三步分别加载了`BootstrapRegistryInitializer`,`ApplicationContextInitializer`,`ApplicationListener`
+### 4 5 6三步分别加载了`BootstrapRegistryInitializer`,`ApplicationContextInitializer`,`ApplicationListener`
 
 * `BootstrapRegistryInitializer`：用于在 Spring Boot 应用启动的**最早期阶段**（即引导上下文 Bootstrap Context 初始化时）注册组件到 `BootstrapRegistry`。如Spring Cloud Config。
 * `ApplicationContextInitializer`：在 `ConfigurableApplicationContext` **刷新（refresh）之前**，允许对上下文（容器）进行编程式初始化或修改。
 * `ApplicationListener`：Spring的监听器，Spring Boot 启动时会发布大量事件，如`ApplicationStartingEvent`,`ContextRefreshedEvent`。
 
-## 7. 自动推断Spring Boot的主类
+### 7. 自动推断Spring Boot的主类
 
 ```java
 private @Nullable Class<?> deduceMainApplicationClass() {
@@ -194,7 +194,7 @@ private Optional<Class<?>> findMainClass(Stream<StackFrame> stack) {
 >
 > 自定义的`findMainClass()`方法，`filter()`筛选出方法名为main的栈帧；`findFirst()`选出找到的第一个方法（调用栈从上到下是「当前方法 → 调用者 → ... → main → JVM 启动类」，所以`findFirst()` 实际找到的是**用户定义的 `main` 方法**（而非 JVM 内部的））；`map()`将栈帧转换为其所属的 `Class<?>` 对象。
 
-# 执行SpringApplication的run方法
+## 执行SpringApplication的run方法
 
 ```java
 public ConfigurableApplicationContext run(String... args) {
@@ -270,7 +270,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 <img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20260510074900028.png" alt="image-20260510074900028" style="zoom:50%;" />
 
-## 8.准备环境变量
+### 8.准备环境变量
 
 应用运行环境(Environment)包含：
 
@@ -317,7 +317,7 @@ private ConfigurableEnvironment prepareEnvironment(SpringApplicationRunListeners
 
 ![image-20260510075251100](https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20260510075251100.png)
 
-### 8.1 getOrCreateEnvironment()
+#### 8.1 getOrCreateEnvironment()
 
 ```java
 private ConfigurableEnvironment getOrCreateEnvironment() {
@@ -382,7 +382,7 @@ StandardEnvironment
 AbstractEnvironment
 ```
 
-### 8.2 配置 命令行参数 到创建的环境类
+#### 8.2 配置 命令行参数 到创建的环境类
 
 ```java
 protected void configureEnvironment(ConfigurableEnvironment environment, String[] args) {
@@ -398,7 +398,7 @@ protected void configureEnvironment(ConfigurableEnvironment environment, String[
 }
 ```
 
-#### 8.2.2 配置源初始化
+##### 8.2.2 配置源初始化
 
 Springboot中的配置源及其对应的PropertySource
 
@@ -440,11 +440,10 @@ protected void configurePropertySources(ConfigurableEnvironment environment, Str
 }
 ```
 
-#### 8.2.3 配置 profiles
+##### 8.2.3 配置 profiles
 
 ```java
-protected void configureProfiles(ConfigurableEnvironment environment, String[] args) {
-}
+protected void configureProfiles(ConfigurableEnvironment environment, String[] args) {}
 ```
 
 方法是空的，留给子类扩展。
@@ -457,7 +456,7 @@ spring:
 
 用于控制加载`application-dev.yml`还是`application-prod.yml`
 
-### 8.3 松散绑定（Relaxed Binding）
+#### 8.3 松散绑定（Relaxed Binding）
 
 `ConfigurationPropertySources.attach(environment)` 的真正作用：在 Environment 中注册一个特殊的 PropertySource，将传统 PropertySource 体系适配为 Spring Boot Binder 可识别的 ConfigurationPropertySource 体系，从而支持 `@ConfigurationProperties` 的高级配置绑定能力。
 
@@ -495,7 +494,7 @@ static @Nullable PropertySource<?> getAttached(@Nullable MutablePropertySources 
 }
 ```
 
-### 8.4 发布 ApplicationEnvironmentPreparedEvent 事件
+#### 8.4 发布 ApplicationEnvironmentPreparedEvent 事件
 
 SpringApplicationRunListener发布Event，由ApplicationListener监听并执行具体操作。
 
@@ -652,7 +651,7 @@ void processAndApply() {
 }
 ```
 
-### 8.8 确保最后的environment类型
+#### 8.8 确保最后的environment类型
 
 ```java
 // 默认this.isCustomEnvironment=false,会进入
@@ -674,7 +673,7 @@ public void setEnvironment(@Nullable ConfigurableEnvironment environment) {
 
 这好像是历史遗留问题，默认启动路径下不会出现 Environment 不一致的情况，即使进入转化也没有实际作用，直接返回原environment。
 
-## 9.打印 Banner 
+### 9.打印 Banner 
 
 Banner 打印发生在：
 
@@ -700,7 +699,7 @@ private @Nullable Banner printBanner(ConfigurableEnvironment environment) {
 }
 ```
 
-## 10.根据应用类型创建ApplicationContext
+### 10.根据应用类型创建ApplicationContext
 
 ```java
 protected ConfigurableApplicationContext createApplicationContext() {
@@ -780,7 +779,7 @@ private ConfigurableApplicationContext createDefaultApplicationContext() {
 }
 ```
 
-## 12. 填充/配置容器，上下文准备阶段
+### 12. 填充/配置容器，上下文准备阶段
 
 对刚创建的ConfigurableApplicationContext进行一系列初始化和配置操作
 
@@ -875,7 +874,7 @@ protected void postProcessApplicationContext(ConfigurableApplicationContext cont
 }
 ```
 
-### 12.4 遍历所有 ApplicationContextInitializer 
+#### 12.4 遍历所有 ApplicationContextInitializer 
 
 Springboot 默认的ApplicationContextInitializer（META-INF/spring.factories中）：
 
@@ -917,7 +916,7 @@ protected void applyInitializers(ConfigurableApplicationContext context) {
 }
 ```
 
-## 13. （核心）刷新上下文
+### 13. （核心）刷新上下文
 
 ```java
 private void refreshContext(ConfigurableApplicationContext context) {
@@ -1068,7 +1067,7 @@ public void refresh() throws BeansException, IllegalStateException {
 }
 ```
 
-### 13.4 Context 级别初始化
+####    13.4 Context 级别初始化
 
 ```java
 protected void prepareRefresh() {
@@ -1118,7 +1117,7 @@ protected void prepareRefresh() {
 }
 ```
 
-#### 13.4.5 initPropertySources() 拓展接口
+##### 13.4.5 initPropertySources() 拓展接口
 
 某些 PropertySource 必须等到 ApplicationContext 创建时才能拿到，在 SpringApplication 启动初期并不存在，只能等 WebApplicationContext 创建后再注入。
 
@@ -1135,7 +1134,7 @@ protected void initPropertySources() {
 }
 ```
 
-### 13.6 配置标准 BeanFactory
+#### 13.6 配置标准 BeanFactory
 
 ```java
 protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
@@ -1211,13 +1210,13 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 | 环境 Bean           | registerSingleton                |
 | LTW/AOP             | LoadTimeWeaverAwareProcessor     |
 
-#### 13.6.4 添加 ApplicationContextAwareProcessor
+##### 13.6.4 添加 ApplicationContextAwareProcessor
 
 `ApplicationContextAwareProcessor` 是 Spring 框架中的一个 **Bean 后置处理器（BeanPostProcessor）**，其主要作用是在 Bean 初始化过程中，**自动为实现了特定 `*Aware` 接口的 Bean 注入相应的上下文或资源对象（如 `ApplicationContext`、`Environment` 等）**。
 
 当配置了`beanFactory.ignoreDependencyInterface(EnvironmentAware.class);`后，`ApplicationContextAwareProcessor`会自动忽略EnvironmentAware接口的Bean,不对其注入。
 
-#### 13.6.5 添加 ResolvableDependency
+##### 13.6.5 添加 ResolvableDependency
 
 注册了一组**可解析的依赖映射（Resolvable Dependency Map）**。在 `beanFactory` 内部维护的一个 `Map<Class<?>, Object>` 中存入数据。它的作用是告诉 Spring 的依赖注入器：
 
@@ -1225,9 +1224,7 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 
 主要用于 **Spring 内置对象自动注入**。
 
-
-
-### 13.7 postProcessBeanFactory(beanFactory)
+#### 13.7 postProcessBeanFactory(beanFactory)
 
 不同类型的 ApplicationContext 可以在 Bean 实例化之前，对 BeanFactory 做最后的定制。
 
@@ -1244,7 +1241,7 @@ protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactor
 }
 ```
 
-### 13.9 执行 BeanFactory 后处理器
+#### 13.9 执行 BeanFactory 后处理器
 
 本阶段的主要作用：在 Bean 创建之前，执行所有 BeanFactory 级别扩展，完成整个 IOC BeanDefinition 体系的最终构建。
 
@@ -1649,7 +1646,7 @@ public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 
 其中最为重要的是`ConfigurationClassPostProcessor` 作为一个 `BeanDefinitionRegistryPostProcessor`（`BeanFactoryPostProcessor` 的子接口），拥有非常高的优先级，会在 Spring 容器初始化的早期阶段被执行 。它的核心职责是扫描、解析、并注册所有由注解（如 `@Configuration`, `@Component`, `@Import`, `@Bean` 等）定义的 Bean。
 
-#### 13.9.9 对 currentRegistryProcessors 列表排序
+##### 13.9.9 对 currentRegistryProcessors 列表排序
 
 ```java
 // PostProcessorRegistrationDelegate.java
@@ -1680,7 +1677,7 @@ private static void sortPostProcessors(List<?> postProcessors, ConfigurableLista
 | 4.都没有                                   | 视为 `order = Integer.MAX_VALUE`             |
 | 5.order 值相同                             | 按 Bean 名称的字典序（String natural order） |
 
-#### 13.9.11 执行 当前处理器 的 postProcessBeanDefinitionRegistry(registry) 方法
+##### 13.9.11 执行 当前处理器 的 postProcessBeanDefinitionRegistry(registry) 方法
 
 最重要的 `BeanFactoryPostProcessor` 即 `ConfigurationClassPostProcessor` 在此处被执行。`ConfigurationClassPostProcessor`是`BeanDefinitionRegistryPostProcessor`且实现了`PriorityOrdered.class`。`postProcessBeanDefinitionRegistry(registry)`会执行 `postProcessBeanDefinitionRegistry(registry)` 
 
@@ -1935,7 +1932,7 @@ protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata an
 }
 ```
 
-### 13.10 注册 Bean 后处理器
+#### 13.10 注册 Bean 后处理器
 
 ```java
 // AbstractApplicationContext.java
@@ -2037,7 +2034,7 @@ public static void registerBeanPostProcessors(
 }
 ```
 
-###  13.11 初始化国际化资源
+#### 13.11 初始化国际化资源
 
 核心：给 ApplicationContext 的 this.messageSource 赋值
 
@@ -2127,7 +2124,7 @@ public class UserController {
 - **请求一（英文）**： 发送请求：`GET /welcome?name=John`，并在 Header 中设置 `Accept-Language: en-US`。 **返回结果**：`Welcome, John!`
 - **请求二（中文）**： 发送请求：`GET /welcome?name=张三`，并在 Header 中设置 `Accept-Language: zh-CN`。 **返回结果**：`欢迎您，张三！`
 
-### 13.12 初始化事件广播器
+#### 13.12 初始化事件广播器
 
 作用：**初始化 Spring 容器的“事件广播器”**。它是 Spring 观察者模式（Observer Pattern）的核心枢纽，负责在后续流程中把各种系统事件（ApplicationEvent）通知给对应的监听器（ApplicationListener）。
 
@@ -2160,7 +2157,7 @@ protected void initApplicationEventMulticaster() {
 }
 ```
 
-###  13.13 子类实现的刷新逻辑(启动Web)
+#### 13.13 子类实现的刷新逻辑(启动Web)
 
 以 Servlet Web 容器为例
 
@@ -2226,7 +2223,7 @@ private void createWebServer() {
 }
 ```
 
-#### 13.13.5 创建 WebServer 实例
+##### 13.13.5 创建 WebServer 实例
 
 TomcatServletWebServerFactory 的 getWebServer() 会创建Tomcat并初启动。（最终开启端口监听在后面）
 
@@ -2306,7 +2303,7 @@ private void initialize() throws WebServerException {
 
 ```
 
-###  13.14 注册事件监听器
+#### 13.14 注册事件监听器
 
 作用：**注册所有的应用事件监听器（`ApplicationListener`）并发布早期事件（early application events）**。
 
@@ -2345,7 +2342,7 @@ protected void registerListeners() {
 }
 ```
 
-### 13.15 初始化所有非懒加载的单例 Bean
+#### 13.15 初始化所有非懒加载的单例 Bean
 
 作用：遍历 BeanFactory 中所有的 `BeanDefinition`，初始化所有非懒加载的单例 Bean。
 
@@ -2426,7 +2423,7 @@ protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory b
 }
 ```
 
-#### 13.15.9 实例化所有 非lazy 的 BeanDefinition
+##### 13.15.9 实例化所有 非lazy 的 BeanDefinition
 
 <img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20260518131400696.png" alt="image-20260518131400696" style="zoom:50%;" />
 
@@ -2519,7 +2516,7 @@ Bean的实例化过程是在`getBean()`中执行的：
 
 <img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20260518134416351.png" alt="image-20260518134416351" style="zoom: 50%;" />
 
-###  13.16 完成刷新，让整个应用真正开始对外提供服务
+#### 13.16 完成刷新，让整个应用真正开始对外提供服务
 
 ```java
 protected void finishRefresh() {
@@ -2552,7 +2549,7 @@ protected void finishRefresh() {
 }
 ```
 
-## 18. 执行自定义的 Runner 代码
+### 18. 执行自定义的 Runner 代码
 
 作用：找出容器中所有实现了 `CommandLineRunner` 或 `ApplicationRunner` 接口的 Bean，并按照指定的顺序执行它们
 
@@ -2575,7 +2572,7 @@ private void callRunners(ConfigurableApplicationContext context, ApplicationArgu
 }
 ```
 
-# Springboot 线程模型
+## Springboot 线程模型
 
 **一个 Spring Boot 应用 是 一个 JVM 进程**，进程内包含**多组线程**：
 
@@ -2589,6 +2586,7 @@ private void callRunners(ConfigurableApplicationContext context, ApplicationArgu
      ├── 🧵 线程 5: @Scheduled ── 定时任务（TaskScheduler）
      ├── 🧵 线程 6: @Async ── 异步任务（TaskExecutor）
      └── 🧵 线程 7: GC 垃圾回收线程 ── 负责在后台打扫卫生
+     
 ```
 
-<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/main/nextimg/image-20260518191815541.png" alt="image-20260518191815541" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/caohongchuan/blogimg/17c1125a242b5c65ed55feb2913f49763f8f5799/nextimg/image-20260519123223592.png" alt="image-20260519123223592" style="zoom:50%;" />
